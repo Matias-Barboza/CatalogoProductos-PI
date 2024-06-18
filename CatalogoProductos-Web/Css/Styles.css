@@ -1,0 +1,83 @@
+﻿/* --------------------------------------------------------------------------------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------- ALL DOCUMENT ------------------------------------------------------------------------ */
+* {
+   box-sizing: border-box;
+}
+
+hr {
+    width: 100%;
+    max-width: 1300px;
+}
+
+/* --------------------------------------------------------------------------------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------- NAVBAR ------------------------------------------------------------------------------ */
+.navbar-proyect {
+    justify-content: center !important;
+}
+
+.container-navbar-elements {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+}
+
+.container-navbar-logo {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.navbar-brand-proyect {
+    font-size: 35px !important;
+}
+
+.navbar-brand-proyect {
+    margin-right: 0 !important;
+}
+
+.container-navbar{
+    width: 100%;
+    width: 1200px;
+    display: flex;
+}
+
+.login-div {
+    justify-content: end;
+}
+
+.login-proyect, .register-proyect{
+    margin: 0 2.5px;
+}
+
+.ul-div {
+    justify-content: center;
+}
+
+.ul-navbar {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-item-proyect {
+    padding: 0 10px;
+}
+
+.ul-navbar a {
+    text-decoration: none;
+    align-items: normal !important;
+    --bs-icon-link-transform: translate3d(0, -.125rem, 0);
+}
+
+/* --------------------------------------------------------------------------------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------- FOOTER ------------------------------------------------------------------------------ */
+.footer-proyect {
+    justify-content: center !important;
+}
+.container-footer-elements {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+}
