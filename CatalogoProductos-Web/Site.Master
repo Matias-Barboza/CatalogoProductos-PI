@@ -27,8 +27,8 @@
 
             <div class="container-navbar-elements">
                 <div class="container-navbar login-div">
-                    <a href="#" class="btn btn-outline-primary btn-sm login-proyect">LOGIN</a>
-                    <a href="#" class="btn btn-outline-success btn-sm register-proyect">REGISTRARSE</a>
+                    <a href="Login.aspx" class="btn btn-outline-primary btn-sm login-proyect">LOGIN</a>
+                    <a href="Registro.aspx" class="btn btn-outline-success btn-sm register-proyect">REGISTRARSE</a>
                 </div>
             </div>
 
@@ -38,13 +38,13 @@
                 <div class="container-navbar ul-div">
                     <ul class="ul-navbar">
                         <li class="nav-item nav-item-proyect">
-                            <a href="#" class="nav-link active icon-link icon-link-hover">
+                            <a href="Default.aspx" class="nav-link active icon-link icon-link-hover">
                                 <i class="bi bi-house"></i>
                                 HOME
                             </a>
                         </li>
                         <li class="nav-item nav-item-proyect">
-                            <a href="#" class="nav-link active icon-link icon-link-hover">
+                            <a href="Productos.aspx" class="nav-link active icon-link icon-link-hover">
                                 <i class="bi bi-bag"></i>
                                 PRODUCTOS
                             </a>
@@ -68,13 +68,13 @@
                 <p>2024 - CATÁLOGO DIGITAL</p>
                 <ul class="ul-navbar">
                     <li class="nav-item nav-item-proyect">
-                        <a href="#" class="nav-link active icon-link icon-link-hover">
+                        <a href="Default.aspx" class="nav-link active icon-link icon-link-hover">
                             <i class="bi bi-house"></i>
                             HOME
                         </a>
                     </li>
                     <li class="nav-item nav-item-proyect">
-                        <a href="#" class="nav-link active icon-link icon-link-hover">
+                        <a href="Productos.aspx" class="nav-link active icon-link icon-link-hover">
                             <i class="bi bi-bag"></i>
                             PRODUCTOS
                         </a>
