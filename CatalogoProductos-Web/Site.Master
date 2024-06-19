@@ -17,7 +17,7 @@
 <body>
     <form id="form1" runat="server">
 
-        <nav class="navbar bg-body-tertiary navbar-proyect">
+        <nav class="navbar navbar-proyect">
 
             <div class="container-navbar-elements">
                 <div class="container-navbar-logo">
@@ -55,18 +55,17 @@
             </div>
         </nav>
 
-        <div>
+        <div class="container-principal">
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
         </div>
 
-        <footer class="navbar bg-body-tertiary footer-proyect">
+        <footer class="navbar footer-proyect">
 
             <hr />
+
             <div class="container-footer-elements">
-
                 <p>2024 - CATÁLOGO DIGITAL</p>
-
                 <ul class="ul-navbar">
                     <li class="nav-item nav-item-proyect">
                         <a href="#" class="nav-link active icon-link icon-link-hover">
@@ -81,7 +80,6 @@
                         </a>
                     </li>
                 </ul>
-
             </div>
 
         </footer>
