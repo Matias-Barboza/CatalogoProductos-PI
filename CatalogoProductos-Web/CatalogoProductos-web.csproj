@@ -122,6 +122,16 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CatalogoProductos-dominio\CatalogoProductos-dominio.csproj">
+      <Project>{67eab1a8-0a81-4600-8e19-f3c610b22f65}</Project>
+      <Name>CatalogoProductos-dominio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CatalogoProductos-negocio\CatalogoProductos-negocio.csproj">
+      <Project>{5f47cffa-afed-456a-92b5-43fdfe5d1457}</Project>
+      <Name>CatalogoProductos-negocio</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

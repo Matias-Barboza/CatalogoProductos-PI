@@ -32,7 +32,7 @@
             <span class="jumbotron-products-icon icon-tv"><i class="bi bi-tv icon-link"></i></span>
             <span class="jumbotron-products-icon"><i class="bi bi-pc-display"></i></span>
             <span class="jumbotron-products-icon"><i class="bi bi-headset"></i></span>
-            <span class="jumbotron-products-icon"><i class="bi bi-phone"></i></span>
+            <span class="jumbotron-products-icon icon-phone"><i class="bi bi-phone"></i></span>
         </div>
 
         <div class="container-some-products">

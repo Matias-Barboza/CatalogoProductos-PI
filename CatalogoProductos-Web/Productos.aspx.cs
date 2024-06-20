@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CatalogoProductos_dominio;
+using CatalogoProductos_negocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +13,18 @@ namespace CatalogoProductos_Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack) 
+            {
+                CargarProductos();
+            }
+        }
 
+        public void CargarProductos() 
+        {
+            ArticuloNegocio articuloNegocio = new ArticuloNegocio();
+
+            RepeaterProductos.DataSource = articuloNegocio.ObtenerArticulos();
+            RepeaterProductos.DataBind();
         }
     }
 }
