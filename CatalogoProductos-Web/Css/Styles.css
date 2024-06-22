@@ -5,6 +5,10 @@
    scroll-behavior: smooth;
 }
 
+.body {
+   background: #eee;
+}
+
 hr {
     width: 100%;
     max-width: 1300px;
@@ -24,6 +28,7 @@ hr {
     flex-direction: column;
     justify-content: center;
 }
+
 /* --------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /* ------------------------------------------------------------------- NAVBAR ------------------------------------------------------------------------------ */
 .navbar-proyect {
@@ -52,7 +57,7 @@ hr {
     margin-right: 0 !important;
 }
 
-.container-navbar{
+.container-navbar {
     width: 100%;
     width: 1200px;
     display: flex;
@@ -155,13 +160,21 @@ hr {
 .link-button-product {
     text-decoration: none;
     /* TODO: Solo para ver el cambio */
-    color: inherit;
+    /*color: inherit;*/
 }
 
 .one-product-container {
     display: flex;
     width: 1100px;
     height: 150px;
+    border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color-translucent) !important;
+    box-shadow: .25rem .5rem 1rem rgba(0, 0, 0, .075);
+    transition: transform 0.2s;
+}
+
+.one-product-container:hover {
+    transform: scaleX(1.01);
+    box-shadow: .30rem .6rem 1rem rgba(0, 0, 0, .075);
 }
 
 .image-product-container {
@@ -170,15 +183,21 @@ hr {
     display: flex;
     justify-content: center;
     padding: 15px;
+    background: white;
 }
 
 .border-image-product {
-    border-right: 1px solid var(--bs-border-color);
+    border-right: 1px solid var(--bs-border-color-translucent);
+    border-left: 0 var(--bs-border-style) var(--bs-border-color-translucent) !important;
+    border-top-left-radius: .5rem;
+    border-bottom-left-radius: .5rem;
 }
 
 .img-proyect {
     line-height: 50px;
     text-align: center;
+    object-fit: contain;
+    background: inherit;
 }
 
 .info-product-container {
@@ -193,6 +212,23 @@ hr {
     padding: 0.2rem .6rem 0.4rem .6rem;
     text-align: center;
     vertical-align: baseline;
+}
+
+.hr-product-proyect {
+    margin-top: 1rem;
+    margin-bottom: .5rem;
+    color: var(--bs-body-color);
+}
+
+.h6-product-proyect {
+    font-size: 1.2rem;
+    color: darkslategray;
+}
+
+.p-product-proyect {
+    font-weight: 500;
+    font-size: 1.032rem;
+    color: var(--bs-gray-600);
 }
 
 /* --------------------------------------------------------------------------------------------------------------------------------------------------------- */

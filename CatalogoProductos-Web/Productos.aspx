@@ -8,17 +8,17 @@
         <asp:Repeater runat="server" ID="RepeaterProductos">
             <ItemTemplate>
                 <asp:LinkButton runat="server" CssClass="link-button-product">
-                <div class="one-product-container border rounded-3 mb-3">
+                <div class="one-product-container rounded-3 mb-4">
                     <div class="image-product-container border-image-product">
                         <img src="<%#Eval("ImagenUrl").ToString() == "" ?
-                                    "https://static.vecteezy.com/system/resources/previews/007/126/739/original/question-mark-icon-free-vector.jpg" : Eval("ImagenUrl").ToString() %>"
-                            class="img-fluid img-proyect" alt="Imagen producto"/>
+                                    "https://pngimg.com/uploads/box/box_PNG137.png" : Eval("ImagenUrl").ToString() %>"
+                            class="img-fluid img-proyect" alt="Imagen del producto"/>
                     </div>
                     <div class="info-product-container">
                         <span class="h5 badge-proyect"><%#Eval("Categoria.Descripcion")%></span>
-                        <hr />
-                        <h6><%#Eval("Nombre")%></h6>
-                        <p class=""><%#Eval("Precio")%>$</p>
+                        <hr class="hr-product-proyect"/>
+                        <h6 class="h6-product-proyect"><%#Eval("Nombre")%></h6>
+                        <p class="p-product-proyect"><%#((decimal) Eval("Precio")).ToString("C")%></p>
                     </div>
                 </div>
                 </asp:LinkButton>
