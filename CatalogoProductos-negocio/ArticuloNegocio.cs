@@ -10,6 +10,54 @@ namespace CatalogoProductos_negocio
 {
     public class ArticuloNegocio
     {
+        public Articulo ObtenerArticuloPorId(int id) 
+        {
+            Articulo articuloBuscado = null;
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            try
+            {
+                accesoDatos.SetearQuery(@"SELECT a.Id, a.Codigo, a.Nombre, a.Descripcion, m.Id, m.Descripcion,c.Id, c.Descripcion, a.ImagenUrl, a.Precio
+                                          FROM ARTICULOS AS a
+                                          INNER JOIN MARCAS AS m
+	                                        ON a.IdMarca = m.Id
+                                          INNER JOIN CATEGORIAS AS c
+	                                        ON a.IdCategoria = c.Id
+                                          WHERE a.Id = @id_articulo_buscado");
+
+                accesoDatos.AgregarParametro("id_articulo_buscado", id);
+
+                accesoDatos.EjecutarLector();
+
+                if (accesoDatos.Lector.Read()) 
+                {
+                    articuloBuscado = new Articulo();
+
+                    articuloBuscado.Id = accesoDatos.Lector.GetInt32(0);
+                    articuloBuscado.CodigoArticulo = accesoDatos.Lector.IsDBNull(1) ? "" : accesoDatos.Lector.GetString(1);
+                    articuloBuscado.Nombre = accesoDatos.Lector.IsDBNull(2) ? "" : accesoDatos.Lector.GetString(2);
+                    articuloBuscado.Descripcion = accesoDatos.Lector.IsDBNull(3) ? "" : accesoDatos.Lector.GetString(3);
+                    articuloBuscado.Marca.Id = accesoDatos.Lector.IsDBNull(4) ? -1 : accesoDatos.Lector.GetInt32(4);
+                    articuloBuscado.Marca.Descripcion = accesoDatos.Lector.IsDBNull(5) ? "" : accesoDatos.Lector.GetString(5);
+                    articuloBuscado.Categoria.Id = accesoDatos.Lector.IsDBNull(6) ? -1 : accesoDatos.Lector.GetInt32(6);
+                    articuloBuscado.Categoria.Descripcion = accesoDatos.Lector.IsDBNull(7) ? "" : accesoDatos.Lector.GetString(7);
+                    articuloBuscado.ImagenUrl = accesoDatos.Lector.IsDBNull(8) ? "" : accesoDatos.Lector.GetString(8);
+                    articuloBuscado.Precio = accesoDatos.Lector.GetDecimal(9);
+                }
+
+                return articuloBuscado;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally 
+            {
+                accesoDatos.CerrarConexion();
+                accesoDatos = null;
+            }
+        }
+
         public List<Articulo> ObtenerArticulos() 
         {
             List<Articulo> listaArticulos = new List<Articulo>();
@@ -24,10 +72,12 @@ namespace CatalogoProductos_negocio
                                           INNER JOIN CATEGORIAS AS c
 	                                        ON a.IdCategoria = c.Id");
 
-                accesoDatos.EjecutarQuery();
                 accesoDatos.EjecutarLector();
 
-                while (accesoDatos.Lector.Read()) 
+                // TODO: Solo prueba
+                // int i = 0;
+
+                while (accesoDatos.Lector.Read())//&& i < 3) 
                 {
                     Articulo articulo = new Articulo();
 
@@ -43,8 +93,12 @@ namespace CatalogoProductos_negocio
                     articulo.Precio = accesoDatos.Lector.GetDecimal(9);
 
                     listaArticulos.Add(articulo);
+
+                    //i++;
                 }
 
+                // TODO: Prueba
+                // return new List<Articulo>();
                 return listaArticulos;
             }
             catch (Exception ex)

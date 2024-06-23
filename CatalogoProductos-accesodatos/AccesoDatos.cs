@@ -14,40 +14,65 @@ namespace CatalogoProductos_utilidades
         private SqlCommand _comando;
         private SqlDataReader _lector;
 
-        public SqlDataReader Lector { get => _lector;}
+        public SqlDataReader Lector { get => _lector; }
 
-        public AccesoDatos() 
+        public AccesoDatos()
         {
             _conexion = new SqlConnection(ConfigurationManager.ConnectionStrings["CATALAGO_WEB_DB"].ConnectionString);
             _comando = new SqlCommand();
             _comando.Connection = _conexion;
         }
 
-        public void SetearQuery(string query) 
+        public void SetearQuery(string query)
         {
             _comando.CommandText = query;
         }
 
-        public void EjecutarLector() 
+        public void AgregarParametro(string nombre, object valor)
         {
-            _lector = _comando.ExecuteReader();
+            _comando.Parameters.AddWithValue(nombre, valor);
         }
 
-        public void EjecutarQuery() 
+        public void EjecutarLector()
         {
-            _conexion.Open();
-
-            _comando.ExecuteNonQuery();
+            try
+            {
+                _conexion.Open();
+                _lector = _comando.ExecuteReader();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public void EjecutarScalar() 
+        public void EjecutarQuery()
         {
-            _conexion.Open();
-
-            _comando.ExecuteScalar();
+            try
+            {
+                _conexion.Open();
+                _comando.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public void CerrarConexion() 
+        public void EjecutarScalar()
+        {
+            try
+            {
+                _conexion.Open();
+                _comando.ExecuteScalar();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void CerrarConexion()
         {
             _conexion.Close();
         }

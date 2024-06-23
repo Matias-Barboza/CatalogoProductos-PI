@@ -11,6 +11,8 @@ namespace CatalogoProductos_Web
 {
     public partial class Productos : System.Web.UI.Page
     {
+        public bool NoHayProductosCargados {  get; set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack) 
@@ -22,9 +24,20 @@ namespace CatalogoProductos_Web
         public void CargarProductos() 
         {
             ArticuloNegocio articuloNegocio = new ArticuloNegocio();
+            
+            if (articuloNegocio.ObtenerArticulos().Count == 0) 
+            {
+                NoHayProductosCargados = true;
+                return;
+            }
 
             RepeaterProductos.DataSource = articuloNegocio.ObtenerArticulos();
             RepeaterProductos.DataBind();
+        }
+
+        protected void FavoritoButton_ServerClick(object sender, EventArgs e)
+        {
+
         }
     }
 }
