@@ -11,11 +11,19 @@ namespace CatalogoProductos_Web
 {
     public partial class DetalleProducto : System.Web.UI.Page
     {
+        private int _idProducto;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Request.QueryString["id"] != null) 
             {
+                if (!int.TryParse(Request.QueryString["id"], out _idProducto))
+                {
+                    return;
+                }
+
                 CargarDetalleProducto();
+                CargarOtrosProductos();
             }
         }
 
@@ -24,19 +32,28 @@ namespace CatalogoProductos_Web
             ArticuloNegocio articuloNegocio = new ArticuloNegocio();
             Articulo articulo;
 
-            if (!int.TryParse(Request.QueryString["id"], out int id)) 
-            {
-                return;
-            }
+            articulo = articuloNegocio.ObtenerArticuloPorId(_idProducto);
 
-            articulo = articuloNegocio.ObtenerArticuloPorId(id);
-
+            TituloProductoLabel.Text = $"{articulo.Marca.Descripcion} {articulo.Nombre}";
             ImagenProducto.ImageUrl = articulo.ImagenUrl;
             NombreLabel.Text = articulo.Nombre;
             DescripcionLabel.Text = articulo.Descripcion;
             DescripcionMarcaLabel.Text = articulo.Marca.Descripcion;
             DescripcionCategoriaLabel.Text = articulo.Categoria.Descripcion;
             PrecioLabel.Text = articulo.Precio.ToString("C");
+        }
+
+        public void CargarOtrosProductos() 
+        {
+            ArticuloNegocio articuloNegocio = new ArticuloNegocio();
+
+            RepeaterAlgunosProductos.DataSource = articuloNegocio.ObtenerArticulosRandom(3, _idProducto);
+            RepeaterAlgunosProductos.DataBind();
+        }
+
+        protected void FavoritoButton_ServerClick(object sender, EventArgs e)
+        {
+
         }
     }
 }

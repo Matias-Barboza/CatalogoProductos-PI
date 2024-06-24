@@ -7,23 +7,66 @@
 
     <section class="section-proyect">
 
-        <div class="products-container rounded-3 shadow-proyect product-detail-div">
-            <div class="img-detail-container">
-                <asp:Image runat="server" CssClass="img-fluid" ID="ImagenProducto"/>
+        <div class="rounded-3 shadow-proyect product-detail-div">
+
+            <span class="badge-detail-proyect">
+                <asp:Label runat="server" ID="TituloProductoLabel"/>
+                <button type="button" runat="server" onserverclick="FavoritoButton_ServerClick" id="FavoritoButton"
+                    class="btn btn-default" title="Marcar como favorito">
+                    <i class="bi bi-heart-fill fav-icon-product"></i>
+                </button>
+            </span>
+
+            <div class="img-info-container">
+
+                <div class="img-detail-container">
+                    <asp:Image runat="server" CssClass="img-fluid" ID="ImagenProducto" AlternateText="Imagen del producto" />
+                </div>
+
+                <div class="info-detail-container">
+                    <span class=" background-h4-details h4">Producto</span>
+                    <asp:Label runat="server" ID="NombreLabel" CssClass="label-detail-proyect"/>
+                    <span class="background-h4-details h4">Descripción</span>
+                    <asp:Label runat="server" ID="DescripcionLabel" CssClass="label-detail-proyect"/>
+                    <span class=" background-h4-details h4">Marca</span>
+                    <asp:Label runat="server" ID="DescripcionMarcaLabel" CssClass="label-detail-proyect"/>
+                    <span class=" background-h4-details h4">Categoría</span>
+                    <asp:Label runat="server" ID="DescripcionCategoriaLabel" CssClass="label-detail-proyect"/>
+                    <span class=" background-h4-details h4">Precio</span>
+                    <asp:Label runat="server" ID="PrecioLabel" CssClass="label-detail-proyect"/>
+                </div>
+
             </div>
 
-            <div class="info-detail-container">
-                <h4>Producto</h4>
-                <asp:Label runat="server" ID="NombreLabel"/>
-                <h4>Descripción</h4>
-                <asp:Label runat="server" ID="DescripcionLabel"/>
-                <h4>Marca</h4>
-                <asp:Label runat="server" ID="DescripcionMarcaLabel"/>
-                <h4>Categoría</h4>
-                <asp:Label runat="server" ID="DescripcionCategoriaLabel"/>
-                <h4>Precio</h4>
-                <asp:Label runat="server" ID="PrecioLabel"/>
-            </div>
+        </div>
+
+        <div class="container-title-others">
+            <h2 class="display-6">OTROS PRODUCTOS</h2>
+        </div>
+
+        <hr class="hr-product-proyect"/>
+
+        <div class="container-some-products">
+            <asp:Repeater runat="server" ID="RepeaterAlgunosProductos">
+                <ItemTemplate>
+                    <div class="card card-proyect">
+                        <img src="<%#Eval("ImagenUrl").ToString() == "" ?
+                            "https://pngimg.com/uploads/box/box_PNG137.png" : Eval("ImagenUrl").ToString() %>"
+                            class="card-img-top img-card-proyect rounded-3" alt="Imagen del producto" />
+                        <div class="card-body">
+                            <h5 class="card-title"><%#Eval("Nombre")%></h5>
+                            <hr class="hr-product-proyect" />
+                            <p class="card-text"><%#Eval("Descripcion")%></p>
+                            <span class="card-price-link-proyect">
+                                <a href="#" class="btn btn-primary icon-link icon-link-hover arrow-container">Detalles
+                            <i class="bi bi-arrow-right"></i>
+                                </a>
+                                <p class="p-product-proyect p-card-product-proyect"><%#((decimal) Eval("Precio")).ToString("C")%></p>
+                            </span>
+                        </div>
+                    </div>
+                </ItemTemplate>
+            </asp:Repeater>
         </div>
 
     </section>

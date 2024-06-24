@@ -15,6 +15,24 @@ namespace CatalogoProductos_Web
     {
 
         /// <summary>
+        /// Control TituloProductoLabel.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label TituloProductoLabel;
+
+        /// <summary>
+        /// Control FavoritoButton.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton FavoritoButton;
+
+        /// <summary>
         /// Control ImagenProducto.
         /// </summary>
         /// <remarks>
@@ -67,5 +85,14 @@ namespace CatalogoProductos_Web
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label PrecioLabel;
+
+        /// <summary>
+        /// Control RepeaterAlgunosProductos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater RepeaterAlgunosProductos;
     }
 }
