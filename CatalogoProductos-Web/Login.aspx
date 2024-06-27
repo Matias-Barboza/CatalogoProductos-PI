@@ -12,17 +12,19 @@
                 <h2 class="text-center title-login">LOGIN</h2>
                 <hr />
                 <h4 class="form-label mb-3">Usuario:</h4>
-                <asp:TextBox runat="server" CssClass="form-control" ID="UsuarioTextBox"
+                <asp:TextBox runat="server" CssClass="form-control mb-2" ID="UsuarioTextBox"
                                             PlaceHolder="ejemplo@ejemplo.com"/>
                 <asp:RequiredFieldValidator ErrorMessage="El usuario es obligatorio."
-                                            ControlToValidate="UsuarioTextBox" runat="server"
-                                            ID="UsuarioValidatorLogin" CssClass="validator"/>
+                                            ControlToValidate="UsuarioTextBox" Display="Dynamic"
+                                            ID="UsuarioValidatorLogin" CssClass="validator"
+                                            runat="server" />
                 <h4 class="form-label mb-3">Contraseña:</h4>
-                <asp:TextBox runat="server" TextMode="Password" CssClass="form-control" ID="PassTextBox"
+                <asp:TextBox runat="server" TextMode="Password" CssClass="form-control mb-2" ID="PassTextBox"
                                             PlaceHolder="*********"/>
                 <asp:RequiredFieldValidator ErrorMessage="La contraseña no puede estar vacía."
-                                            ControlToValidate="PassTextBox" runat="server"
-                                            ID="PassValidatorLogin" CssClass="validator"/>
+                                            ControlToValidate="PassTextBox" Display="Dynamic"
+                                            ID="PassValidatorLogin" CssClass="validator"
+                                            runat="server" />
                 <hr />
                 <asp:Button Text="Ingresar" runat="server" CssClass="btn btn-primary btn-lg mb-3 btn-login" />
                 <p class="text-center">¿No estás registrado? Registrate <a href="FormularioRegistro.aspx">aquí</a>.</p>

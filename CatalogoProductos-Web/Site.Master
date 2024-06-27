@@ -35,6 +35,7 @@
             <hr />
 
             <div class="container-navbar-elements">
+
                 <div class="container-navbar ul-div">
                     <ul class="ul-navbar">
                         <li class="nav-item nav-item-proyect">
@@ -53,11 +54,56 @@
                 </div>
 
             </div>
+
+
+            <%if (Page is CatalogoProductos_Web.Productos)
+              {%>
+            <hr />
+
+            <div class="container-filters-elements">
+
+                <%-- Búsqueda por nombre, marca --%>
+                <div class="div-filter">
+                    <asp:TextBox CssClass="form-control form-control-sm" runat="server" ></asp:TextBox>
+                    <button type="button" runat="server" onserverclick="BuscarButton_ServerClick" id="BuscarButton"
+                            class="btn btn-primary btn-sm mx-2 btn-search-filter" title="Buscar">
+                            <i class="bi bi-search"></i>
+                    </button>
+                </div>
+                    
+                <%-- Filtro por precio, categoría, marca, orden  --%>
+                <div class="div-filter">
+                    <label class="form-label label-filter-proyect">
+                        <i class="bi bi-funnel-fill"></i>
+                        Filtros:
+                    </label>
+                    <asp:DropDownList CssClass="form-select form-select-sm mx-1" runat="server" ></asp:DropDownList>
+                    <asp:DropDownList CssClass="form-select form-select-sm mx-1" runat="server" ></asp:DropDownList>
+                    <label class="form-label label-filter-proyect">
+                        <i class="bi bi-arrow-down-up"></i>
+                        Ordenar por:
+                    </label>
+                    <asp:DropDownList CssClass="form-select form-select-sm mx-1" runat="server" ></asp:DropDownList>
+                    <button type="button" runat="server" onserverclick="AplicarFiltrosButton_ServerClick" id="AplicarFiltrosButton"
+                            class="btn btn-success btn-sm mx-1" title="Aplicar filtros">
+                            <i class="bi bi-funnel-fill"></i>
+                    </button>
+                    <button type="button" runat="server" onserverclick="LimpiarFiltrosButton_ServerClick" id="LimpiarFiltrosButton"
+                            class="btn btn-danger btn-sm mx-1" title="Limpiar filtros">
+                            <i class="bi bi-trash3-fill"></i>
+                    </button>
+                </div>
+
+            </div>
+            <%}%>
+
         </nav>
 
         <div class="container-principal">
+
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
+
         </div>
 
         <footer class="navbar footer-proyect shadow-proyect">
@@ -85,5 +131,6 @@
         </footer>
 
     </form>
+
 </body>
 </html>

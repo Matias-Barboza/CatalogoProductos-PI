@@ -92,6 +92,42 @@ hr {
     --bs-icon-link-transform: translate3d(0, -.125rem, 0);
 }
 
+.container-filters-elements {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.div-filter {
+    display: flex;
+    align-items: baseline;
+}
+
+.label-filter-proyect {
+    display: inline-flex !important;
+    text-wrap: nowrap;
+    gap: .375rem;
+    margin-left: 10px;
+    margin-right: 5px;
+}
+
+.btn-search-filter {
+    width: 100px;
+}
+
+.container-searching {
+    display: flex;
+}
+
+.container-filters {
+    display: flex;
+}
+
+.container-orders {
+    display: flex;
+}
+
 /* --------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /* ------------------------------------------------------------------- DEFAULT ----------------------------------------------------------------------------- */
 .jumbotron-proyect {
@@ -154,10 +190,10 @@ hr {
     transition: transform .2s;
 }
 
-    .card-proyect:hover {
-        transform: scale(1.02);
-        box-shadow: .30rem .6rem 1rem rgba(0, 0, 0, .075);
-    }
+.card-proyect:hover {
+    transform: scale(1.02);
+    box-shadow: .30rem .6rem 1rem rgba(0, 0, 0, .075);
+}
 
 .img-card-proyect {
     width: 100px;
@@ -203,10 +239,10 @@ hr {
     transition: transform 0.2s;
 }
 
-    .one-product-container:hover {
-        transform: scale(1.01);
-        box-shadow: .30rem .6rem 1rem rgba(0, 0, 0, .075);
-    }
+.one-product-container:hover {
+    transform: scale(1.01);
+    box-shadow: .30rem .6rem 1rem rgba(0, 0, 0, .075);
+}
 
 .image-product-container {
     width: 150px;
@@ -253,10 +289,10 @@ hr {
     transition: .2s;
 }
 
-    .fav-icon-product:hover {
-        color: var(--bs-pink);
-        font-size: 25px;
-    }
+.fav-icon-product:hover {
+    color: var(--bs-pink);
+    font-size: 25px;
+}
 
 .hr-product-proyect {
     margin: .5rem 0;
@@ -358,7 +394,7 @@ hr {
 
 .title-login {
     background: aliceblue;
-    border: 3px solid aliceblue;
+    border: 1px solid aliceblue;
     border-radius: 0.365rem;
     padding: 5px 0;
     margin: 0;
@@ -383,6 +419,7 @@ hr {
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    margin: 1rem 0;
 }
 
 .register-elements {
@@ -395,7 +432,7 @@ hr {
 
 .title-register {
     background: var(--bs-success);
-    border: 3px solid aliceblue;
+    border: 1px solid var(--bs-success);
     border-radius: 0.365rem;
     padding: 5px 0;
     margin: 0;
@@ -423,6 +460,11 @@ hr {
     font-size: large;
     font-weight: 500;
     background-color: var(--bs-gray-200);
+}
+
+.container-validators {
+    display: flex;
+    flex-direction: column;
 }
 
 .btn-register {

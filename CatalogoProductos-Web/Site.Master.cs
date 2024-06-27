@@ -13,5 +13,19 @@ namespace CatalogoProductos_Web
         {
 
         }
+
+        protected void BuscarButton_ServerClick(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void AplicarFiltrosButton_ServerClick(object sender, EventArgs e)
+        {
+
+        }
+        protected void LimpiarFiltrosButton_ServerClick(object sender, EventArgs e)
+        {
+
+        }
     }
 }
