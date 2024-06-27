@@ -28,7 +28,7 @@
             <div class="container-navbar-elements">
                 <div class="container-navbar login-div">
                     <a href="Login.aspx" class="btn btn-outline-primary btn-sm login-proyect">LOGIN</a>
-                    <a href="Registro.aspx" class="btn btn-outline-success btn-sm register-proyect">REGISTRARSE</a>
+                    <a href="FormularioRegistro.aspx" class="btn btn-outline-success btn-sm register-proyect">REGISTRARSE</a>
                 </div>
             </div>
 

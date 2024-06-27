@@ -47,7 +47,7 @@
                             <hr class="hr-product-proyect"/>
                             <p class="card-text"><%#Eval("Descripcion")%></p>
                             <span class="card-price-link-proyect">
-                                <a href="#" class="btn btn-primary icon-link icon-link-hover arrow-container">Detalles
+                                <a href='DetalleProducto.aspx?id=<%#Eval("Id") %>' class="btn btn-primary icon-link icon-link-hover arrow-container">Detalles
                                     <i class="bi bi-arrow-right"></i>
                                 </a>
                                 <p class="p-product-proyect p-card-product-proyect"><%#((decimal) Eval("Precio")).ToString("C")%></p>
