@@ -112,20 +112,8 @@ hr {
     margin-right: 5px;
 }
 
-.btn-search-filter {
-    width: 100px;
-}
-
-.container-searching {
-    display: flex;
-}
-
-.container-filters {
-    display: flex;
-}
-
-.container-orders {
-    display: flex;
+.form-check-proyect {
+    margin-right: 5px;
 }
 
 /* --------------------------------------------------------------------------------------------------------------------------------------------------------- */

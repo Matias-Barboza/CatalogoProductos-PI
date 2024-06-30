@@ -70,21 +70,53 @@
                             <i class="bi bi-search"></i>
                     </button>
                 </div>
-                    
+                
+                <%-- Activar filtros --%>
+                <div class="div-filter">
+                    <label class="form-label label-filter-proyect">
+                         <i class="bi bi-funnel-fill"></i>
+                         Activar filtros:
+                    </label>
+                    <div class="form-check form-check-proyect">
+                        <input class="form-check-input" type="checkbox" value="" ID="MarcaCheckBox" runat="server">
+                        <label class="form-check-label">
+                        Marca
+                        </label>
+                    </div>
+                    <div class="form-check form-check-proyect">
+                        <input class="form-check-input" type="checkbox" value="" ID="CategoriaCheckBox" runat="server">
+                        <label class="form-check-label">
+                        Categoría
+                        </label>
+                    </div>
+                    <div class="form-check form-check-proyect">
+                        <input class="form-check-input" type="checkbox" value="" ID="PrecioCheckBox" runat="server">
+                        <label class="form-check-label">
+                        Precio
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <%}%>
+
+
+            <div class="container-filters-elements">
+
                 <%-- Filtro por precio, categoría, marca, orden  --%>
                 <div class="div-filter">
                     <label class="form-label label-filter-proyect">
                         <i class="bi bi-funnel-fill"></i>
                         Filtros:
                     </label>
+                    <asp:DropDownList ID="PruebaFiltroDropDownList" CssClass="form-select form-select-sm mx-1" SelectionMode="Multiple" runat="server"></asp:DropDownList>
                     <asp:DropDownList ID="CampoFiltroDropDownList" CssClass="form-select form-select-sm mx-1" runat="server" ></asp:DropDownList>
                     <asp:DropDownList ID="CondicionDropDownList" CssClass="form-select form-select-sm mx-1" runat="server" ></asp:DropDownList>
-                    <asp:TextBox ID="ValorFiltroTextBox" CssClass="form-control" runat="server" ></asp:TextBox>
+                    <asp:TextBox ID="ValorFiltroTextBox" CssClass="form-control form-control-sm" runat="server" ></asp:TextBox>
                     <label class="form-label label-filter-proyect">
                         <i class="bi bi-arrow-down-up"></i>
                         Ordenar por:
                     </label>
-                    <asp:DropDownList CssClass="form-select form-select-sm mx-1" runat="server" ></asp:DropDownList>
+                    <asp:DropDownList ID="OrdenTipoDropDownList" CssClass="form-select form-select-sm mx-1" runat="server" ></asp:DropDownList>
                     <button type="button" runat="server" onserverclick="AplicarFiltrosButton_ServerClick" id="AplicarFiltrosButton"
                             class="btn btn-success btn-sm mx-1" title="Aplicar filtros">
                             <i class="bi bi-funnel-fill"></i>
@@ -96,7 +128,6 @@
                 </div>
 
             </div>
-            <%}%>
 
         </nav>
 

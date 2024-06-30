@@ -42,6 +42,42 @@ namespace CatalogoProductos_Web
         protected global::System.Web.UI.HtmlControls.HtmlButton BuscarButton;
 
         /// <summary>
+        /// Control MarcaCheckBox.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox MarcaCheckBox;
+
+        /// <summary>
+        /// Control CategoriaCheckBox.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox CategoriaCheckBox;
+
+        /// <summary>
+        /// Control PrecioCheckBox.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox PrecioCheckBox;
+
+        /// <summary>
+        /// Control PruebaFiltroDropDownList.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList PruebaFiltroDropDownList;
+
+        /// <summary>
         /// Control CampoFiltroDropDownList.
         /// </summary>
         /// <remarks>
@@ -67,6 +103,15 @@ namespace CatalogoProductos_Web
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox ValorFiltroTextBox;
+
+        /// <summary>
+        /// Control OrdenTipoDropDownList.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList OrdenTipoDropDownList;
 
         /// <summary>
         /// Control AplicarFiltrosButton.

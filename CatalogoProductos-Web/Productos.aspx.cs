@@ -18,7 +18,6 @@ namespace CatalogoProductos_Web
             if (!IsPostBack) 
             {
                 CargarProductos();
-                CargarFiltros();
             }
         }
 
@@ -34,11 +33,6 @@ namespace CatalogoProductos_Web
 
             RepeaterProductos.DataSource = articuloNegocio.ObtenerArticulos();
             RepeaterProductos.DataBind();
-        }
-
-        public void CargarFiltros() 
-        {
-            
         }
 
         protected void FavoritoButton_ServerClick(object sender, EventArgs e)
