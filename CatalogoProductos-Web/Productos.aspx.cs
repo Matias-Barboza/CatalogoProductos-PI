@@ -21,18 +21,23 @@ namespace CatalogoProductos_Web
             }
         }
 
-        public void CargarProductos() 
+        public void CargarProductos(List<string> marcas = null, List<string> categorias = null, string condicionPrecio = "", decimal precio = -1, string tipoOrden = "") 
         {
             ArticuloNegocio articuloNegocio = new ArticuloNegocio();
             
-            if (articuloNegocio.ObtenerArticulos().Count == 0) 
+            if (articuloNegocio.ObtenerArticulos(marcas, categorias, condicionPrecio, precio, tipoOrden).Count == 0) 
             {
                 NoHayProductosCargados = true;
                 return;
             }
 
-            RepeaterProductos.DataSource = articuloNegocio.ObtenerArticulos();
+            RepeaterProductos.DataSource = articuloNegocio.ObtenerArticulos(marcas, categorias, condicionPrecio, precio, tipoOrden);
             RepeaterProductos.DataBind();
+        }
+
+        public void AplicarFiltros(List<string> marcas = null, List<string> categorias = null, string condicionPrecio = "", decimal precio = -1, string tipoOrden = "") 
+        {
+            CargarProductos(marcas, categorias, condicionPrecio, precio, tipoOrden);
         }
 
         protected void FavoritoButton_ServerClick(object sender, EventArgs e)

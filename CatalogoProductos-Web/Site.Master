@@ -64,46 +64,71 @@
 
                 <%-- Búsqueda por nombre, marca --%>
                 <div class="div-filter">
-                    <asp:TextBox CssClass="form-control form-control-sm" runat="server" ></asp:TextBox>
+                    <asp:TextBox CssClass="form-control form-control-sm" runat="server"></asp:TextBox>
                     <button type="button" runat="server" onserverclick="BuscarButton_ServerClick" id="BuscarButton"
-                            class="btn btn-primary btn-sm mx-2 btn-search-filter" title="Buscar">
-                            <i class="bi bi-search"></i>
+                        class="btn btn-primary btn-sm mx-2 btn-search-filter" title="Buscar">
+                        <i class="bi bi-search"></i>
                     </button>
                 </div>
-                
+
                 <%-- Activar filtros --%>
                 <div class="div-filter">
                     <label class="form-label label-filter-proyect">
-                         <i class="bi bi-funnel-fill"></i>
-                         Activar filtros:
+                        <i class="bi bi-funnel-fill"></i>
+                        Activar filtros:
                     </label>
                     <div class="form-check form-check-proyect">
-                        <input class="form-check-input" type="checkbox" value="" ID="MarcaCheckBox" runat="server">
+                        <asp:CheckBox CssClass="span-checkbox-container" ID="MarcaCheckBox"
+                            OnCheckedChanged="CheckBox_CheckedChanged" AutoPostBack="true" runat="server" />
                         <label class="form-check-label">
-                        Marca
+                            Marca
                         </label>
                     </div>
                     <div class="form-check form-check-proyect">
-                        <input class="form-check-input" type="checkbox" value="" ID="CategoriaCheckBox" runat="server">
+                        <asp:CheckBox CssClass="span-checkbox-container" ID="CategoriaCheckBox"
+                            OnCheckedChanged="CheckBox_CheckedChanged" AutoPostBack="true" runat="server" />
                         <label class="form-check-label">
-                        Categoría
+                            Categoría
                         </label>
                     </div>
                     <div class="form-check form-check-proyect">
-                        <input class="form-check-input" type="checkbox" value="" ID="PrecioCheckBox" runat="server">
+                        <asp:CheckBox CssClass="span-checkbox-container" ID="PrecioCheckBox"
+                            OnCheckedChanged="CheckBox_CheckedChanged" AutoPostBack="true" runat="server" />
                         <label class="form-check-label">
-                        Precio
+                            Precio
                         </label>
                     </div>
+
+                    <%if (FiltrosActivos)
+                      {%>
+                    <button type="button" runat="server" onserverclick="AplicarFiltrosButton_ServerClick" id="AplicarFiltrosButton"
+                            class="btn btn-success btn-sm mx-1" title="Aplicar filtros">
+                            <i class="bi bi-funnel-fill"></i>
+                    </button>
+                    <button type="button" runat="server" onserverclick="LimpiarFiltrosButton_ServerClick" id="LimpiarFiltrosButton"
+                            class="btn btn-danger btn-sm mx-1" title="Limpiar filtros">
+                            <i class="bi bi-trash3-fill"></i>
+                    </button>
+                    <%}%>
+
                 </div>
+
+                <div class="div-filter">
+                    <label class="form-label label-filter-proyect">
+                        <i class="bi bi-arrow-down-up"></i>
+                        Ordenar por:
+                        </label>
+                    <asp:DropDownList ID="OrdenTipoDropDownList" CssClass="form-select form-select-sm mx-1" runat="server" ></asp:DropDownList>
+                </div>
+
             </div>
             <%}%>
 
 
-            <div class="container-filters-elements">
+            <div class="container-filters-elements-active">
 
                 <%-- Filtro por precio, categoría, marca, orden  --%>
-                <div class="div-filter">
+                <%--<div class="div-filter">
                     <label class="form-label label-filter-proyect">
                         <i class="bi bi-funnel-fill"></i>
                         Filtros:
@@ -125,7 +150,41 @@
                             class="btn btn-danger btn-sm mx-1" title="Limpiar filtros">
                             <i class="bi bi-trash3-fill"></i>
                     </button>
+                </div>--%>
+
+                <%if (FiltroMarcaActivo)
+                  {%>
+                <div class="div-filter mt-2">
+                    <label class="form-label label-filter-proyect">
+                        <i class="bi bi-funnel-fill"></i>
+                        Marcas:
+                    </label>
+                    <asp:CheckBoxList ID="MarcasCheckBoxList" CssClass="span-checkboxlist-container" RepeatDirection="Horizontal" RepeatLayout="Flow" AutoPostBack="true" runat="server" ></asp:CheckBoxList>                    
                 </div>
+                <%}%>
+
+                <%if (FiltroCategoriaActivo)
+                  {%>
+                <div class="div-filter mt-1">
+                    <label class="form-label label-filter-proyect">
+                        <i class="bi bi-funnel-fill"></i>
+                        Categorías:
+                    </label>
+                    <asp:CheckBoxList ID="CategoriasCheckBoxList" CssClass="span-checkboxlist-container" RepeatDirection="Horizontal" RepeatLayout="Flow" runat="server"></asp:CheckBoxList>
+                </div>
+                <%}%>
+
+                <%if (FiltroPrecioActivo)
+                {%>
+                <div class="div-filter mt-1">
+                    <label class="form-label label-filter-proyect">
+                        <i class="bi bi-funnel-fill"></i>
+                        Precio:
+                    </label>
+                    <asp:DropDownList ID="CondicionDropDownList" CssClass="form-select form-select-sm mx-1" runat="server" ></asp:DropDownList>
+                    <asp:TextBox ID="ValorFiltroTextBox" CssClass="form-control form-control-sm" runat="server" ></asp:TextBox>
+                </div>
+                <%}%>
 
             </div>
 

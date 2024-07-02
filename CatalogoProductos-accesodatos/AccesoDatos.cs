@@ -12,6 +12,7 @@ namespace CatalogoProductos_utilidades
     {
         private SqlConnection _conexion;
         private SqlCommand _comando;
+        private SqlCommand _comandoTablaTemporal;
         private SqlDataReader _lector;
 
         public SqlDataReader Lector { get => _lector; }
@@ -20,12 +21,18 @@ namespace CatalogoProductos_utilidades
         {
             _conexion = new SqlConnection(ConfigurationManager.ConnectionStrings["CATALAGO_WEB_DB"].ConnectionString);
             _comando = new SqlCommand();
+            _comandoTablaTemporal = new SqlCommand();
             _comando.Connection = _conexion;
         }
 
         public void SetearQuery(string query)
         {
             _comando.CommandText = query;
+        }
+
+        public void ConcatenarQuery(string extensionQuery) 
+        {
+            _comando.CommandText += extensionQuery;
         }
 
         public void AgregarParametro(string nombre, object valor)

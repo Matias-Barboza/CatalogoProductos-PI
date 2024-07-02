@@ -58,7 +58,7 @@ namespace CatalogoProductos_negocio
             }
         }
 
-        public List<Articulo> ObtenerArticulos() 
+        public List<Articulo> ObtenerArticulos(List<string> marcas = null, List<string> categorias = null, string condicionPrecio = "", decimal precio = -1, string tipoOrden = "") 
         {
             List<Articulo> listaArticulos = new List<Articulo>();
             AccesoDatos accesoDatos = new AccesoDatos();
@@ -71,6 +71,35 @@ namespace CatalogoProductos_negocio
 	                                        ON a.IdMarca = m.Id
                                           INNER JOIN CATEGORIAS AS c
 	                                        ON a.IdCategoria = c.Id");
+
+                if (marcas != null) 
+                {
+                    string strMarcas = string.Join(",", marcas);
+
+                    accesoDatos.ConcatenarQuery(" WHERE m.Descripcion IN (@marcas)");
+                    accesoDatos.AgregarParametro("marcas", marcas);
+                }
+
+                if (categorias != null)
+                {
+                    string strCategorias = string.Join(",", categorias);
+
+                    accesoDatos.ConcatenarQuery(marcas == null ? " WHERE c.Descripcion IN (@categorias)" : " AND c.descripcion IN (@categorias)");
+                    accesoDatos.AgregarParametro("categorias", strCategorias);
+                }
+
+                if (condicionPrecio != "" && precio != -1) 
+                {
+                    accesoDatos.ConcatenarQuery(categorias == null ? " WHERE a.precio @condicionPrecio @precio" : " AND a.precio @condicionPrecio @precio");
+                    accesoDatos.AgregarParametro("condicionPrecio", condicionPrecio);
+                    accesoDatos.AgregarParametro("precio", precio);
+                }
+
+                if (tipoOrden != "") 
+                {
+                    accesoDatos.ConcatenarQuery(" @tipoOrden");
+                    accesoDatos.AgregarParametro("tipoOrden", tipoOrden);
+                }
 
                 accesoDatos.EjecutarLector();
 
