@@ -76,37 +76,33 @@ namespace CatalogoProductos_negocio
                 {
                     string strMarcas = string.Join(",", marcas);
 
-                    accesoDatos.ConcatenarQuery(" WHERE m.Descripcion IN (@marcas)");
-                    accesoDatos.AgregarParametro("marcas", marcas);
+                    accesoDatos.ConcatenarQuery(" WHERE m.Descripcion IN (SELECT VALUE FROM STRING_SPLIT(@marcas, ','))");
+                    accesoDatos.AgregarParametro("marcas", strMarcas);
                 }
 
                 if (categorias != null)
                 {
                     string strCategorias = string.Join(",", categorias);
 
-                    accesoDatos.ConcatenarQuery(marcas == null ? " WHERE c.Descripcion IN (@categorias)" : " AND c.descripcion IN (@categorias)");
+                    accesoDatos.ConcatenarQuery(marcas == null ? " WHERE c.Descripcion IN (SELECT VALUE FROM STRING_SPLIT(@categorias, ','))" :
+                                                                 " AND c.descripcion IN (SELECT VALUE FROM STRING_SPLIT(@categorias, ','))");
                     accesoDatos.AgregarParametro("categorias", strCategorias);
                 }
 
                 if (condicionPrecio != "" && precio != -1) 
                 {
-                    accesoDatos.ConcatenarQuery(categorias == null ? " WHERE a.precio @condicionPrecio @precio" : " AND a.precio @condicionPrecio @precio");
-                    accesoDatos.AgregarParametro("condicionPrecio", condicionPrecio);
+                    accesoDatos.ConcatenarQuery(categorias == null ? $" WHERE a.precio {condicionPrecio} @precio" : $" AND a.precio {condicionPrecio} @precio");
                     accesoDatos.AgregarParametro("precio", precio);
                 }
 
                 if (tipoOrden != "") 
                 {
-                    accesoDatos.ConcatenarQuery(" @tipoOrden");
-                    accesoDatos.AgregarParametro("tipoOrden", tipoOrden);
+                    accesoDatos.ConcatenarQuery($" {tipoOrden}");
                 }
 
                 accesoDatos.EjecutarLector();
 
-                // TODO: Solo prueba
-                // int i = 0;
-
-                while (accesoDatos.Lector.Read())//&& i < 3) 
+                while (accesoDatos.Lector.Read())
                 {
                     Articulo articulo = new Articulo();
 
@@ -122,12 +118,8 @@ namespace CatalogoProductos_negocio
                     articulo.Precio = accesoDatos.Lector.GetDecimal(9);
 
                     listaArticulos.Add(articulo);
-
-                    //i++;
                 }
 
-                // TODO: Prueba
-                // return new List<Articulo>();
                 return listaArticulos;
             }
             catch (Exception ex)

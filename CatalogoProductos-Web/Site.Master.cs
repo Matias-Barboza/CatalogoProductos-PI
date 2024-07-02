@@ -19,34 +19,35 @@ namespace CatalogoProductos_Web
         
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Page is Productos)
+            if (Page is Productos productos)
             {
-                CargarTiposOrden();
-                MostrarFiltrosActivos();
+                if (!IsPostBack) 
+                {
+                    CargarTiposOrden();
+                    return;
+                }
+
+                if (HayFiltrosActivos()) 
+                {
+                    MostrarFiltrosActivos();
+                }
             }
         }
 
-        public void MostrarFiltrosActivos() 
-        {
-            // Sirve para mantener dibujado la sección de los filtros pertinentes en los PostBack
+        public void MostrarFiltrosActivos()
+        { 
+            FiltrosActivos = Session["FiltrosActivos"] != null && (bool)Session["FiltrosActivos"];
 
-            if (!HayFiltrosActivos())
-            {
-                return;
-            }
+            FiltroMarcaActivo = Session["FiltroMarca"] != null && (bool)Session["FiltroMarca"];
 
-            FiltrosActivos = Session["FiltrosActivos"] != null;
-            
-            FiltroMarcaActivo = Session["FiltroMarca"] != null;
-            
-            FiltroCategoriaActivo = Session["FiltroCategoria"] != null;
-            
-            FiltroPrecioActivo = Session["FiltroPrecio"] != null;
+            FiltroCategoriaActivo = Session["FiltroCategoria"] != null && (bool)Session["FiltroCategoria"];
+
+            FiltroPrecioActivo = Session["FiltroPrecio"] != null && (bool)Session["FiltroPrecio"];
         }
 
-        public bool HayFiltrosActivos() 
+        public bool HayFiltrosActivos()
         {
-            return Session["FiltroMarca"] != null || Session["FiltroCategoria"] != null || Session["FiltroPrecio"] != null;
+            return Session["FiltrosActivos"] != null && (bool)Session["FiltrosActivos"];
         }
 
         public void CargarFiltros() 
@@ -132,14 +133,23 @@ namespace CatalogoProductos_Web
             {
                 CargarFiltros();
             }
+
+            MostrarFiltrosActivos();
         }
 
         protected void AplicarFiltrosButton_ServerClick(object sender, EventArgs e)
         {
-           List<string> marcasAux = new List<string>();
-           List<string> marcas = null;
-           List<string> categoriasAux = new List<string>();
-           List<string> categorias = null;
+            Tuple<List<string>, List<string>, string, decimal, string> filtros = ObtenerFiltros();
+
+            ((Productos)Page).AplicarFiltros(filtros.Item1, filtros.Item2, filtros.Item3, filtros.Item4, filtros.Item5);
+        }
+
+        public Tuple<List<string>,List<string>,string,decimal,string> ObtenerFiltros() 
+        {
+            List<string> marcasAux = new List<string>();
+            List<string> marcas = null;
+            List<string> categoriasAux = new List<string>();
+            List<string> categorias = null;
 
             foreach (ListItem control in MarcasCheckBoxList.Items)
             {
@@ -149,20 +159,20 @@ namespace CatalogoProductos_Web
                 }
             }
 
-            if (marcasAux.Count > 0) 
+            if (marcasAux.Count > 0)
             {
                 marcas = marcasAux;
             }
 
             foreach (ListItem control in CategoriasCheckBoxList.Items)
             {
-                if (control.Selected) 
+                if (control.Selected)
                 {
                     categoriasAux.Add(control.Text);
                 }
             }
 
-            if (categoriasAux.Count > 0) 
+            if (categoriasAux.Count > 0)
             {
                 categorias = categoriasAux;
             }
@@ -173,7 +183,7 @@ namespace CatalogoProductos_Web
 
             string tipoOrden = ConvertirTipoOrden(OrdenTipoDropDownList.SelectedItem.Text);
 
-            ((Productos)Page).AplicarFiltros(marcas, categorias, condicionPrecio, precio, tipoOrden);
+            return Tuple.Create(marcas, categorias, condicionPrecio, precio, tipoOrden);
         }
 
         public string ConvertirTipoOrden(string tipoOrden) 
@@ -199,7 +209,14 @@ namespace CatalogoProductos_Web
 
         protected void LimpiarFiltrosButton_ServerClick(object sender, EventArgs e)
         {
+            ((Productos)Page).CargarProductos();
+        }
 
+        protected void AplicarOrdenButton_ServerClick(Object sender, EventArgs e) 
+        {
+            Tuple<List<string>, List<string>, string, decimal, string> filtroOrden = ObtenerFiltros();
+
+            ((Productos)Page).AplicarFiltros(null,null,"",-1,filtroOrden.Item5);
         }
     }
 }

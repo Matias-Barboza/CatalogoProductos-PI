@@ -19,19 +19,21 @@ namespace CatalogoProductos_Web
             {
                 CargarProductos();
             }
+
+            if (Session["NoHayProductosCargados"] != null) 
+            {
+                NoHayProductosCargados = (bool)Session["NoHayProductosCargados"];
+            }
         }
 
         public void CargarProductos(List<string> marcas = null, List<string> categorias = null, string condicionPrecio = "", decimal precio = -1, string tipoOrden = "") 
         {
             ArticuloNegocio articuloNegocio = new ArticuloNegocio();
-            
-            if (articuloNegocio.ObtenerArticulos(marcas, categorias, condicionPrecio, precio, tipoOrden).Count == 0) 
-            {
-                NoHayProductosCargados = true;
-                return;
-            }
+            List<Articulo> listaArticulos = articuloNegocio.ObtenerArticulos(marcas, categorias, condicionPrecio, precio, tipoOrden);
 
-            RepeaterProductos.DataSource = articuloNegocio.ObtenerArticulos(marcas, categorias, condicionPrecio, precio, tipoOrden);
+            NoHayProductosCargados = listaArticulos.Count == 0;
+            Session.Add("NoHayProductosCargados", NoHayProductosCargados);
+            RepeaterProductos.DataSource = listaArticulos;
             RepeaterProductos.DataBind();
         }
 

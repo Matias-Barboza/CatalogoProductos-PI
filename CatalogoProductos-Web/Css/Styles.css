@@ -226,7 +226,7 @@ hr {
 .one-product-container {
     display: flex;
     width: 1100px;
-    height: 150px;
+    height: 160px;
     border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color-translucent) !important;
     box-shadow: .25rem .5rem 1rem rgba(0, 0, 0, .075);
     transition: transform 0.2s;
@@ -292,6 +292,11 @@ hr {
     color: var(--bs-body-color);
 }
 
+.h7-product-proyect {
+    font-size: 1rem;
+    color: darkslategray;
+}
+
 .h6-product-proyect {
     font-size: 1.2rem;
     color: darkslategray;
@@ -301,6 +306,7 @@ hr {
     font-weight: 500;
     font-size: 1.032rem;
     color: var(--bs-gray-600);
+    margin-bottom: .5rem !important;
 }
 
 .span-checkbox-container input {
