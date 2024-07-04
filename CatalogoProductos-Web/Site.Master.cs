@@ -147,15 +147,19 @@ namespace CatalogoProductos_Web
         {
             List<string> marcas = null;
             List<string> categorias = null;
-            decimal precio;
+            decimal precio = -1;
+            string condicionPrecio = "";
 
-            marcas = ObtenerCheckBoxsFiltrosSeleccionados(MarcasCheckBoxList);
+            if (FiltrosActivos) 
+            {
+                marcas = ObtenerCheckBoxsFiltrosSeleccionados(MarcasCheckBoxList);
 
-            categorias = ObtenerCheckBoxsFiltrosSeleccionados(CategoriasCheckBoxList);
+                categorias = ObtenerCheckBoxsFiltrosSeleccionados(CategoriasCheckBoxList);
 
-            string condicionPrecio = ConvertirCondicion(CondicionDropDownList.SelectedItem.Text);
+                condicionPrecio = ConvertirCondicion(CondicionDropDownList.SelectedItem.Text);
 
-            precio = decimal.TryParse(ValorFiltroTextBox.Text, out precio) ? precio : -1;
+                precio = decimal.TryParse(ValorFiltroTextBox.Text, out precio) ? precio : -1;
+            }
 
             string tipoOrden = ConvertirCondicion(OrdenTipoDropDownList.SelectedItem.Text);
 
@@ -213,6 +217,7 @@ namespace CatalogoProductos_Web
         {
             DesmarcarCheckBoxs(MarcasCheckBoxList);
             DesmarcarCheckBoxs(CategoriasCheckBoxList);
+
             CondicionDropDownList.SelectedIndex = 0;
             ValorFiltroTextBox.Text = "";
 
@@ -234,7 +239,7 @@ namespace CatalogoProductos_Web
         {
             string campoBusqueda = "";
 
-            if (Session["CampoBusqueda"] != null) 
+            if (Session["CampoBusqueda"] != null && Session["campoBusqueda"].ToString() == BusquedaTextBox.Text) 
             {
                 campoBusqueda = Session["CampoBusqueda"].ToString();
             }
