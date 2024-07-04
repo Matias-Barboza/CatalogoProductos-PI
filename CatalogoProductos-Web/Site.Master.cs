@@ -12,9 +12,6 @@ namespace CatalogoProductos_Web
 {
     public partial class Site : System.Web.UI.MasterPage
     {
-        public bool FiltroMarcaActivo { get; set; }
-        public bool FiltroCategoriaActivo { get; set; }
-        public bool FiltroPrecioActivo { get; set; }
         public bool FiltrosActivos { get; set; }
         
         protected void Page_Load(object sender, EventArgs e)
@@ -36,13 +33,9 @@ namespace CatalogoProductos_Web
 
         public void MostrarFiltrosActivos()
         { 
-            FiltrosActivos = Session["FiltrosActivos"] != null && (bool)Session["FiltrosActivos"];
+            FiltrosActivos = (bool)Session["FiltrosActivos"];
 
-            FiltroMarcaActivo = Session["FiltroMarca"] != null && (bool)Session["FiltroMarca"];
-
-            FiltroCategoriaActivo = Session["FiltroCategoria"] != null && (bool)Session["FiltroCategoria"];
-
-            FiltroPrecioActivo = Session["FiltroPrecio"] != null && (bool)Session["FiltroPrecio"];
+            BuscarButton.Disabled = FiltrosActivos;
         }
 
         public bool HayFiltrosActivos()
@@ -52,36 +45,49 @@ namespace CatalogoProductos_Web
 
         public void CargarFiltros() 
         {
+            MarcaNegocio marcaNegocio = new MarcaNegocio();
+            CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
+            List<object> marcas;
+            List<object> categorias;
 
-            if (FiltroMarcaActivo) 
+            if (!ControlesEstanVacios()) 
             {
-                MarcaNegocio marcaNegocio = new MarcaNegocio();
-                List<object> marcas = marcaNegocio.ObtenerMarcas().ToList<object>();
-
-                VincularADataSource(MarcasCheckBoxList, marcas, "Descripcion", "Id");
+                return;
             }
 
-            if (FiltroCategoriaActivo) 
+            if (MarcasCheckBoxList.Items.Count == 0) 
             {
-                CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
-                List<object> categorias = categoriaNegocio.ObtenerCategorias().ToList<object>();
-
-                VincularADataSource(CategoriasCheckBoxList, categorias, "Descripcion", "Id");
+                marcas = marcaNegocio.ObtenerMarcas().ToList<object>();
+                VincularElementoADataSource(MarcasCheckBoxList, marcas, "Descripcion", "Id");
             }
 
-            if (FiltroPrecioActivo) 
+            if (CategoriasCheckBoxList.Items.Count == 0) 
             {
-                CondicionDropDownList.Items.AddRange(new ListItem[] {
-                                                                        new ListItem("Seleccione una opción", ""),
-                                                                        new ListItem("Igual a", "="),
-                                                                        new ListItem("Mayor a", ">"),
-                                                                        new ListItem("Menor a", "<"),
-                                                                        new ListItem("Mayor o igual a", ">="),
-                                                                        new ListItem("Menor o igual a", "<=")});
+                categorias = categoriaNegocio.ObtenerCategorias().ToList<object>();
+                VincularElementoADataSource(CategoriasCheckBoxList, categorias, "Descripcion", "Id");
+            }
+
+
+            if(CondicionDropDownList.Items.Count == 0) 
+            {
+                List<object> condiciones = new List<object> {
+                                                                    new ListItem("Seleccione una opción"),
+                                                                    new ListItem("Igual a"),
+                                                                    new ListItem("Mayor a"),
+                                                                    new ListItem("Menor a"),
+                                                                    new ListItem("Mayor o igual a"),
+                                                                    new ListItem("Menor o igual a")
+                                                                   };
+                VincularElementoADataSource(CondicionDropDownList, condiciones, "Text", "Value");
             }
         }
 
-        public void VincularADataSource(ListControl listControl, List<object> fuente, string dataText, string dataValue) 
+        public bool ControlesEstanVacios() 
+        {
+            return MarcasCheckBoxList.Items.Count == 0 && CategoriasCheckBoxList.Items.Count == 0 && CondicionDropDownList.Items.Count == 0;
+        }
+
+        public void VincularElementoADataSource(ListControl listControl, List<object> fuente, string dataText, string dataValue) 
         {
             listControl.DataSource = fuente;
             listControl.DataTextField = dataText;
@@ -101,33 +107,21 @@ namespace CatalogoProductos_Web
 
         protected void BuscarButton_ServerClick(object sender, EventArgs e)
         {
-            
+            if (Page.IsValid) 
+            {
+                ((Productos)Page).AplicarFiltros(campoBusqueda: BusquedaTextBox.Text);
+                Session.Add("CampoBusqueda", BusquedaTextBox.Text);
+            }
         }
 
         protected void CheckBox_CheckedChanged(object sender, EventArgs e) 
         {
             CheckBox checkBox = (CheckBox) sender;
 
-            if (checkBox.ID == "MarcaCheckBox") 
-            {
-                FiltroMarcaActivo = checkBox.Checked;
-                Session.Add("FiltroMarca", FiltroMarcaActivo);
-            }
-
-            if (checkBox.ID == "CategoriaCheckBox") 
-            {
-                FiltroCategoriaActivo = checkBox.Checked;
-                Session.Add("FiltroCategoria", FiltroCategoriaActivo);
-            }
-
-            if (checkBox.ID == "PrecioCheckBox") 
-            {
-                FiltroPrecioActivo = checkBox.Checked;
-                Session.Add("FiltroPrecio", FiltroPrecioActivo);
-            }
-
-            FiltrosActivos = FiltroMarcaActivo || FiltroCategoriaActivo || FiltroPrecioActivo;
+            FiltrosActivos = checkBox.Checked;
             Session.Add("FiltrosActivos", FiltrosActivos);
+            OrdenTipoDropDownList.SelectedIndex = 0;
+            BusquedaTextBox.Text = "";
 
             if (FiltrosActivos) 
             {
@@ -139,6 +133,11 @@ namespace CatalogoProductos_Web
 
         protected void AplicarFiltrosButton_ServerClick(object sender, EventArgs e)
         {
+            if (!Page.IsValid) 
+            {
+                return;
+            }
+
             Tuple<List<string>, List<string>, string, decimal, string> filtros = ObtenerFiltros();
 
             ((Productos)Page).AplicarFiltros(filtros.Item1, filtros.Item2, filtros.Item3, filtros.Item4, filtros.Item5);
@@ -146,51 +145,44 @@ namespace CatalogoProductos_Web
 
         public Tuple<List<string>,List<string>,string,decimal,string> ObtenerFiltros() 
         {
-            List<string> marcasAux = new List<string>();
             List<string> marcas = null;
-            List<string> categoriasAux = new List<string>();
             List<string> categorias = null;
+            decimal precio;
 
-            foreach (ListItem control in MarcasCheckBoxList.Items)
-            {
-                if (control.Selected)
-                {
-                    marcasAux.Add(control.Text);
-                }
-            }
+            marcas = ObtenerCheckBoxsFiltrosSeleccionados(MarcasCheckBoxList);
 
-            if (marcasAux.Count > 0)
-            {
-                marcas = marcasAux;
-            }
+            categorias = ObtenerCheckBoxsFiltrosSeleccionados(CategoriasCheckBoxList);
 
-            foreach (ListItem control in CategoriasCheckBoxList.Items)
-            {
-                if (control.Selected)
-                {
-                    categoriasAux.Add(control.Text);
-                }
-            }
+            string condicionPrecio = ConvertirCondicion(CondicionDropDownList.SelectedItem.Text);
 
-            if (categoriasAux.Count > 0)
-            {
-                categorias = categoriasAux;
-            }
+            precio = decimal.TryParse(ValorFiltroTextBox.Text, out precio) ? precio : -1;
 
-            string condicionPrecio = CondicionDropDownList.SelectedValue;
-
-            decimal.TryParse(ValorFiltroTextBox.Text, out decimal precio);
-
-            string tipoOrden = ConvertirTipoOrden(OrdenTipoDropDownList.SelectedItem.Text);
+            string tipoOrden = ConvertirCondicion(OrdenTipoDropDownList.SelectedItem.Text);
 
             return Tuple.Create(marcas, categorias, condicionPrecio, precio, tipoOrden);
         }
 
-        public string ConvertirTipoOrden(string tipoOrden) 
+        public List<string> ObtenerCheckBoxsFiltrosSeleccionados(CheckBoxList checkBoxList) 
+        {
+            List<string> list = null;
+            List<string> listItemsSeleccionados = new List<string>();
+
+            foreach (ListItem control in checkBoxList.Items)
+            {
+                if (control.Selected)
+                {
+                    listItemsSeleccionados.Add(control.Text);
+                }
+            }
+
+            return listItemsSeleccionados.Count > 0 ? listItemsSeleccionados : list;
+        }
+
+        public string ConvertirCondicion(string condicion) 
         {
             string clausula = "";
 
-            switch (tipoOrden)
+            switch (condicion)
             {
                 case "A-Z": clausula = "ORDER BY a.Nombre";
                     break;
@@ -199,6 +191,16 @@ namespace CatalogoProductos_Web
                 case "Menor a mayor precio": clausula = "ORDER BY a.Precio";
                     break;
                 case "Mayor a menor precio": clausula = "ORDER BY a.Precio DESC";
+                    break;
+                case "Igual a": clausula = "=";
+                    break;
+                case "Mayor a": clausula = ">";
+                    break;
+                case "Menor a": clausula = "<";
+                    break;
+                case "Mayor o igual a": clausula = ">=";
+                    break;
+                case "Menor o igual a": clausula = "<=";
                     break;
                 default:
                     break;
@@ -209,14 +211,81 @@ namespace CatalogoProductos_Web
 
         protected void LimpiarFiltrosButton_ServerClick(object sender, EventArgs e)
         {
+            DesmarcarCheckBoxs(MarcasCheckBoxList);
+            DesmarcarCheckBoxs(CategoriasCheckBoxList);
+            CondicionDropDownList.SelectedIndex = 0;
+            ValorFiltroTextBox.Text = "";
+
             ((Productos)Page).CargarProductos();
+        }
+
+        public void DesmarcarCheckBoxs(ListControl checkBoxList) 
+        {
+            foreach (ListItem checkBox in checkBoxList.Items)
+            {
+                if (checkBox.Selected)
+                {
+                    checkBox.Selected = !checkBox.Selected;
+                }
+            }
         }
 
         protected void AplicarOrdenButton_ServerClick(Object sender, EventArgs e) 
         {
+            string campoBusqueda = "";
+
+            if (Session["CampoBusqueda"] != null) 
+            {
+                campoBusqueda = Session["CampoBusqueda"].ToString();
+            }
+
             Tuple<List<string>, List<string>, string, decimal, string> filtroOrden = ObtenerFiltros();
 
-            ((Productos)Page).AplicarFiltros(null,null,"",-1,filtroOrden.Item5);
+            ((Productos)Page).AplicarFiltros(tipoOrden: filtroOrden.Item5, campoBusqueda: campoBusqueda);
+        }
+
+        protected void ValorFiltroCustomValidator_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            try
+            {
+                CondicionPrecioCustomValidator.IsValid = CondicionDropDownList.SelectedIndex != 0;
+
+                if (!CondicionPrecioCustomValidator.IsValid && !decimal.TryParse(ValorFiltroTextBox.Text, out _))
+                {
+                    args.IsValid = true;
+                    CondicionPrecioCustomValidator.IsValid = args.IsValid;
+                    return;
+                }
+
+                args.IsValid = decimal.TryParse(ValorFiltroTextBox.Text, out _);
+                ValorFiltroTextBox.Focus();
+            }
+            catch (Exception)
+            {
+                args.IsValid = false;
+            }
+        }
+
+        protected void CondicionPrecioCustomValidator_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            try
+            {
+                ValorFiltroCustomValidator.IsValid = decimal.TryParse(ValorFiltroTextBox.Text, out _);
+
+                if (!ValorFiltroCustomValidator.IsValid && CondicionDropDownList.SelectedIndex == 0) 
+                {
+                   args.IsValid = true;
+                   ValorFiltroCustomValidator.IsValid = args.IsValid;
+                   return;
+                }
+
+                args.IsValid = CondicionDropDownList.SelectedIndex != 0;
+                CondicionDropDownList.Focus();
+            }
+            catch (Exception)
+            {
+                args.IsValid = false;
+            }
         }
     }
 }

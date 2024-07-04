@@ -58,7 +58,7 @@ namespace CatalogoProductos_negocio
             }
         }
 
-        public List<Articulo> ObtenerArticulos(List<string> marcas = null, List<string> categorias = null, string condicionPrecio = "", decimal precio = -1, string tipoOrden = "") 
+        public List<Articulo> ObtenerArticulos(List<string> marcas = null, List<string> categorias = null, string condicionPrecio = "", decimal precio = -1, string tipoOrden = "", string campoBusqueda = "") 
         {
             List<Articulo> listaArticulos = new List<Articulo>();
             AccesoDatos accesoDatos = new AccesoDatos();
@@ -91,8 +91,15 @@ namespace CatalogoProductos_negocio
 
                 if (condicionPrecio != "" && precio != -1) 
                 {
-                    accesoDatos.ConcatenarQuery(categorias == null ? $" WHERE a.precio {condicionPrecio} @precio" : $" AND a.precio {condicionPrecio} @precio");
+                    accesoDatos.ConcatenarQuery(categorias == null && marcas == null ? $" WHERE a.precio {condicionPrecio} @precio" : $" AND a.precio {condicionPrecio} @precio");
                     accesoDatos.AgregarParametro("precio", precio);
+                }
+
+                if (campoBusqueda != "") 
+                {
+                    accesoDatos.ConcatenarQuery(" WHERE a.Nombre LIKE @busqueda OR m.Descripcion LIKE @busqueda");
+                    campoBusqueda = $"%{campoBusqueda}%";
+                    accesoDatos.AgregarParametro("busqueda", campoBusqueda);
                 }
 
                 if (tipoOrden != "") 

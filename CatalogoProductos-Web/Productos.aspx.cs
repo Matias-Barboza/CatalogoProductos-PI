@@ -26,10 +26,10 @@ namespace CatalogoProductos_Web
             }
         }
 
-        public void CargarProductos(List<string> marcas = null, List<string> categorias = null, string condicionPrecio = "", decimal precio = -1, string tipoOrden = "") 
+        public void CargarProductos(List<string> marcas = null, List<string> categorias = null, string condicionPrecio = "", decimal precio = -1, string tipoOrden = "", string campoBusqueda = "") 
         {
             ArticuloNegocio articuloNegocio = new ArticuloNegocio();
-            List<Articulo> listaArticulos = articuloNegocio.ObtenerArticulos(marcas, categorias, condicionPrecio, precio, tipoOrden);
+            List<Articulo> listaArticulos = articuloNegocio.ObtenerArticulos(marcas, categorias, condicionPrecio, precio, tipoOrden, campoBusqueda);
 
             NoHayProductosCargados = listaArticulos.Count == 0;
             Session.Add("NoHayProductosCargados", NoHayProductosCargados);
@@ -37,9 +37,9 @@ namespace CatalogoProductos_Web
             RepeaterProductos.DataBind();
         }
 
-        public void AplicarFiltros(List<string> marcas = null, List<string> categorias = null, string condicionPrecio = "", decimal precio = -1, string tipoOrden = "") 
+        public void AplicarFiltros(List<string> marcas = null, List<string> categorias = null, string condicionPrecio = "", decimal precio = -1, string tipoOrden = "", string campoBusqueda = "") 
         {
-            CargarProductos(marcas, categorias, condicionPrecio, precio, tipoOrden);
+            CargarProductos(marcas, categorias, condicionPrecio, precio, tipoOrden, campoBusqueda);
         }
 
         protected void FavoritoButton_ServerClick(object sender, EventArgs e)
