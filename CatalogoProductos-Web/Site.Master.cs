@@ -16,7 +16,7 @@ namespace CatalogoProductos_Web
         
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Page is Productos productos)
+            if (Page is Productos)
             {
                 if (!IsPostBack) 
                 {

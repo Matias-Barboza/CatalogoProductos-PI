@@ -71,6 +71,7 @@
     <Content Include="Default.aspx" />
     <Content Include="DetalleProducto.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="ListadoProductos.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Productos.aspx" />
     <Content Include="FormularioRegistro.aspx" />
@@ -93,6 +94,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="ListadoProductos.aspx.cs">
+      <DependentUpon>ListadoProductos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ListadoProductos.aspx.designer.cs">
+      <DependentUpon>ListadoProductos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
