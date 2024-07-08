@@ -47,7 +47,7 @@
         <hr class="hr-product-proyect"/>
 
         <div class="container-some-products">
-            <asp:Repeater runat="server" ID="RepeaterAlgunosProductos">
+            <asp:Repeater ID="RepeaterAlgunosProductos" runat="server">
                 <ItemTemplate>
                     <div class="card card-proyect">
                         <img src="<%#Eval("ImagenUrl").ToString() == "" ?

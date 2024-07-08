@@ -15,8 +15,17 @@ namespace CatalogoProductos_Web
         {
             ArticuloNegocio articuloNegocio = new ArticuloNegocio();
 
-            ProductosGridView.DataSource = articuloNegocio.ObtenerArticulos();
+            ProductosGridView.DataSource = articuloNegocio.ObtenerArticulos(tipoOrden: "ORDER BY c.Descripcion");
             ProductosGridView.DataBind();
+        }
+
+        protected void ProductosGridView_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "EditarProducto") 
+            {
+                string id = ProductosGridView.DataKeys[Convert.ToInt32(e.CommandArgument)].ToString();
+                Response.Redirect($"FormularioProducto.aspx?id={id}");
+            }
         }
     }
 }

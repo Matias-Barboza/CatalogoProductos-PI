@@ -10,14 +10,17 @@
         
         <hr />
 
-        <asp:GridView ID="ProductosGridView" AutoGenerateColumns="false" CssClass="table table-striped" runat="server">
+        <asp:GridView ID="ProductosGridView" AutoGenerateColumns="false" CssClass="table table-striped" runat="server"
+            DataKeyNames="Id" OnRowCommand="ProductosGridView_RowCommand">
             <Columns>
-                <asp:BoundField DataField="CodigoArticulo" HeaderText="Código"/>
-                <asp:BoundField DataField="Nombre" HeaderText="Nombre"/>
-                <asp:BoundField DataField="Marca.Descripcion" HeaderText="Marca"/>
-                <asp:BoundField DataField="Categoria.Descripcion" HeaderText="Categoría"/>
-                <asp:BoundField DataField="Precio" HeaderText="Precio" DataFormatString="{0:C3}"/>
-                <asp:ButtonField ButtonType="Button" HeaderText="Acción" AccessibleHeaderText="Acción" ItemStyle-CssClass="bi bi-pencil-square btn-default" ItemStyle-HorizontalAlign="Center" />
+                <asp:BoundField DataField="Id" Visible="false" />
+                <asp:BoundField DataField="Categoria.Descripcion" HeaderText="Categoría" ItemStyle-VerticalAlign="Middle"/>
+                <asp:BoundField DataField="CodigoArticulo" HeaderText="Código" ItemStyle-VerticalAlign="Middle"/>
+                <asp:BoundField DataField="Nombre" HeaderText="Nombre" ItemStyle-VerticalAlign="Middle"/>
+                <asp:BoundField DataField="Marca.Descripcion" HeaderText="Marca" ItemStyle-VerticalAlign="Middle"/>
+                <asp:BoundField DataField="Precio" HeaderText="Precio" ItemStyle-VerticalAlign="Middle" DataFormatString="{0:C3}"/>
+                <asp:ButtonField ButtonType="Link" HeaderText="Acción" AccessibleHeaderText="Acción"
+                    ItemStyle-CssClass="has-icon" Text="&#xF4CA;" ItemStyle-HorizontalAlign="center" CommandName="EditarProducto" />
             </Columns>
         </asp:GridView>
 
