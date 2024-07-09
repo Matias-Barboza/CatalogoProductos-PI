@@ -27,5 +27,11 @@ namespace CatalogoProductos_Web
                 Response.Redirect($"FormularioProducto.aspx?id={id}");
             }
         }
+
+        protected void ProductosGridView_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            ProductosGridView.PageIndex = e.NewPageIndex;
+            ProductosGridView.DataBind();
+        }
     }
 }
