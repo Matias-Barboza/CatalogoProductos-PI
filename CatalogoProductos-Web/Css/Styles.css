@@ -547,6 +547,13 @@ hr {
     border-bottom-right-radius: var(--bs-pagination-border-radius);
 }
 
+.jumbotron-products-grid {
+    min-height: 477px;
+}
+
+.jumbotron-no-products-grid {
+    background-color: var(--bs-danger-bg-subtle) !important;
+}
 /* --------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /* ------------------------------------------------------------------- LOGIN ------------------------------------------------------------------------------- */
 .login-container {

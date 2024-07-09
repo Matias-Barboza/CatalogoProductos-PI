@@ -11,11 +11,25 @@ namespace CatalogoProductos_Web
 {
     public partial class ListadoProductos : System.Web.UI.Page
     {
+        public bool NoHayProductosCargados;
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            ArticuloNegocio articuloNegocio = new ArticuloNegocio();
+            CargarListadoProductos();
+        }
 
-            ProductosGridView.DataSource = articuloNegocio.ObtenerArticulos(tipoOrden: "ORDER BY c.Descripcion");
+        public void CargarListadoProductos() 
+        {
+            ArticuloNegocio articuloNegocio = new ArticuloNegocio();
+            List<Articulo> articulos = articuloNegocio.ObtenerArticulos(tipoOrden: "ORDER BY c.Descripcion");
+
+            if (articulos.Count == 0) 
+            {
+                NoHayProductosCargados = true;
+                return;
+            }
+
+            ProductosGridView.DataSource = articulos;
             ProductosGridView.DataBind();
         }
 
