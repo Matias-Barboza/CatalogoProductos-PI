@@ -45,7 +45,7 @@
             <asp:UpdatePanel runat="server">
                 <ContentTemplate>
                     <asp:GridView ID="ProductosGridView" AutoGenerateColumns="false" CssClass="table table-striped" runat="server"
-                        DataKeyNames="Id" AllowPaging="true" PageSize="10" PagerStyle-CssClass="pagination-proyect" PagerStyle-HorizontalAlign="Center" 
+                        DataKeyNames="Id" AllowPaging="true" PageSize="10" PagerStyle-CssClass="pagination-proyect" PagerStyle-HorizontalAlign="Center"
                         OnPageIndexChanging="ProductosGridView_PageIndexChanging" OnRowCommand="ProductosGridView_RowCommand">
                         <Columns>
                             <asp:TemplateField HeaderText="#" ItemStyle-Font-Bold="true" HeaderStyle-CssClass="table-dark">
@@ -70,7 +70,7 @@
               {%>
             <div class="jumbotron-proyect jumbotron-no-products-grid rounded-3 border shadow">
                 <div class="container">
-                    <h1 class="display-5">NO HAY PRODUCTOS CARGADOS</h1>
+                    <h1 class="display-5">NO SE ENCONTRARON PRODUCTOS CARGADOS</h1>
                     <p class="lead">Puede agregarlos en cualquier momento.</p>
                     <hr class="my-4" />
                     <a href="FormularioProducto.aspx" class="btn btn-primary icon-link icon-link-hover arrow-container">Agregar producto ahora...

@@ -53,6 +53,12 @@
                                 PRODUCTOS
                             </a>
                         </li>
+                        <li class="nav-item nav-item-proyect">
+                            <a href="listadoProductos.aspx" class="nav-link active icon-link icon-link-hover">
+                                <i class="bi bi-list-ol"></i>
+                                LISTADO DE PRODUCTOS
+                            </a>
+                        </li>
                     </ul>
                 </div>
 

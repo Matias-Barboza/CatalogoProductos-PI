@@ -37,7 +37,9 @@ namespace CatalogoProductos_Web
         {
             if (e.CommandName == "EditarProducto") 
             {
-                string id = ProductosGridView.DataKeys[Convert.ToInt32(e.CommandArgument)].ToString();
+                int indiceFila = Convert.ToInt32(e.CommandArgument);
+                string id = ProductosGridView.DataKeys[indiceFila].Value.ToString();
+
                 Response.Redirect($"FormularioProducto.aspx?id={id}");
             }
         }

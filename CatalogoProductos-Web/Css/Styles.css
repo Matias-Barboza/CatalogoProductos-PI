@@ -428,12 +428,14 @@ hr {
 
 .img-info-container {
     display: flex;
+    max-height: 380px;
 }
 
 .img-detail-container {
     display: flex;
     justify-content: center;
     width: 50%;
+    padding: 1rem;
 }
 
 .info-detail-container {
@@ -554,6 +556,37 @@ hr {
 .jumbotron-no-products-grid {
     background-color: var(--bs-danger-bg-subtle) !important;
 }
+
+/* --------------------------------------------------------------------------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------- FORMULARIO PRODUCTO ------------------------------------------------------------------------- */
+.current-data-container {
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+.brand-category-container {
+    display: flex;
+}
+
+.imgs-form-container {
+    display: flex;
+    justify-content: center;
+}
+
+.img-form-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0 .5rem;
+    padding: 1rem;
+    width: 510px;
+    height: 410px;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: center;
+}
+
 /* --------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /* ------------------------------------------------------------------- LOGIN ------------------------------------------------------------------------------- */
 .login-container {

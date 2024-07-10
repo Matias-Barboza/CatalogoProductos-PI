@@ -15,6 +15,8 @@ namespace CatalogoProductos_Web
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            //Si viene vacio debe navegar a pagina de error
+
             if (Request.QueryString["id"] != null) 
             {
                 if (!int.TryParse(Request.QueryString["id"], out _idProducto))
