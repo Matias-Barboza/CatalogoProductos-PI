@@ -6,7 +6,6 @@
 
     <section class="section-proyect">
 
-
         <div class="current-data-container rounded-3 border shadow">
             
             <h2 class="text-center">Formulario de Producto</h2>
@@ -14,52 +13,110 @@
             <hr />
 
             <%-- Código de articulo --%>
-            <div class="input-group mb-3">
-                <span class="input-group-text" >Código de artículo</span>
-                <asp:TextBox ID="CodigoArticuloTextBox" CssClass="form-control" placeholder="Ej: S23" runat="server"></asp:TextBox>
+            <div class="mb-3">
+                
+                <div class="input-group mb-1">
+                    <span class="input-group-text">Código de artículo<span class="required-data"> *</span></span>
+                    <asp:TextBox ID="CodigoArticuloTextBox" CssClass="form-control" placeholder="Ej: S23" runat="server"></asp:TextBox>
+                </div>
+
+                <div class="ms-2">
+                    <asp:RegularExpressionValidator ErrorMessage="El código de artículo debe tener 3 caracteres como mínimo y 50 como máximo." Display="Dynamic"
+                                        ControlToValidate="CodigoArticuloTextBox" CssClass="validator" ValidationExpression="^[a-zA-Z0-9]{3,50}$"
+                                        runat="server" />
+                    <asp:RegularExpressionValidator ErrorMessage="El código de artículo debe contener al menos una (1) letra y dos (2) números." Display="Dynamic"
+                                        ControlToValidate="CodigoArticuloTextBox" CssClass="validator" ValidationExpression="^(?=.*[a-zA-Z])(?=.*\d.*\d)[a-zA-Z0-9]{3,50}$"
+                                        runat="server" />
+                    <asp:RequiredFieldValidator ErrorMessage="El código de artículo es obligatorio." Display="Dynamic"
+                                                ControlToValidate="CodigoArticuloTextBox" CssClass="validator" runat="server" />
+                </div>
+
             </div>
 
             <%-- Nombre de articulo --%>
-            <div class="input-group mb-3">
-                <span class="input-group-text" >Nombre de artículo</span>
-                <asp:TextBox ID="NombreArticuloTextBox" CssClass="form-control" placeholder="Ej: Galaxy S23" runat="server"></asp:TextBox>
+            <div class="mb-3">
+                
+                <div class="input-group mb-1">
+                    <span class="input-group-text">Nombre de artículo<span class="required-data"> *</span></span>
+                    <asp:TextBox ID="NombreArticuloTextBox" CssClass="form-control" placeholder="Ej: Galaxy S23" runat="server"></asp:TextBox>
+                </div>
+
+                <div class="ms-2">
+                    <asp:RequiredFieldValidator ErrorMessage="El nombre de artículo es obligatorio." Display="Dynamic"
+                            ControlToValidate="NombreArticuloTextBox" CssClass="validator" runat="server" />
+                </div>
+
             </div>
 
             <%-- Descripción --%>
-            <div class="input-group mb-3">
-                <span class="input-group-text" >Descripción de artículo</span>
-                <asp:TextBox ID="DescripcionArticuloTextBox" CssClass="form-control" TextMode="MultiLine"
-                             MaxLength="150" placeholder="Ej: Celular última generación..." runat="server"></asp:TextBox>
+            <div class="mb-3">
+                
+                <div class="input-group mb-1">
+                    <span class="input-group-text">Descripción de artículo</span>
+                    <asp:TextBox ID="DescripcionArticuloTextBox" CssClass="form-control" TextMode="MultiLine"
+                                 MaxLength="150" placeholder="Ej: Celular última generación..." runat="server"></asp:TextBox>
+                </div>
+
+                <div class="ms-2">
+                    <p class="form-text">La descripción no es un campo obligatorio mas sí recomendable.</p>
+                </div>
+
             </div>
 
             <%-- Marca y Categoría --%>
             <div class="brand-category-container mb-3">
 
                 <%-- Marca --%>
-                <div class="input-group me-3">
-                    <label class="input-group-text">Marca</label>
-                    <asp:DropDownList ID="MarcasDropDownList" CssClass="form-select" runat="server"></asp:DropDownList>
+                <div class="w-100 me-3">
+
+                    <div class="input-group mb-1">
+                        <label class="input-group-text">Marca<span class="required-data"> *</span></label>
+                        <asp:DropDownList ID="MarcasDropDownList" CssClass="form-select" runat="server"></asp:DropDownList>
+                    </div>
+                    <asp:CustomValidator ID="MarcasCustomValidator" ErrorMessage="La selección de una marca es obligatoria."
+                                         Display="Dynamic" ControlToValidate="MarcasDropDownList" CssClass="validator ms-2"
+                                         OnServerValidate="DropDownListCustomValidator_ServerValidate" runat="server" />
+
                 </div>
 
                 <%-- Categoría --%>
-                <div class="input-group">
-                    <label class="input-group-text">Categoría</label>
-                    <asp:DropDownList ID="CategoriasDropDownList" CssClass="form-select" runat="server"></asp:DropDownList>
+                <div class="w-100">
+
+                    <div class="input-group mb-1">
+                        <label class="input-group-text">Categoría<span class="required-data"> *</span></label>
+                        <asp:DropDownList ID="CategoriasDropDownList" CssClass="form-select" runat="server"></asp:DropDownList>
+                    </div>
+                    <asp:CustomValidator ID="CategoriasCustomValidator" ErrorMessage="La selección de una categoría es obligatoria."
+                                         Display="Dynamic" ControlToValidate="CategoriasDropDownList" CssClass="validator ms-2"
+                                         OnServerValidate="DropDownListCustomValidator_ServerValidate" runat="server" />
+
                 </div>
 
             </div>
 
             <%-- Precio --%>
-            <div class="input-group mb-3">
-                <span class="input-group-text" >Precio de artículo</span>
-                <span class="input-group-text">$</span>
-                <asp:TextBox ID="PrecioArticuloTextBox" CssClass="form-control" placeholder="Ej: 150.000,00" runat="server"></asp:TextBox>
+            <div class="mb-3">
+
+                <div class="input-group mb-1">
+                    <span class="input-group-text">Precio de artículo<span class="required-data">*</span></span>
+                    <span class="input-group-text">$</span>
+                    <asp:TextBox ID="PrecioArticuloTextBox" CssClass="form-control" placeholder="Ej: 150.000,00; 100000" runat="server"></asp:TextBox>
+                </div>
+
+                <div class="ms-2">
+                    <asp:RequiredFieldValidator ErrorMessage="El precio del artículo es obligatorio." Display="Dynamic"
+                                                ControlToValidate="PrecioArticuloTextBox" CssClass="validator" runat="server" />
+                    <asp:RegularExpressionValidator ErrorMessage="El formato debe ser como: '100', '1000', '1.000', '1500,25'."
+                                                    Display="Dynamic" ValidationExpression="^(?:\d{1,3}(?:\.\d{3})*|\d+)(?:,\d{1,2})?$"
+                                                    ControlToValidate="PrecioArticuloTextBox" CssClass="validator" runat="server" />
+                </div>
+
             </div>
 
             <div class="mb-3">
                 <%-- URL imagen --%>
                 <div class="input-group mb-1">
-                    <span class="input-group-text" >URL de imagen del artículo</span>
+                    <span class="input-group-text">URL de imagen del artículo<span class="required-data">*</span></span>
                     <asp:TextBox ID="UrlImagenTextBox" CssClass="form-control" TextMode="Url"
                                  placeholder="Ej: https://example.com" runat="server"></asp:TextBox>
                     <asp:Button ID="ProbarUrlButton" Text="Probar URL" OnClick="ProbarUrlButton_Click"
@@ -68,9 +125,11 @@
                 </div>
 
                 <div class="ms-2">
-                    <asp:RequiredFieldValidator ErrorMessage="La URL no puede estar vacía." CssClass="validator"
-                                                Display="Dynamic" ValidationGroup="ProbarUrlValidation" 
-                                                ControlToValidate="UrlImagenTextBox" runat="server" />
+                    <asp:RequiredFieldValidator ErrorMessage="La URL no puede estar vacía para probar." Display="Dynamic"
+                                                ValidationGroup="ProbarUrlValidation" ControlToValidate="UrlImagenTextBox"
+                                                CssClass="validator" runat="server" />
+                    <asp:RequiredFieldValidator ErrorMessage="La URL de la imagen del artículo es obligatoria." Display="Dynamic"
+                                                ControlToValidate="UrlImagenTextBox" CssClass="validator" runat="server" />
                 </div>
 
             </div>
@@ -87,16 +146,20 @@
                 <div class="img-form-container rounded-3 border shadow">
                     <label class="form-label h4">Imagen actual</label>
                     <hr class="hr-product-proyect" />
-                    <asp:Image ID="ActualImage" ImageUrl="https://i0.wp.com/casagres.com.ar/wp-content/uploads/2022/09/placeholder.png?ssl=1"
-                                CssClass="img-fluid" runat="server" AlternateText="Imagen actual del artículo" />
+                    <div class="img-container">
+                        <asp:Image ID="ActualImagen" ImageUrl="https://i0.wp.com/casagres.com.ar/wp-content/uploads/2022/09/placeholder.png?ssl=1"
+                            CssClass="img-fluid" runat="server" AlternateText="No se pudo establecer la ruta de imagen del artículo" />
+                    </div>
                 </div>
                 <%} %>
 
                 <div class="img-form-container rounded-3 border shadow">
                     <label class="form-label h4">Imagen nueva</label>
                     <hr class="hr-product-proyect" />
-                    <asp:Image ID="NuevaImagen" ImageUrl="https://i0.wp.com/casagres.com.ar/wp-content/uploads/2022/09/placeholder.png?ssl=1"
-                                CssClass="img-fluid" runat="server" AlternateText="Imagen nueva del artículo" />
+                    <div class="img-container">
+                        <asp:Image ID="NuevaImagen" ImageUrl="https://i0.wp.com/casagres.com.ar/wp-content/uploads/2022/09/placeholder.png?ssl=1"
+                                    CssClass="img-fluid" runat="server" AlternateText="No se pudo establecer la ruta de imagen del artículo" />
+                    </div>
                 </div>
 
             </div>

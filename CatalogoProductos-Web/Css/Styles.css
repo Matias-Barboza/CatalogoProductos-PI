@@ -564,6 +564,10 @@ hr {
     margin: 1rem 0;
 }
 
+.required-data {
+    color: lightcoral;
+}
+
 .brand-category-container {
     display: flex;
 }
@@ -579,7 +583,13 @@ hr {
     margin: 0 .5rem;
     padding: 1rem;
     width: 510px;
-    height: 410px;
+}
+
+.img-container {
+    display: flex;
+    width: 480px;
+    max-height: 420px;
+    padding: 5px;
 }
 
 .buttons-container {

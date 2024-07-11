@@ -157,7 +157,7 @@
                             </label>
                             <div class="field-validator-div">
                                 <asp:DropDownList ID="CondicionDropDownList" CssClass="form-select form-select-sm me-3" runat="server" ></asp:DropDownList>
-                                <asp:CustomValidator ID="CondicionPrecioCustomValidator" ErrorMessage="El índice seleccionado no puede ser 0."
+                                <asp:CustomValidator ID="CondicionPrecioCustomValidator" ErrorMessage="La selección de la condición no es válida."
                                                      ControlToValidate="CondicionDropDownList" Display="Dynamic" CssClass="validator ms-1"
                                                      ValidationGroup="AplicarFiltrosValidation" OnServerValidate="CondicionPrecioCustomValidator_ServerValidate"
                                                      runat="server" />

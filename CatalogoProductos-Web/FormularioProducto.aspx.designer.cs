@@ -51,6 +51,15 @@ namespace CatalogoProductos_Web
         protected global::System.Web.UI.WebControls.DropDownList MarcasDropDownList;
 
         /// <summary>
+        /// Control MarcasCustomValidator.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator MarcasCustomValidator;
+
+        /// <summary>
         /// Control CategoriasDropDownList.
         /// </summary>
         /// <remarks>
@@ -58,6 +67,15 @@ namespace CatalogoProductos_Web
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList CategoriasDropDownList;
+
+        /// <summary>
+        /// Control CategoriasCustomValidator.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator CategoriasCustomValidator;
 
         /// <summary>
         /// Control PrecioArticuloTextBox.
@@ -87,13 +105,13 @@ namespace CatalogoProductos_Web
         protected global::System.Web.UI.WebControls.Button ProbarUrlButton;
 
         /// <summary>
-        /// Control ActualImage.
+        /// Control ActualImagen.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image ActualImage;
+        protected global::System.Web.UI.WebControls.Image ActualImagen;
 
         /// <summary>
         /// Control NuevaImagen.

@@ -21,9 +21,10 @@ namespace CatalogoProductos_Web
                 CargarDesplegables();
             }
 
-            if (Request.QueryString["id"] != null) 
+            if (Request.QueryString["id"] != null && int.TryParse(Request.QueryString["id"], out int id)) 
             {
                 EsEdicion = true;
+                CargarDatosDelProducto(id);
             }
         }
 
@@ -31,16 +32,36 @@ namespace CatalogoProductos_Web
         {
             MarcaNegocio marcaNegocio = new MarcaNegocio();
             CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
+            List<Marca> fuenteMarcas = marcaNegocio.ObtenerMarcas();
+            List<Categoria> fuenteCategorias = categoriaNegocio.ObtenerCategorias();
 
-            MarcasDropDownList.DataSource = marcaNegocio.ObtenerMarcas();
-            MarcasDropDownList.DataTextField = "Descripcion";
-            MarcasDropDownList.DataValueField = "Id";
-            MarcasDropDownList.DataBind();
+            VincularADataSource(MarcasDropDownList, fuenteMarcas.ToList<object>());
+            VincularADataSource(CategoriasDropDownList, fuenteCategorias.ToList<object>());
+        }
 
-            CategoriasDropDownList.DataSource = categoriaNegocio.ObtenerCategorias();
-            CategoriasDropDownList.DataTextField = "Descripcion";
-            CategoriasDropDownList.DataValueField = "Id";
-            CategoriasDropDownList.DataBind();
+        private void VincularADataSource(DropDownList dropDownList, List<object> fuente) 
+        {
+            dropDownList.DataSource = fuente;
+            dropDownList.DataTextField = "Descripcion";
+            dropDownList.DataValueField = "Id";
+            dropDownList.DataBind();
+            dropDownList.Items.Insert(0, "Seleccione una opción");
+        }
+
+        public void CargarDatosDelProducto(int id) 
+        {
+            ArticuloNegocio articuloNegocio = new ArticuloNegocio();
+            Articulo articuloACargar = articuloNegocio.ObtenerArticuloPorId(id);
+
+            CodigoArticuloTextBox.Attributes["placeholder"] = articuloACargar.CodigoArticulo;
+            NombreArticuloTextBox.Attributes["placeholder"] = articuloACargar.Nombre;
+            DescripcionArticuloTextBox.Attributes["placeholder"] = articuloACargar.Descripcion;
+            MarcasDropDownList.Items.FindByText(articuloACargar.Marca.Descripcion).Selected = true;
+            CategoriasDropDownList.Items.FindByText(articuloACargar.Categoria.Descripcion).Selected = true;
+            PrecioArticuloTextBox.Attributes["placeholder"] = articuloACargar.Precio.ToString("C");
+            UrlImagenTextBox.Attributes["placeholder"] = articuloACargar.ImagenUrl;
+
+            ActualImagen.ImageUrl = articuloACargar.ImagenUrl;
         }
 
         protected void AñadirArticuloButton_ServerClick(object sender, EventArgs e)
@@ -61,6 +82,28 @@ namespace CatalogoProductos_Web
         protected void ProbarUrlButton_Click(object sender, EventArgs e)
         {
             NuevaImagen.ImageUrl = UrlImagenTextBox.Text;
+        }
+
+        protected void DropDownListCustomValidator_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            try
+            {
+                CustomValidator customValidator = (CustomValidator) source;
+
+                if (customValidator.ID == "MarcasCustomValidator") 
+                {
+                    args.IsValid = MarcasDropDownList.SelectedIndex != 0;
+                }
+
+                if (customValidator.ID == "CategoriasCustomValidator") 
+                {
+                    args.IsValid = CategoriasDropDownList.SelectedIndex != 0;
+                }
+            }
+            catch (Exception)
+            {
+                args.IsValid = false;
+            }
         }
     }
 }
