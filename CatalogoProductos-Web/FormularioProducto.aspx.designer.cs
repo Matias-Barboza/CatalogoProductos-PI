@@ -87,6 +87,24 @@ namespace CatalogoProductos_Web
         protected global::System.Web.UI.WebControls.TextBox PrecioArticuloTextBox;
 
         /// <summary>
+        /// Control UrlRadioButton.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton UrlRadioButton;
+
+        /// <summary>
+        /// Control SubirArchivoRadioButton.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton SubirArchivoRadioButton;
+
+        /// <summary>
         /// Control UrlImagenTextBox.
         /// </summary>
         /// <remarks>
@@ -103,6 +121,42 @@ namespace CatalogoProductos_Web
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button ProbarUrlButton;
+
+        /// <summary>
+        /// Control RequiredCustomValidator.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator RequiredCustomValidator;
+
+        /// <summary>
+        /// Control ImagenLocalInput.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputFile ImagenLocalInput;
+
+        /// <summary>
+        /// Control SeleccionArchivoCustomValidator.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator SeleccionArchivoCustomValidator;
+
+        /// <summary>
+        /// Control TipoArchivoCustomValidator.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator TipoArchivoCustomValidator;
 
         /// <summary>
         /// Control ActualImagen.

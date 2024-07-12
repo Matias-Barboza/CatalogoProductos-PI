@@ -113,26 +113,76 @@
 
             </div>
 
+            <h3>Carga de imagen del artículo</h3>
+
+            <hr />
+
             <div class="mb-3">
-                <%-- URL imagen --%>
-                <div class="input-group mb-1">
-                    <span class="input-group-text">URL de imagen del artículo<span class="required-data">*</span></span>
-                    <asp:TextBox ID="UrlImagenTextBox" CssClass="form-control" TextMode="Url"
-                                 placeholder="Ej: https://example.com" runat="server"></asp:TextBox>
-                    <asp:Button ID="ProbarUrlButton" Text="Probar URL" OnClick="ProbarUrlButton_Click"
-                                CausesValidation="true" ValidationGroup="ProbarUrlValidation"
-                                CssClass="btn btn-outline-primary" runat="server" />
-                </div>
+                <asp:UpdatePanel runat="server">
+                    <ContentTemplate>
 
-                <div class="ms-2">
-                    <asp:RequiredFieldValidator ErrorMessage="La URL no puede estar vacía para probar." Display="Dynamic"
-                                                ValidationGroup="ProbarUrlValidation" ControlToValidate="UrlImagenTextBox"
-                                                CssClass="validator" runat="server" />
-                    <asp:RequiredFieldValidator ErrorMessage="La URL de la imagen del artículo es obligatoria." Display="Dynamic"
-                                                ControlToValidate="UrlImagenTextBox" CssClass="validator" runat="server" />
-                </div>
+                        <%-- Opcionalidad --%>
+                        <div class="radio-buttons-container mb-3">
+                            <div class="form-check">
+                              <asp:RadioButton ID="UrlRadioButton" CssClass="span-checkbox-container" AutoPostBack="true"
+                                               GroupName="OpcionesSubirImagen" runat="server" OnCheckedChanged="RadioButton_CheckedChanged" />
+                              <label class="form-check-label me-1" for="flexRadioDefault1">
+                                Por URL
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <asp:RadioButton ID="SubirArchivoRadioButton" CssClass="span-checkbox-container" AutoPostBack="true"
+                                               GroupName="OpcionesSubirImagen" runat="server" OnCheckedChanged="RadioButton_CheckedChanged" />
+                              <label class="form-check-label me-1" for="flexRadioDefault1">
+                                Subir archivo
+                              </label>
+                            </div>
+                        </div>
 
+                        <%-- URL imagen --%>
+
+                        <%if (!ImagenPorArchivo)
+                            {%>
+                        <div class="input-group mb-1">
+                            <span class="input-group-text">URL de imagen del artículo<span class="required-data">*</span></span>
+                            <asp:TextBox ID="UrlImagenTextBox" CssClass="form-control" TextMode="Url"
+                                            placeholder="Ej: https://example.com" runat="server"></asp:TextBox>
+                            <asp:Button ID="ProbarUrlButton" Text="Probar URL" OnClick="ProbarUrlButton_Click"
+                                        CausesValidation="true" ValidationGroup="ProbarUrlValidation"
+                                        CssClass="btn btn-outline-primary" runat="server" />
+                        </div>
+                        
+                        <div class="ms-2 mb-3">
+                            <asp:RequiredFieldValidator ErrorMessage="La URL no puede estar vacía para probar." Display="Dynamic"
+                                                        ValidationGroup="ProbarUrlValidation" ControlToValidate="UrlImagenTextBox"
+                                                        CssClass="validator" runat="server" />
+                            <asp:CustomValidator ID="RequiredCustomValidator" ErrorMessage="La URL de la imagen del artículo es obligatoria."
+                                                 Display="Dynamic" ControlToValidate="UrlImagenTextBox" CssClass="validator"
+                                                 OnServerValidate="RequiredCustomValidator_ServerValidate" runat="server" />
+                        </div>
+                        <%}
+                          else
+                          {%>
+                        <%-- Imagen local --%>
+                        <div class="input-group mb-1">
+                            <label class="input-group-text" for="inputGroupFile02">Imagen local<span class="required-data">*</span></label>
+                            <input type="file" class="form-control" id="ImagenLocalInput" accept=".jpg,.png" runat="server"/>
+                        </div>
+
+                        <div class="ms-2">
+                            <asp:CustomValidator ID="SeleccionArchivoCustomValidator" ErrorMessage="La selección de archivo no puede estar vacío."
+                                                 Display="Dynamic" ControlToValidate="ImagenLocalInput" ValidateEmptyText="true"
+                                                 OnServerValidate="SeleccionArchivoCustomValidator_ServerValidate" CssClass="validator" runat="server" />
+                            <asp:CustomValidator ID="TipoArchivoCustomValidator" ErrorMessage="Los tipos de archivos aceptado son: '.jpg, .png'."
+                                                 Display="Dynamic" ControlToValidate="ImagenLocalInput"
+                                                 OnServerValidate="TipoArchivoCustomValidator_ServerValidate" CssClass="validator" runat="server" />
+                        </div>
+                        <%} %>
+
+                    </ContentTemplate>
+                </asp:UpdatePanel>
             </div>
+
 
             <h3>Previsualización de imagen</h3>
 

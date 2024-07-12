@@ -12,6 +12,7 @@ namespace CatalogoProductos_Web
     public partial class FormularioProducto : System.Web.UI.Page
     {
         public bool EsEdicion { get; set; }
+        public bool ImagenPorArchivo { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -25,6 +26,11 @@ namespace CatalogoProductos_Web
             {
                 EsEdicion = true;
                 CargarDatosDelProducto(id);
+            }
+
+            if (Session["ImagenPorArchivo"] != null) 
+            {
+                ImagenPorArchivo = (bool)Session["ImagenPorArchivo"];
             }
         }
 
@@ -53,15 +59,100 @@ namespace CatalogoProductos_Web
             ArticuloNegocio articuloNegocio = new ArticuloNegocio();
             Articulo articuloACargar = articuloNegocio.ObtenerArticuloPorId(id);
 
-            CodigoArticuloTextBox.Attributes["placeholder"] = articuloACargar.CodigoArticulo;
-            NombreArticuloTextBox.Attributes["placeholder"] = articuloACargar.Nombre;
-            DescripcionArticuloTextBox.Attributes["placeholder"] = articuloACargar.Descripcion;
+            CodigoArticuloTextBox.Text = articuloACargar.CodigoArticulo;
+            NombreArticuloTextBox.Text = articuloACargar.Nombre;
+            DescripcionArticuloTextBox.Text = articuloACargar.Descripcion;
             MarcasDropDownList.Items.FindByText(articuloACargar.Marca.Descripcion).Selected = true;
             CategoriasDropDownList.Items.FindByText(articuloACargar.Categoria.Descripcion).Selected = true;
-            PrecioArticuloTextBox.Attributes["placeholder"] = articuloACargar.Precio.ToString("C");
-            UrlImagenTextBox.Attributes["placeholder"] = articuloACargar.ImagenUrl;
+            PrecioArticuloTextBox.Text = articuloACargar.Precio.ToString("C");
+            UrlImagenTextBox.Text = articuloACargar.ImagenUrl;
 
             ActualImagen.ImageUrl = articuloACargar.ImagenUrl;
+        }
+
+        protected void DropDownListCustomValidator_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            try
+            {
+                CustomValidator customValidator = (CustomValidator)source;
+
+                if (customValidator.ID == "MarcasCustomValidator")
+                {
+                    args.IsValid = MarcasDropDownList.SelectedIndex != 0;
+                }
+
+                if (customValidator.ID == "CategoriasCustomValidator")
+                {
+                    args.IsValid = CategoriasDropDownList.SelectedIndex != 0;
+                }
+            }
+            catch (Exception)
+            {
+                args.IsValid = false;
+            }
+        }
+
+        protected void ProbarUrlButton_Click(object sender, EventArgs e)
+        {
+            NuevaImagen.ImageUrl = UrlImagenTextBox.Text;
+        }
+
+        protected void RadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
+
+            if (!checkBox.Checked) 
+            {
+                return;
+            }
+
+            if (checkBox.ID == "UrlRadioButton") 
+            {
+                ImagenPorArchivo = false;
+            }
+
+            if (checkBox.ID == "SubirArchivoRadioButton") 
+            {
+                ImagenPorArchivo = true;
+            }
+
+            Session.Add("ImagenPorArchivo", ImagenPorArchivo);
+        }
+
+        protected void RequiredCustomValidator_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            try
+            {
+                args.IsValid = UrlImagenTextBox.Text != "" && !ImagenPorArchivo;
+            }
+            catch (Exception)
+            {
+                args.IsValid = false;
+            }
+        }
+
+        protected void SeleccionArchivoCustomValidator_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            try
+            {
+                args.IsValid = ImagenLocalInput.PostedFile.FileName != "";
+            }
+            catch (Exception)
+            {
+                args.IsValid = false;
+            }
+        }
+
+        protected void TipoArchivoCustomValidator_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            try
+            {
+                args.IsValid = ImagenLocalInput.PostedFile.FileName.EndsWith(".jpg") || ImagenLocalInput.PostedFile.FileName.EndsWith(".png");
+            }
+            catch (Exception)
+            {
+                args.IsValid = false;
+            }
         }
 
         protected void AñadirArticuloButton_ServerClick(object sender, EventArgs e)
@@ -77,33 +168,6 @@ namespace CatalogoProductos_Web
         protected void EliminarArticuloButton_ServerClick(object sender, EventArgs e)
         {
 
-        }
-
-        protected void ProbarUrlButton_Click(object sender, EventArgs e)
-        {
-            NuevaImagen.ImageUrl = UrlImagenTextBox.Text;
-        }
-
-        protected void DropDownListCustomValidator_ServerValidate(object source, ServerValidateEventArgs args)
-        {
-            try
-            {
-                CustomValidator customValidator = (CustomValidator) source;
-
-                if (customValidator.ID == "MarcasCustomValidator") 
-                {
-                    args.IsValid = MarcasDropDownList.SelectedIndex != 0;
-                }
-
-                if (customValidator.ID == "CategoriasCustomValidator") 
-                {
-                    args.IsValid = CategoriasDropDownList.SelectedIndex != 0;
-                }
-            }
-            catch (Exception)
-            {
-                args.IsValid = false;
-            }
         }
     }
 }
