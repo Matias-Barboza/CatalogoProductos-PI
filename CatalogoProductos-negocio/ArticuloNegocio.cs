@@ -2,6 +2,7 @@
 using CatalogoProductos_utilidades;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,9 +11,10 @@ namespace CatalogoProductos_negocio
 {
     public class ArticuloNegocio
     {
-        public bool AñadirArticulo(Articulo articulo) 
+        public bool AñadirArticulo(Articulo articulo, out int idNuevoArticulo) 
         {
             AccesoDatos accesoDatos = new AccesoDatos();
+            idNuevoArticulo = 0;
 
             try 
             {
@@ -25,14 +27,49 @@ namespace CatalogoProductos_negocio
                 accesoDatos.AgregarParametro("descripcion", articulo.Descripcion);
                 accesoDatos.AgregarParametro("idMarca", articulo.Marca.Id);
                 accesoDatos.AgregarParametro("idCategoria", articulo.Categoria.Id);
-                accesoDatos.AgregarParametro("imagenUrl", articulo.ImagenUrl);
+                accesoDatos.AgregarParametro("imagenUrl", articulo.ImagenUrl ?? (object) DBNull.Value);
                 accesoDatos.AgregarParametro("precio", articulo.Precio);
 
-                return (int) accesoDatos.EjecutarScalar() != 0;
+                idNuevoArticulo = (int) accesoDatos.EjecutarScalar();
+
+                return idNuevoArticulo != 0;
             }
             catch(Exception ex)
             {
                 throw ex;
+            }
+            finally 
+            {
+                accesoDatos.CerrarConexion();
+                accesoDatos = null;
+            }
+        }
+
+        public bool ActualizarArticulo(Articulo articulo) 
+        {
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            try
+            {
+                accesoDatos.SetearQuery(@"UPDATE ARTICULOS SET 
+                                                              Codigo = @codigo, Nombre = @nombre, Descripcion = @descripcion,
+                                                              IdMarca = @idMarca, IdCategoria = @idCategoria, ImagenUrl = @imagenUrl, Precio = @precio
+                                                           WHERE Id = @id");
+
+                accesoDatos.AgregarParametro("codigo", articulo.CodigoArticulo);
+                accesoDatos.AgregarParametro("nombre", articulo.Nombre);
+                accesoDatos.AgregarParametro("descripcion", articulo.Descripcion);
+                accesoDatos.AgregarParametro("idMarca", articulo.Marca.Id);
+                accesoDatos.AgregarParametro("idCategoria", articulo.Categoria.Id);
+                accesoDatos.AgregarParametro("imagenUrl", articulo.ImagenUrl);
+                accesoDatos.AgregarParametro("precio", articulo.Precio);
+                accesoDatos.AgregarParametro("id", articulo.Id);
+
+                return accesoDatos.EjecutarQuery() != 0;
+            }
+            catch (Exception ex)
+            {
+                throw;
             }
             finally 
             {

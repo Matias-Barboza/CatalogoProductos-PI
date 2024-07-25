@@ -16,11 +16,10 @@ namespace CatalogoProductos_Web
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            HttpPostedFile pf = ImagenLocalInput.PostedFile;
-
             //Si viene vacio debe navegar a pagina de error
             if (!IsPostBack) 
             {
+                UrlRadioButton.Checked = true;
                 CargarDesplegables();
             }
 
@@ -67,9 +66,9 @@ namespace CatalogoProductos_Web
             MarcasDropDownList.Items.FindByText(articuloACargar.Marca.Descripcion).Selected = true;
             CategoriasDropDownList.Items.FindByText(articuloACargar.Categoria.Descripcion).Selected = true;
             PrecioArticuloTextBox.Text = articuloACargar.Precio.ToString("C");
-            UrlImagenTextBox.Text = articuloACargar.ImagenUrl;
+            UrlImagenTextBox.Text = SetearRutaImagenActual(articuloACargar.ImagenUrl);
 
-            ActualImagen.ImageUrl = articuloACargar.ImagenUrl;
+            ActualImagen.ImageUrl = SetearImagenActual(articuloACargar.ImagenUrl);
         }
 
         protected void DropDownListCustomValidator_ServerValidate(object source, ServerValidateEventArgs args)
@@ -92,11 +91,6 @@ namespace CatalogoProductos_Web
             {
                 args.IsValid = false;
             }
-        }
-
-        protected void ProbarUrlButton_Click(object sender, EventArgs e)
-        {
-            NuevaImagen.ImageUrl = UrlImagenTextBox.Text;
         }
 
         protected void RadioButton_CheckedChanged(object sender, EventArgs e)
@@ -137,7 +131,7 @@ namespace CatalogoProductos_Web
         {
             try
             {
-                args.IsValid = ImagenLocalInput.PostedFile != null;
+                args.IsValid = ImagenLocalInput.PostedFile != null && ImagenLocalInput.PostedFile.FileName != "";
             }
             catch (Exception)
             {
@@ -169,9 +163,13 @@ namespace CatalogoProductos_Web
 
             articuloNuevo = new Articulo();
             articuloNegocio = new ArticuloNegocio();
+            int idNuevo;
 
             articuloNuevo = VincularArticuloADatos(articuloNuevo);
-            articuloNegocio.AñadirArticulo(articuloNuevo);
+            articuloNegocio.AñadirArticulo(articuloNuevo, out idNuevo);
+            articuloNuevo.Id = idNuevo;
+            articuloNuevo.ImagenUrl = ObtenerImagenUrl(articuloNuevo.Id);
+            articuloNegocio.ActualizarArticulo(articuloNuevo);
         }
 
         protected void EditarArticuloButton_ServerClick(object sender, EventArgs e)
@@ -191,7 +189,6 @@ namespace CatalogoProductos_Web
             articulo.Descripcion = DescripcionArticuloTextBox.Text;
             articulo.Marca.Id = Convert.ToInt32(MarcasDropDownList.SelectedValue);
             articulo.Categoria.Id = Convert.ToInt32(CategoriasDropDownList.SelectedValue);
-            //articulo.ImagenUrl = ObtenerImagenUrl(articulo.Id);
             articulo.Precio = Convert.ToDecimal(PrecioArticuloTextBox.Text);
 
             return articulo;
@@ -199,29 +196,49 @@ namespace CatalogoProductos_Web
 
         public string ObtenerImagenUrl(int idArticulo) 
         {
-            string ruta = null;
+            string rutaAGuardar = null;
 
             if (ImagenPorArchivo) 
             {
                 string rutaACarpetaImagenes = Server.MapPath("./Imagenes/");
-                ruta = $"{rutaACarpetaImagenes}imagenArticulo{idArticulo}.jpg";
+                string rutaCompleta;
 
-                ImagenLocalInput.PostedFile.SaveAs(ruta);
+                rutaAGuardar = $"imagenArticulo{idArticulo}.jpg";
+                rutaCompleta = rutaACarpetaImagenes + rutaAGuardar;
+
+                ImagenLocalInput.PostedFile.SaveAs(rutaCompleta);
             }
             else 
             {
-                ruta = UrlImagenTextBox.Text;
+                rutaAGuardar = UrlImagenTextBox.Text;
             }
 
-            return ruta;
+            return rutaAGuardar;
         }
 
-        protected void ProbarImagenButton_Click(object sender, EventArgs e)
+        public string SetearImagenActual(string rutaImagenArticulo) 
         {
-            if (ImagenLocalInput.PostedFile != null) 
+            if (rutaImagenArticulo.Contains("https://") || rutaImagenArticulo.Contains("http://")) 
             {
-                NuevaImagen.ImageUrl = ImagenLocalInput.PostedFile.FileName;
+                return rutaImagenArticulo;
             }
+
+            return "~/Imagenes/" + rutaImagenArticulo;
+        }
+
+        public string SetearRutaImagenActual(string rutaImagenArticulo) 
+        {
+            if (rutaImagenArticulo.Contains("https://") || rutaImagenArticulo.Contains("http://"))
+            {
+                return rutaImagenArticulo;
+            }
+
+            return null;
+        }
+
+        protected void ProbarUrlButton_Click(object sender, EventArgs e)
+        {
+            NuevaImagen.ImageUrl = SetearRutaImagenActual(UrlImagenTextBox.Text);
         }
     }
 }

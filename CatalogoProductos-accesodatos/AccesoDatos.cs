@@ -51,12 +51,13 @@ namespace CatalogoProductos_utilidades
             }
         }
 
-        public void EjecutarQuery()
+        public int EjecutarQuery()
         {
             try
             {
                 _conexion.Open();
-                _comando.ExecuteNonQuery();
+                int filasAfectadas = _comando.ExecuteNonQuery();
+                return filasAfectadas;
             }
             catch (Exception ex)
             {
