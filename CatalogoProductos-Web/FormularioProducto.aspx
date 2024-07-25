@@ -23,12 +23,13 @@
                 <div class="ms-2">
                     <asp:RegularExpressionValidator ErrorMessage="El código de artículo debe tener 3 caracteres como mínimo y 50 como máximo." Display="Dynamic"
                                         ControlToValidate="CodigoArticuloTextBox" CssClass="validator" ValidationExpression="^[a-zA-Z0-9]{3,50}$"
-                                        runat="server" />
+                                        ValidationGroup="OperationValidationGroup" runat="server" />
                     <asp:RegularExpressionValidator ErrorMessage="El código de artículo debe contener al menos una (1) letra y dos (2) números." Display="Dynamic"
                                         ControlToValidate="CodigoArticuloTextBox" CssClass="validator" ValidationExpression="^(?=.*[a-zA-Z])(?=.*\d.*\d)[a-zA-Z0-9]{3,50}$"
-                                        runat="server" />
+                                        ValidationGroup="OperationValidationGroup" runat="server" />
                     <asp:RequiredFieldValidator ErrorMessage="El código de artículo es obligatorio." Display="Dynamic"
-                                                ControlToValidate="CodigoArticuloTextBox" CssClass="validator" runat="server" />
+                                                ControlToValidate="CodigoArticuloTextBox" CssClass="validator"
+                                                ValidationGroup="OperationValidationGroup" runat="server" />
                 </div>
 
             </div>
@@ -43,7 +44,8 @@
 
                 <div class="ms-2">
                     <asp:RequiredFieldValidator ErrorMessage="El nombre de artículo es obligatorio." Display="Dynamic"
-                            ControlToValidate="NombreArticuloTextBox" CssClass="validator" runat="server" />
+                            ControlToValidate="NombreArticuloTextBox" CssClass="validator" runat="server"
+                            ValidationGroup="OperationValidationGroup"/>
                 </div>
 
             </div>
@@ -75,7 +77,8 @@
                     </div>
                     <asp:CustomValidator ID="MarcasCustomValidator" ErrorMessage="La selección de una marca es obligatoria."
                                          Display="Dynamic" ControlToValidate="MarcasDropDownList" CssClass="validator ms-2"
-                                         OnServerValidate="DropDownListCustomValidator_ServerValidate" runat="server" />
+                                         OnServerValidate="DropDownListCustomValidator_ServerValidate"
+                                         ValidationGroup="OperationValidationGroup" runat="server" />
 
                 </div>
 
@@ -88,7 +91,8 @@
                     </div>
                     <asp:CustomValidator ID="CategoriasCustomValidator" ErrorMessage="La selección de una categoría es obligatoria."
                                          Display="Dynamic" ControlToValidate="CategoriasDropDownList" CssClass="validator ms-2"
-                                         OnServerValidate="DropDownListCustomValidator_ServerValidate" runat="server" />
+                                         OnServerValidate="DropDownListCustomValidator_ServerValidate"
+                                         ValidationGroup="OperationValidationGroup" runat="server" />
 
                 </div>
 
@@ -105,10 +109,12 @@
 
                 <div class="ms-2">
                     <asp:RequiredFieldValidator ErrorMessage="El precio del artículo es obligatorio." Display="Dynamic"
-                                                ControlToValidate="PrecioArticuloTextBox" CssClass="validator" runat="server" />
+                                                ControlToValidate="PrecioArticuloTextBox" CssClass="validator"
+                                                ValidationGroup="OperationValidationGroup" runat="server" />
                     <asp:RegularExpressionValidator ErrorMessage="El formato debe ser como: '100', '1000', '1.000', '1500,25'."
                                                     Display="Dynamic" ValidationExpression="^(?:\d{1,3}(?:\.\d{3})*|\d+)(?:,\d{1,2})?$"
-                                                    ControlToValidate="PrecioArticuloTextBox" CssClass="validator" runat="server" />
+                                                    ControlToValidate="PrecioArticuloTextBox" CssClass="validator"
+                                                    ValidationGroup="OperationValidationGroup" runat="server" />
                 </div>
 
             </div>
@@ -148,7 +154,7 @@
                             <asp:TextBox ID="UrlImagenTextBox" CssClass="form-control" TextMode="Url"
                                             placeholder="Ej: https://example.com" runat="server"></asp:TextBox>
                             <asp:Button ID="ProbarUrlButton" Text="Probar URL" OnClick="ProbarUrlButton_Click"
-                                        CausesValidation="true" ValidationGroup="ProbarUrlValidation"
+                                        CausesValidation="true"
                                         CssClass="btn btn-outline-primary" runat="server" />
                         </div>
                         
@@ -158,7 +164,8 @@
                                                         CssClass="validator" runat="server" />
                             <asp:CustomValidator ID="RequiredCustomValidator" ErrorMessage="La URL de la imagen del artículo es obligatoria."
                                                  Display="Dynamic" ControlToValidate="UrlImagenTextBox" CssClass="validator"
-                                                 OnServerValidate="RequiredCustomValidator_ServerValidate" runat="server" />
+                                                 OnServerValidate="RequiredCustomValidator_ServerValidate"
+                                                 ValidationGroup="OperationValidationGroup" runat="server" />
                         </div>
                         <%}
                           else
@@ -167,15 +174,27 @@
                         <div class="input-group mb-1">
                             <label class="input-group-text" for="inputGroupFile02">Imagen local<span class="required-data">*</span></label>
                             <input type="file" class="form-control" id="ImagenLocalInput" accept=".jpg,.png" runat="server"/>
+                            <asp:Button ID="ProbarImagenButton" Text="Previsualizar imagen" CssClass="btn btn-outline-primary" OnClick="ProbarImagenButton_Click"
+                                        causesvalidation="true" validationgroup="ProbarValidationGroup" runat="server" />
                         </div>
 
                         <div class="ms-2">
                             <asp:CustomValidator ID="SeleccionArchivoCustomValidator" ErrorMessage="La selección de archivo no puede estar vacío."
                                                  Display="Dynamic" ControlToValidate="ImagenLocalInput" ValidateEmptyText="true"
-                                                 OnServerValidate="SeleccionArchivoCustomValidator_ServerValidate" CssClass="validator" runat="server" />
+                                                 OnServerValidate="SeleccionArchivoCustomValidator_ServerValidate" CssClass="validator"
+                                                 ValidationGroup="OperationValidationGroup" runat="server" />
                             <asp:CustomValidator ID="TipoArchivoCustomValidator" ErrorMessage="Los tipos de archivos aceptado son: '.jpg, .png'."
                                                  Display="Dynamic" ControlToValidate="ImagenLocalInput"
-                                                 OnServerValidate="TipoArchivoCustomValidator_ServerValidate" CssClass="validator" runat="server" />
+                                                 OnServerValidate="TipoArchivoCustomValidator_ServerValidate" CssClass="validator"
+                                                 ValidationGroup="OperationValidationGroup" runat="server" />
+                            <asp:CustomValidator ID="CustomValidator1" ErrorMessage="La selección de archivo no puede estar vacío para probar."
+                                                 Display="Dynamic" ControlToValidate="ImagenLocalInput" ValidateEmptyText="true"
+                                                 OnServerValidate="SeleccionArchivoCustomValidator_ServerValidate" CssClass="validator"
+                                                 ValidationGroup="ProbarValidationGroup" runat="server" />
+                            <asp:CustomValidator ID="CustomValidator2" ErrorMessage="Los tipos de archivos aceptado son: '.jpg, .png'."
+                                                 Display="Dynamic" ControlToValidate="ImagenLocalInput"
+                                                 OnServerValidate="TipoArchivoCustomValidator_ServerValidate" CssClass="validator"
+                                                 ValidationGroup="ProbarValidationGroup" runat="server" />
                         </div>
                         <%} %>
 
@@ -218,18 +237,21 @@
 
                 <%if (!EsEdicion)
                     {%>
-                <button type="button" runat="server" onserverclick="AñadirArticuloButton_ServerClick" id="AñadirArticuloButton"
+                <button type="button" causesvalidation="true" validationgroup="OperationValidationGroup"
+                        runat="server" onserverclick="AñadirArticuloButton_ServerClick" id="AñadirArticuloButton"
                         class="btn btn-success pt-2 pb-2 ms-2 me-2">Añadir artículo
                     <i class="bi bi-plus-circle"></i>
                 </button>
                 <%}%>
                 <%else
                   {%>
-                <button type="button" runat="server" onserverclick="EditarArticuloButton_ServerClick" id="EditarArticuloButton"
+                <button type="button" causesvalidation="true" validationgroup="OperationValidationGroup"
+                        runat="server" onserverclick="EditarArticuloButton_ServerClick" id="EditarArticuloButton"
                         class="btn btn-warning pt-2 pb-2 ms-2 me-2">Editar artículo
                     <i class="bi bi-pencil-square"></i>
                 </button>
-                <button type="button" runat="server" onserverclick="EliminarArticuloButton_ServerClick" id="EliminarArticuloButton"
+                <button type="button" causesvalidation="true" validationgroup="OperationValidationGroup"
+                        runat="server" onserverclick="EliminarArticuloButton_ServerClick" id="EliminarArticuloButton"
                         class="btn btn-danger pt-2 pb-2 ms-2 me-2">Eliminar artículo
                     <i class="bi bi-trash3"></i>
                 </button>

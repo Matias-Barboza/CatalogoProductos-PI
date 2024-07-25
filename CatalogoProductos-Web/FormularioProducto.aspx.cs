@@ -16,6 +16,8 @@ namespace CatalogoProductos_Web
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            HttpPostedFile pf = ImagenLocalInput.PostedFile;
+
             //Si viene vacio debe navegar a pagina de error
             if (!IsPostBack) 
             {
@@ -135,7 +137,7 @@ namespace CatalogoProductos_Web
         {
             try
             {
-                args.IsValid = ImagenLocalInput.PostedFile.FileName != "";
+                args.IsValid = ImagenLocalInput.PostedFile != null;
             }
             catch (Exception)
             {
@@ -157,7 +159,19 @@ namespace CatalogoProductos_Web
 
         protected void AñadirArticuloButton_ServerClick(object sender, EventArgs e)
         {
+            Articulo articuloNuevo;
+            ArticuloNegocio articuloNegocio;
 
+            if (!Page.IsValid)
+            {
+                return;
+            }
+
+            articuloNuevo = new Articulo();
+            articuloNegocio = new ArticuloNegocio();
+
+            articuloNuevo = VincularArticuloADatos(articuloNuevo);
+            articuloNegocio.AñadirArticulo(articuloNuevo);
         }
 
         protected void EditarArticuloButton_ServerClick(object sender, EventArgs e)
@@ -168,6 +182,46 @@ namespace CatalogoProductos_Web
         protected void EliminarArticuloButton_ServerClick(object sender, EventArgs e)
         {
 
+        }
+
+        public Articulo VincularArticuloADatos(Articulo articulo) 
+        {
+            articulo.CodigoArticulo = CodigoArticuloTextBox.Text;
+            articulo.Nombre = NombreArticuloTextBox.Text;
+            articulo.Descripcion = DescripcionArticuloTextBox.Text;
+            articulo.Marca.Id = Convert.ToInt32(MarcasDropDownList.SelectedValue);
+            articulo.Categoria.Id = Convert.ToInt32(CategoriasDropDownList.SelectedValue);
+            //articulo.ImagenUrl = ObtenerImagenUrl(articulo.Id);
+            articulo.Precio = Convert.ToDecimal(PrecioArticuloTextBox.Text);
+
+            return articulo;
+        }
+
+        public string ObtenerImagenUrl(int idArticulo) 
+        {
+            string ruta = null;
+
+            if (ImagenPorArchivo) 
+            {
+                string rutaACarpetaImagenes = Server.MapPath("./Imagenes/");
+                ruta = $"{rutaACarpetaImagenes}imagenArticulo{idArticulo}.jpg";
+
+                ImagenLocalInput.PostedFile.SaveAs(ruta);
+            }
+            else 
+            {
+                ruta = UrlImagenTextBox.Text;
+            }
+
+            return ruta;
+        }
+
+        protected void ProbarImagenButton_Click(object sender, EventArgs e)
+        {
+            if (ImagenLocalInput.PostedFile != null) 
+            {
+                NuevaImagen.ImageUrl = ImagenLocalInput.PostedFile.FileName;
+            }
         }
     }
 }

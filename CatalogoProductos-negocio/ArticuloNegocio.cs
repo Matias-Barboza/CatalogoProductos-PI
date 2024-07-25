@@ -10,6 +10,38 @@ namespace CatalogoProductos_negocio
 {
     public class ArticuloNegocio
     {
+        public bool AñadirArticulo(Articulo articulo) 
+        {
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            try 
+            {
+                accesoDatos.SetearQuery(@"INSERT INTO ARTICULOS(Codigo, Nombre, Descripcion, IdMarca, IdCategoria, ImagenUrl, Precio)
+                                          OUTPUT INSERTED.id
+                                          VALUES (@codigo, @nombre, @descripcion, @idMarca, @idCategoria, @imagenUrl, @precio)");
+
+                accesoDatos.AgregarParametro("codigo", articulo.CodigoArticulo);
+                accesoDatos.AgregarParametro("nombre", articulo.Nombre);
+                accesoDatos.AgregarParametro("descripcion", articulo.Descripcion);
+                accesoDatos.AgregarParametro("idMarca", articulo.Marca.Id);
+                accesoDatos.AgregarParametro("idCategoria", articulo.Categoria.Id);
+                accesoDatos.AgregarParametro("imagenUrl", articulo.ImagenUrl);
+                accesoDatos.AgregarParametro("precio", articulo.Precio);
+
+                return (int) accesoDatos.EjecutarScalar() != 0;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            finally 
+            {
+                accesoDatos.CerrarConexion();
+                accesoDatos = null;
+            }
+        }
+
+        // ----------------------------------------------- RECUPERAR ---------------------------------------------------
         public Articulo ObtenerArticuloPorId(int id) 
         {
             Articulo articuloBuscado = null;

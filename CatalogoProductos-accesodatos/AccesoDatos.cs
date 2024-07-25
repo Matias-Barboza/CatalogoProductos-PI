@@ -64,12 +64,12 @@ namespace CatalogoProductos_utilidades
             }
         }
 
-        public void EjecutarScalar()
+        public object EjecutarScalar()
         {
             try
             {
                 _conexion.Open();
-                _comando.ExecuteScalar();
+                return _comando.ExecuteScalar();
             }
             catch (Exception ex)
             {
