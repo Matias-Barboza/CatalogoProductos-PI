@@ -56,7 +56,7 @@
                 <div class="input-group mb-1">
                     <span class="input-group-text">Descripción de artículo</span>
                     <asp:TextBox ID="DescripcionArticuloTextBox" CssClass="form-control" TextMode="MultiLine"
-                                 MaxLength="150" placeholder="Ej: Celular última generación..." runat="server"></asp:TextBox>
+                                    MaxLength="150" placeholder="Ej: Celular última generación..." runat="server"></asp:TextBox>
                 </div>
 
                 <div class="ms-2">
@@ -76,9 +76,9 @@
                         <asp:DropDownList ID="MarcasDropDownList" CssClass="form-select" runat="server"></asp:DropDownList>
                     </div>
                     <asp:CustomValidator ID="MarcasCustomValidator" ErrorMessage="La selección de una marca es obligatoria."
-                                         Display="Dynamic" ControlToValidate="MarcasDropDownList" CssClass="validator ms-2"
-                                         OnServerValidate="DropDownListCustomValidator_ServerValidate"
-                                         ValidationGroup="OperationValidationGroup" runat="server" />
+                                            Display="Dynamic" ControlToValidate="MarcasDropDownList" CssClass="validator ms-2"
+                                            OnServerValidate="DropDownListCustomValidator_ServerValidate"
+                                            ValidationGroup="OperationValidationGroup" runat="server" />
 
                 </div>
 
@@ -90,9 +90,9 @@
                         <asp:DropDownList ID="CategoriasDropDownList" CssClass="form-select" runat="server"></asp:DropDownList>
                     </div>
                     <asp:CustomValidator ID="CategoriasCustomValidator" ErrorMessage="La selección de una categoría es obligatoria."
-                                         Display="Dynamic" ControlToValidate="CategoriasDropDownList" CssClass="validator ms-2"
-                                         OnServerValidate="DropDownListCustomValidator_ServerValidate"
-                                         ValidationGroup="OperationValidationGroup" runat="server" />
+                                            Display="Dynamic" ControlToValidate="CategoriasDropDownList" CssClass="validator ms-2"
+                                            OnServerValidate="DropDownListCustomValidator_ServerValidate"
+                                            ValidationGroup="OperationValidationGroup" runat="server" />
 
                 </div>
 
@@ -163,7 +163,7 @@
                                                         CssClass="validator" runat="server" />
                             <asp:CustomValidator ID="RequiredCustomValidator" ErrorMessage="La URL de la imagen del artículo es obligatoria."
                                                  Display="Dynamic" ControlToValidate="UrlImagenTextBox" CssClass="validator"
-                                                 OnServerValidate="RequiredCustomValidator_ServerValidate"
+                                                 OnServerValidate="RequiredCustomValidator_ServerValidate" ValidateEmptyText="true"
                                                  ValidationGroup="OperationValidationGroup" runat="server" />
                         </div>
                         <%}%>
@@ -201,7 +201,7 @@
             <asp:UpdatePanel runat="server">
                 <ContentTemplate>
 
-                    <div class="imgs-form-container mb-3">
+                    <div class="imgs-form-container mb-5">
 
                         <%if (EsEdicion)
                           { %>
@@ -226,42 +226,68 @@
 
                     </div>
 
-                    <div class="buttons-container pt-3 mb-3">
+                    <%if (DebeConfirmarEliminacion)
+                        {%>
 
-                        <%if (!EsEdicion)
-                            {%>
-                        <button type="button" causesvalidation="true" validationgroup="OperationValidationGroup"
-                                runat="server" onserverclick="AñadirArticuloButton_ServerClick" id="AñadirArticuloButton"
-                                class="btn btn-success pt-2 pb-2 ms-2 me-2">Añadir artículo
-                            <i class="bi bi-plus-circle"></i>
-                        </button>
-                        <%}%>
+                    <div class="rounded-3 border border-danger px-3 pt-3 pb-4 mb-3">
+                        <label class="form-label">Para eliminar, escribir el código de artículo:</label>
+                        <div class="input-group">
+                            <asp:TextBox ID="CodigoEliminarTextBox" CssClass="form-control border-danger" runat="server"></asp:TextBox>
+                            <asp:Button ID="ConfirmarEliminacionButton" Text="Confirmar eliminación" CssClass="btn btn-danger"
+                                        CausesValidation="true" ValidationGroup="EliminarValidationGroup"
+                                        OnClick="ConfirmarEliminacionButton_Click" runat="server" />
+                            <asp:Button ID="CancelarEliminacionButton" Text="Cancelar" CssClass="btn btn-outline-primary"
+                                        OnClick="CancelarEliminacionButton_Click" runat="server" />
+                        </div>
 
-                        <%if (EsEdicion)
-                          {%>
-                        <button type="button" causesvalidation="true" validationgroup="OperationValidationGroup"
-                                runat="server" onserverclick="EditarArticuloButton_ServerClick" id="EditarArticuloButton"
-                                class="btn btn-warning pt-2 pb-2 ms-2 me-2">Editar artículo
-                            <i class="bi bi-pencil-square"></i>
-                        </button>
-                        <button type="button" causesvalidation="true" validationgroup="OperationValidationGroup"
-                                runat="server" onserverclick="EliminarArticuloButton_ServerClick" id="EliminarArticuloButton"
-                                class="btn btn-danger pt-2 pb-2 ms-2 me-2">Eliminar artículo
-                            <i class="bi bi-trash3"></i>
-                        </button>
-                        <%}%>
-
-                        <%--<%if (!ImagenPorArchivo)
-                          {%>
-                        <asp:Button ID="ProbarUrlButton" Text="Probar URL" OnClick="ProbarUrlButton_Click"
-                            CausesValidation="true" ValidationGroup="ProbarUrlValidation"
-                            CssClass="btn btn-outline-primary" runat="server" />
-                        <%}%>--%>
-
+                        <div class="pt-2 ms-2">
+                            <asp:RequiredFieldValidator ErrorMessage="Para confirmar eliminación debe escribir el código del artículo actual."
+                                                        ControlToValidate="CodigoEliminarTextBox" CssClass="validator" Display="Dynamic"
+                                                        ValidationGroup="EliminarValidationGroup" runat="server" />
+                            <asp:CustomValidator ID="CodigoEliminarCustomValidator" ErrorMessage="El código de artículo no corresponde al esperado."
+                                                 ControlToValidate="CodigoEliminarTextBox" CssClass="validator" Display="Dynamic"
+                                                 OnServerValidate="CodigoEliminarCustomValidator_ServerValidate"
+                                                 ValidationGroup="EliminarValidationGroup" runat="server" />
+                        </div>
                     </div>
 
-                </ContentTemplate>
-            </asp:UpdatePanel>
+                    <%} %>
+
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+
+                <div class="buttons-container pt-3 mb-3">
+
+                    <%if (!EsEdicion)
+                        {%>
+                    <button type="button" causesvalidation="true" validationgroup="OperationValidationGroup"
+                            runat="server" onserverclick="AñadirArticuloButton_ServerClick" id="AñadirArticuloButton"
+                            class="btn btn-success pt-2 pb-2 ms-2 me-2">Añadir artículo
+                        <i class="bi bi-plus-circle"></i>
+                    </button>
+                    <%}%>
+
+                    <%if (EsEdicion)
+                        {%>
+                    <button type="button" causesvalidation="true" validationgroup="OperationValidationGroup"
+                            runat="server" onserverclick="EditarArticuloButton_ServerClick" id="EditarArticuloButton"
+                            class="btn btn-warning pt-2 pb-2 ms-2 me-2">Editar artículo
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <asp:UpdatePanel runat="server">
+                        <ContentTemplate>
+
+                            <button type="button"
+                                    runat="server" onserverclick="EliminarArticuloButton_ServerClick" id="EliminarArticuloButton"
+                                    class="btn btn-danger pt-2 pb-2 ms-2 me-2">Eliminar artículo
+                                <i class="bi bi-trash3"></i>
+                            </button>
+
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                    <%}%>
+
+                </div>
 
         </div>
 

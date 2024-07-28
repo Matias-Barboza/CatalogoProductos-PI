@@ -177,6 +177,42 @@ namespace CatalogoProductos_Web
         protected global::System.Web.UI.WebControls.Image NuevaImagen;
 
         /// <summary>
+        /// Control CodigoEliminarTextBox.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox CodigoEliminarTextBox;
+
+        /// <summary>
+        /// Control ConfirmarEliminacionButton.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ConfirmarEliminacionButton;
+
+        /// <summary>
+        /// Control CancelarEliminacionButton.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button CancelarEliminacionButton;
+
+        /// <summary>
+        /// Control CodigoEliminarCustomValidator.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator CodigoEliminarCustomValidator;
+
+        /// <summary>
         /// Control AñadirArticuloButton.
         /// </summary>
         /// <remarks>

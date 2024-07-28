@@ -13,6 +13,7 @@ namespace CatalogoProductos_Web
     {
         public bool EsEdicion { get; set; }
         public bool ImagenPorArchivo { get; set; }
+        public bool DebeConfirmarEliminacion { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -66,6 +67,7 @@ namespace CatalogoProductos_Web
             MarcasDropDownList.Items.FindByText(articuloACargar.Marca.Descripcion).Selected = true;
             CategoriasDropDownList.Items.FindByText(articuloACargar.Categoria.Descripcion).Selected = true;
             PrecioArticuloTextBox.Text = articuloACargar.Precio.ToString("C");
+            PrecioArticuloTextBox.Text = PrecioArticuloTextBox.Text.Substring(2);
             UrlImagenTextBox.Text = SetearRutaImagenActual(articuloACargar.ImagenUrl);
 
             ActualImagen.ImageUrl = SetearImagenActual(articuloACargar.ImagenUrl);
@@ -119,7 +121,13 @@ namespace CatalogoProductos_Web
         {
             try
             {
-                args.IsValid = UrlImagenTextBox.Text != "" && !ImagenPorArchivo;
+                if (ImagenPorArchivo) 
+                {
+                    args.IsValid = true;
+                    return;
+                }
+
+                args.IsValid = UrlImagenTextBox.Text != "";
             }
             catch (Exception)
             {
@@ -131,6 +139,12 @@ namespace CatalogoProductos_Web
         {
             try
             {
+                if (!ImagenPorArchivo)
+                {
+                    args.IsValid = true;
+                    return;
+                }
+
                 args.IsValid = ImagenLocalInput.PostedFile != null && ImagenLocalInput.PostedFile.FileName != "";
             }
             catch (Exception)
@@ -143,6 +157,12 @@ namespace CatalogoProductos_Web
         {
             try
             {
+                if (!ImagenPorArchivo) 
+                {
+                    args.IsValid = true;
+                    return;
+                }
+
                 args.IsValid = ImagenLocalInput.PostedFile.FileName.EndsWith(".jpg") || ImagenLocalInput.PostedFile.FileName.EndsWith(".png");
             }
             catch (Exception)
@@ -163,23 +183,57 @@ namespace CatalogoProductos_Web
 
             articuloNuevo = new Articulo();
             articuloNegocio = new ArticuloNegocio();
-            int idNuevo;
 
             articuloNuevo = VincularArticuloADatos(articuloNuevo);
-            articuloNegocio.AñadirArticulo(articuloNuevo, out idNuevo);
+            articuloNegocio.AñadirArticulo(articuloNuevo, out int idNuevo);
             articuloNuevo.Id = idNuevo;
             articuloNuevo.ImagenUrl = ObtenerImagenUrl(articuloNuevo.Id);
             articuloNegocio.ActualizarArticulo(articuloNuevo);
+
+            Response.Redirect("ListadoProductos.aspx");
         }
 
         protected void EditarArticuloButton_ServerClick(object sender, EventArgs e)
         {
+            Articulo articuloAEditar;
+            ArticuloNegocio articuloNegocio;
+            bool existeArticulo;
 
+            if (!Page.IsValid) 
+            {
+                return;
+            }
+
+            if (!EsEdicion) 
+            {
+                return;
+            }
+
+            articuloNegocio = new ArticuloNegocio();
+            int.TryParse(Request.QueryString["id"], out int idArticulo);
+            articuloAEditar = articuloNegocio.ObtenerArticuloPorId(idArticulo);
+            existeArticulo = articuloAEditar != null;
+            
+            if (!existeArticulo) 
+            {
+                return;
+            }
+
+            VincularArticuloADatos(articuloAEditar);
+            articuloAEditar.ImagenUrl = ObtenerImagenUrl(idArticulo);
+            articuloNegocio.ActualizarArticulo(articuloAEditar);
+
+            Response.Redirect("ListadoProductos.aspx");
         }
 
         protected void EliminarArticuloButton_ServerClick(object sender, EventArgs e)
         {
+            if (!EsEdicion) 
+            {
+                return;
+            }
 
+            DebeConfirmarEliminacion = true;
         }
 
         public Articulo VincularArticuloADatos(Articulo articulo) 
@@ -239,6 +293,56 @@ namespace CatalogoProductos_Web
         protected void ProbarUrlButton_Click(object sender, EventArgs e)
         {
             NuevaImagen.ImageUrl = SetearRutaImagenActual(UrlImagenTextBox.Text);
+        }
+
+        protected void CodigoEliminarCustomValidator_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            try
+            {
+                if (EsEdicion) 
+                {
+                    Articulo articuloEliminar;
+                    ArticuloNegocio articuloNegocio = new ArticuloNegocio();
+                    int.TryParse(Request.QueryString["id"], out int idEliminar);
+
+                    articuloEliminar = articuloNegocio.ObtenerArticuloPorId(idEliminar);
+
+                    args.IsValid = articuloEliminar.CodigoArticulo == CodigoEliminarTextBox.Text;
+                }
+            }
+            catch (Exception ex)
+            {
+                args.IsValid = false;
+            }
+        }
+
+        protected void ConfirmarEliminacionButton_Click(object sender, EventArgs e)
+        {
+            ArticuloNegocio articuloNegocio;
+            bool existeArticulo;
+
+            if (!EsEdicion)
+            {
+                return;
+            }
+
+            articuloNegocio = new ArticuloNegocio();
+            int.TryParse(Request.QueryString["id"], out int idArticuloAEliminar);
+            existeArticulo = articuloNegocio.ObtenerArticuloPorId(idArticuloAEliminar) != null;
+
+            if (!existeArticulo)
+            {
+                return;
+            }
+
+            articuloNegocio.EliminarArticulo(idArticuloAEliminar);
+
+            Response.Redirect("ListadoProductos.aspx");
+        }
+
+        protected void CancelarEliminacionButton_Click(object sender, EventArgs e)
+        {
+            DebeConfirmarEliminacion = false;
         }
     }
 }

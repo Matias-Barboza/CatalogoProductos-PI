@@ -78,6 +78,28 @@ namespace CatalogoProductos_negocio
             }
         }
 
+        public bool EliminarArticulo(int idArticulo) 
+        {
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            try
+            {
+                accesoDatos.SetearQuery(@"DELETE FROM ARTICULOS WHERE Id = @id");
+                accesoDatos.AgregarParametro("id", idArticulo);
+
+                return accesoDatos.EjecutarQuery() == 1;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally 
+            {
+                accesoDatos.CerrarConexion();
+                accesoDatos = null;
+            }
+        }
+
         // ----------------------------------------------- RECUPERAR ---------------------------------------------------
         public Articulo ObtenerArticuloPorId(int id) 
         {
