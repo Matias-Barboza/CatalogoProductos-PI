@@ -274,17 +274,17 @@
                             class="btn btn-warning pt-2 pb-2 ms-2 me-2">Editar artículo
                         <i class="bi bi-pencil-square"></i>
                     </button>
-                    <asp:UpdatePanel runat="server">
-                        <ContentTemplate>
+                    <%--<asp:UpdatePanel runat="server">
+                            <ContentTemplate>--%>
 
-                            <button type="button"
-                                    runat="server" onserverclick="EliminarArticuloButton_ServerClick" id="EliminarArticuloButton"
-                                    class="btn btn-danger pt-2 pb-2 ms-2 me-2">Eliminar artículo
-                                <i class="bi bi-trash3"></i>
-                            </button>
+                    <button type="button"
+                            runat="server" onserverclick="EliminarArticuloButton_ServerClick" id="EliminarArticuloButton"
+                            class="btn btn-danger pt-2 pb-2 ms-2 me-2">Eliminar artículo
+                        <i class="bi bi-trash3"></i>
+                    </button>
 
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
+                        <%--</ContentTemplate>
+                    </asp:UpdatePanel>--%>
                     <%}%>
 
                 </div>

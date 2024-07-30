@@ -12,6 +12,7 @@ namespace CatalogoProductos_Web
     public partial class FormularioProducto : System.Web.UI.Page
     {
         public bool EsEdicion { get; set; }
+        public bool DatosArticuloCargados { get; set; }
         public bool ImagenPorArchivo { get; set; }
         public bool DebeConfirmarEliminacion { get; set; }
 
@@ -22,17 +23,33 @@ namespace CatalogoProductos_Web
             {
                 UrlRadioButton.Checked = true;
                 CargarDesplegables();
+                Session.Add("DatosArticuloCargados", false);
+            }
+
+            if (Session["DatosArticuloCargados"] != null) 
+            {
+                DatosArticuloCargados = (bool)Session["DatosArticuloCargados"];
             }
 
             if (Request.QueryString["id"] != null && int.TryParse(Request.QueryString["id"], out int id)) 
             {
                 EsEdicion = true;
-                CargarDatosDelProducto(id);
+                if (!DatosArticuloCargados) 
+                {
+                    CargarDatosDelProducto(id);
+                    DatosArticuloCargados = true;
+                    Session.Add("DatosArticuloCargados", DatosArticuloCargados);
+                }
             }
 
             if (Session["ImagenPorArchivo"] != null) 
             {
                 ImagenPorArchivo = (bool)Session["ImagenPorArchivo"];
+            }
+
+            if (Session["DebeConfirmarEliminacion"] != null) 
+            {
+                DebeConfirmarEliminacion = (bool)Session["DebeConfirmarEliminacion"];
             }
         }
 
@@ -184,7 +201,7 @@ namespace CatalogoProductos_Web
             articuloNuevo = new Articulo();
             articuloNegocio = new ArticuloNegocio();
 
-            articuloNuevo = VincularArticuloADatos(articuloNuevo);
+            VincularArticuloADatos(articuloNuevo);
             articuloNegocio.AñadirArticulo(articuloNuevo, out int idNuevo);
             articuloNuevo.Id = idNuevo;
             articuloNuevo.ImagenUrl = ObtenerImagenUrl(articuloNuevo.Id);
@@ -234,6 +251,8 @@ namespace CatalogoProductos_Web
             }
 
             DebeConfirmarEliminacion = true;
+
+            Session.Add("DebeConfirmarEliminacion", DebeConfirmarEliminacion);
         }
 
         public Articulo VincularArticuloADatos(Articulo articulo) 
@@ -321,6 +340,11 @@ namespace CatalogoProductos_Web
             ArticuloNegocio articuloNegocio;
             bool existeArticulo;
 
+            if (!Page.IsValid) 
+            {
+                return;
+            }
+
             if (!EsEdicion)
             {
                 return;
@@ -343,6 +367,8 @@ namespace CatalogoProductos_Web
         protected void CancelarEliminacionButton_Click(object sender, EventArgs e)
         {
             DebeConfirmarEliminacion = false;
+
+            Session.Add("DebeConfirmarEliminacion", DebeConfirmarEliminacion);
         }
     }
 }
