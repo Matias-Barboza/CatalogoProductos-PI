@@ -39,9 +39,9 @@
             <asp:Repeater runat="server" ID="RepeaterAlgunosProductos">
                 <ItemTemplate>
                     <div class="card card-proyect">
-                        <img src="<%#Eval("ImagenUrl").ToString() == "" ?
-                                    "https://pngimg.com/uploads/box/box_PNG137.png" : Eval("ImagenUrl").ToString() %>"
-                            class="card-img-top img-card-proyect rounded-3" alt="Imagen del producto" />
+                        <asp:Image ImageUrl='<%#Eval("ImagenUrl").ToString() == "" ?
+                                    "https://pngimg.com/uploads/box/box_PNG137.png" : Eval("ImagenUrl").ToString() %>'
+                            CssClass="card-img-top img-card-proyect rounded-3" AlternateText="Imagen del producto" runat="server" />
                         <div class="card-body">
                             <h5 class="card-title"><%#Eval("Nombre")%></h5>
                             <hr class="hr-product-proyect"/>

@@ -1,4 +1,5 @@
-﻿using CatalogoProductos_negocio;
+﻿using CatalogoProductos_dominio;
+using CatalogoProductos_negocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,14 +24,16 @@ namespace CatalogoProductos_Web
         public void CargarProductos() 
         {
             ArticuloNegocio articuloNegocio = new ArticuloNegocio();
+            List<Articulo> listaArticulos = articuloNegocio.ObtenerArticulosRandom(cantidadArticulosSolicitados: 6);
+            articuloNegocio.ConfigurarRutasDeLista(listaArticulos); 
 
-            if (articuloNegocio.ObtenerArticulos().Count == 0) 
+            if (listaArticulos.Count == 0) 
             {
                 NoHayProductosCargados = true;
                 return;
             }
 
-            RepeaterAlgunosProductos.DataSource = articuloNegocio.ObtenerArticulos();
+            RepeaterAlgunosProductos.DataSource = listaArticulos;
             RepeaterAlgunosProductos.DataBind();
         }
     }

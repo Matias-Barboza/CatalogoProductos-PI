@@ -87,7 +87,7 @@ namespace CatalogoProductos_Web
             PrecioArticuloTextBox.Text = PrecioArticuloTextBox.Text.Substring(2);
             UrlImagenTextBox.Text = SetearRutaImagenActual(articuloACargar.ImagenUrl);
 
-            ActualImagen.ImageUrl = SetearImagenActual(articuloACargar.ImagenUrl);
+            ActualImagen.ImageUrl = ArticuloNegocio.ConfigurarRutaImagen(articuloACargar.ImagenUrl);
         }
 
         protected void DropDownListCustomValidator_ServerValidate(object source, ServerValidateEventArgs args)
@@ -115,11 +115,6 @@ namespace CatalogoProductos_Web
         protected void RadioButton_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox checkBox = (CheckBox)sender;
-
-            if (!checkBox.Checked) 
-            {
-                return;
-            }
 
             if (checkBox.ID == "UrlRadioButton") 
             {
@@ -287,16 +282,6 @@ namespace CatalogoProductos_Web
             }
 
             return rutaAGuardar;
-        }
-
-        public string SetearImagenActual(string rutaImagenArticulo) 
-        {
-            if (rutaImagenArticulo.Contains("https://") || rutaImagenArticulo.Contains("http://")) 
-            {
-                return rutaImagenArticulo;
-            }
-
-            return "~/Imagenes/" + rutaImagenArticulo;
         }
 
         public string SetearRutaImagenActual(string rutaImagenArticulo) 

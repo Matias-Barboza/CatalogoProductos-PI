@@ -562,6 +562,7 @@ hr {
 .current-data-container {
     padding: 1rem;
     margin: 1rem 0;
+    background-color: var(--bs-gray-100);
 }
 
 .required-data {

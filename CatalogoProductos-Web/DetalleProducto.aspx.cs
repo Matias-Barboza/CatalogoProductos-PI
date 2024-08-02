@@ -37,7 +37,7 @@ namespace CatalogoProductos_Web
             articulo = articuloNegocio.ObtenerArticuloPorId(_idProducto);
 
             TituloProductoLabel.Text = $"{articulo.Marca.Descripcion} {articulo.Nombre}";
-            ImagenProducto.ImageUrl = articulo.ImagenUrl;
+            ImagenProducto.ImageUrl = ArticuloNegocio.ConfigurarRutaImagen(articulo.ImagenUrl);
             NombreLabel.Text = articulo.Nombre;
             DescripcionLabel.Text = articulo.Descripcion;
             DescripcionMarcaLabel.Text = articulo.Marca.Descripcion;

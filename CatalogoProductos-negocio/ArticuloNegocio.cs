@@ -100,7 +100,7 @@ namespace CatalogoProductos_negocio
             }
         }
 
-        // ----------------------------------------------- RECUPERAR ---------------------------------------------------
+        // ----------------------------------------------- RECUPERAR ------------------------------------------------------------------------------------------
         public Articulo ObtenerArticuloPorId(int id) 
         {
             Articulo articuloBuscado = null;
@@ -231,7 +231,7 @@ namespace CatalogoProductos_negocio
             }
         }
         
-        public List<Articulo> ObtenerArticulosRandom(int cantidadArticulosSolicitados, int idProductoExcluido) 
+        public List<Articulo> ObtenerArticulosRandom(int cantidadArticulosSolicitados, int idProductoExcluido = 0) 
         {
             List<Articulo> listaArticulos = new List<Articulo>();
             AccesoDatos accesoDatos = new AccesoDatos();
@@ -297,6 +297,26 @@ namespace CatalogoProductos_negocio
             {
                 accesoDatos.CerrarConexion();
                 accesoDatos = null;
+            }
+        }
+
+        // ----------------------------------------------- ADICIONALES ----------------------------------------------------------------------------------------
+
+        public static string ConfigurarRutaImagen(string datoRuta) 
+        {
+            if (datoRuta.StartsWith("https://") || datoRuta.StartsWith("http://")) 
+            {
+                return datoRuta;
+            }
+
+            return "~/Imagenes/" + datoRuta;
+        }
+
+        public void ConfigurarRutasDeLista(List<Articulo> lista) 
+        {
+            foreach (Articulo articulo in lista)
+            {
+                articulo.ImagenUrl = ConfigurarRutaImagen(articulo.ImagenUrl);
             }
         }
     }

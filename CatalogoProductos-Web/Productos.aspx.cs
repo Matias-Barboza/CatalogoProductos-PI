@@ -30,6 +30,7 @@ namespace CatalogoProductos_Web
         {
             ArticuloNegocio articuloNegocio = new ArticuloNegocio();
             List<Articulo> listaArticulos = articuloNegocio.ObtenerArticulos(marcas, categorias, condicionPrecio, precio, tipoOrden, campoBusqueda);
+            articuloNegocio.ConfigurarRutasDeLista(listaArticulos);
 
             NoHayProductosCargados = listaArticulos.Count == 0;
             Session.Add("NoHayProductosCargados", NoHayProductosCargados);

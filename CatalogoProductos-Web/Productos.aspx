@@ -14,9 +14,9 @@
                         <a class="link-button-product" href='DetalleProducto.aspx?id=<%#Eval("Id") %>'>
                         <div class="one-product-container rounded-3 mb-4">
                             <div class="image-product-container border-image-product">
-                                <img src="<%#Eval("ImagenUrl").ToString() == "" ?
-                                            "https://pngimg.com/uploads/box/box_PNG137.png" : Eval("ImagenUrl").ToString() %>"
-                                    class="img-fluid img-proyect" alt="Imagen del producto"/>
+                                <asp:Image ImageUrl='<%#Eval("ImagenUrl").ToString() == "" ?
+                                            "https://pngimg.com/uploads/box/box_PNG137.png" : Eval("ImagenUrl").ToString() %>'
+                                    CssClass="img-fluid img-proyect" AlternateText="Imagen del producto" runat="server"/>
                             </div>
                             <div class="info-product-container">
                                 <span class="h5 badge-proyect"><%#Eval("Categoria.Descripcion")%>
