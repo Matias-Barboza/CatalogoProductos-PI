@@ -1,5 +1,6 @@
 ﻿using CatalogoProductos_dominio;
 using CatalogoProductos_negocio;
+using CatalogoProductos_Web.ClasesHelper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,14 @@ namespace CatalogoProductos_Web
         
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (LoginHelper.PaginaNecesitaSesionIniciada(Page)) 
+            {
+                if (!(LoginHelper.HaySesionIniciada(Session))) 
+                {
+                    Response.Redirect("Login.aspx", false);
+                }
+            }
+
             if (Page is Productos)
             {
                 if (!IsPostBack) 

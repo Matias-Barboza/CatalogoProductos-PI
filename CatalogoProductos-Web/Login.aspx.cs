@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CatalogoProductos_dominio;
+using CatalogoProductos_negocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,6 +14,85 @@ namespace CatalogoProductos_Web
         protected void Page_Load(object sender, EventArgs e)
         {
 
+        }
+
+        protected void IngresarButton_Click(object sender, EventArgs e)
+        {
+            UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+            Usuario usuario = new Usuario() {
+                Email = UsuarioTextBox.Text,
+                Password = PassTextBox.Text
+            };
+
+            if (!Page.IsValid) 
+            {
+                return;
+            }
+
+            usuario = usuarioNegocio.ObtenerUsuarioPor(usuario.Email, usuario.Password);
+
+            Session.Add("UsuarioSesionActual", usuario);
+
+            Response.Redirect("Default.aspx");
+        }
+        protected void UsuarioCustomValidator_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            try
+            {
+                if (!UsuarioValidatorLogin.IsValid || !PassValidatorLogin.IsValid) 
+                {
+                    args.IsValid = true;
+                    return;
+                }
+
+                UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+                Usuario usuario = new Usuario()
+                {
+                    Email = UsuarioTextBox.Text,
+                    Password = PassTextBox.Text
+                };
+
+                args.IsValid = usuarioNegocio.ExisteUsuario(usuario);
+
+                if (!args.IsValid) 
+                {
+                    DatosUsuarioCustomValidator.IsValid = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                args.IsValid = false;
+            }
+        }
+
+        protected void DatosUsuarioCustomValidator_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            try
+            {
+                if (!UsuarioValidatorLogin.IsValid || !PassValidatorLogin.IsValid)
+                {
+                    args.IsValid = true;
+                    return;
+                }
+
+                UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+                Usuario usuario = new Usuario()
+                {
+                    Email = UsuarioTextBox.Text,
+                    Password = PassTextBox.Text
+                };
+
+                args.IsValid = usuarioNegocio.InformacionCorrectaUsuario(usuario);
+
+                if (!UsuarioCustomValidator.IsValid) 
+                {
+                    args.IsValid = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                args.IsValid = false;
+            }
         }
     }
 }

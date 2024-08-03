@@ -74,11 +74,14 @@
     <Content Include="Global.asax" />
     <Content Include="ListadoProductos.aspx" />
     <Content Include="Login.aspx" />
+    <Content Include="MiPerfil.aspx" />
+    <Content Include="MisFavoritos.aspx" />
     <Content Include="Productos.aspx" />
     <Content Include="FormularioRegistro.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClasesHelper\LoginHelper.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -116,6 +119,20 @@
     </Compile>
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MiPerfil.aspx.cs">
+      <DependentUpon>MiPerfil.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MiPerfil.aspx.designer.cs">
+      <DependentUpon>MiPerfil.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MisFavoritos.aspx.cs">
+      <DependentUpon>MisFavoritos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MisFavoritos.aspx.designer.cs">
+      <DependentUpon>MisFavoritos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Productos.aspx.cs">
       <DependentUpon>Productos.aspx</DependentUpon>
@@ -161,6 +178,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="ImagenesPerfiles\" />
     <Folder Include="Imagenes\" />
   </ItemGroup>
   <PropertyGroup>

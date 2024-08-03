@@ -53,12 +53,24 @@
                                 PRODUCTOS
                             </a>
                         </li>
+                        <%if (CatalogoProductos_Web.ClasesHelper.LoginHelper.SesionIniciadaEsAdmin(Session))
+                          {%>
                         <li class="nav-item nav-item-proyect">
-                            <a href="listadoProductos.aspx" class="nav-link active icon-link icon-link-hover">
+                            <a href="ListadoProductos.aspx" class="nav-link active icon-link icon-link-hover">
                                 <i class="bi bi-list-ol"></i>
                                 LISTADO DE PRODUCTOS
                             </a>
                         </li>
+                        <%} %>
+                        <%if (CatalogoProductos_Web.ClasesHelper.LoginHelper.HaySesionIniciada(Session))
+                          {%>
+                        <li class="nav-item nav-item-proyect">
+                            <a href="MisFavoritos.aspx" class="nav-link active icon-link icon-link-hover">
+                                <i class="bi bi-bookmark-heart"></i>
+                                MIS FAVORITOS
+                            </a>
+                        </li>
+                        <%} %>
                     </ul>
                 </div>
 
