@@ -70,6 +70,7 @@
     <Content Include="Css\Styles.css" />
     <Content Include="Default.aspx" />
     <Content Include="DetalleProducto.aspx" />
+    <Content Include="Error.aspx" />
     <Content Include="FormularioProducto.aspx" />
     <Content Include="Global.asax" />
     <Content Include="ListadoProductos.aspx" />
@@ -95,6 +96,13 @@
     </Compile>
     <Compile Include="DetalleProducto.aspx.designer.cs">
       <DependentUpon>DetalleProducto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Error.aspx.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Error.aspx.designer.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
     </Compile>
     <Compile Include="FormularioProducto.aspx.cs">
       <DependentUpon>FormularioProducto.aspx</DependentUpon>

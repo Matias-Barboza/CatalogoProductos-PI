@@ -13,7 +13,7 @@
                 <asp:Label runat="server" ID="TituloProductoLabel"/>
                 <button type="button" runat="server" onserverclick="FavoritoButton_ServerClick" id="FavoritoButton"
                     class="btn btn-default" title="Marcar como favorito">
-                    <i class="bi bi-heart-fill fav-icon-product"></i>
+                    <i id="FavIcon" class="bi bi-heart-fill fav-icon-product" runat="server"></i>
                 </button>
             </span>
 

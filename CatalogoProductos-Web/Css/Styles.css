@@ -67,6 +67,17 @@ hr {
     justify-content: end;
 }
 
+.img-perfil-container {
+    width: 40px;
+    height: 40px;
+    margin-left: 7px;
+}
+
+.img-perfil {
+    border-radius: 50%;
+    background-color: white;
+}
+
 .login-proyect, .register-proyect {
     margin: 0 2.5px;
 }
@@ -305,6 +316,17 @@ hr {
 
 .fav-icon-product:hover {
     color: var(--bs-pink);
+    font-size: 25px;
+}
+
+.nofav-icon-product {
+    color: var(--bs-pink);
+    font-size: 20px;
+    transition: .2s;
+}
+
+.nofav-icon-product:hover {
+    color: white;
     font-size: 25px;
 }
 

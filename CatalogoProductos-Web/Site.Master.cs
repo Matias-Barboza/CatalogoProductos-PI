@@ -1,12 +1,9 @@
-﻿using CatalogoProductos_dominio;
-using CatalogoProductos_negocio;
+﻿using CatalogoProductos_negocio;
 using CatalogoProductos_Web.ClasesHelper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace CatalogoProductos_Web
@@ -19,9 +16,9 @@ namespace CatalogoProductos_Web
         {
             if (LoginHelper.PaginaNecesitaSesionIniciada(Page)) 
             {
-                if (!(LoginHelper.HaySesionIniciada(Session))) 
+                if (!LoginHelper.HaySesionIniciada(Session)) 
                 {
-                    Response.Redirect("Login.aspx", false);
+                    Response.Redirect("Login.aspx", true);
                 }
             }
 
@@ -300,6 +297,13 @@ namespace CatalogoProductos_Web
             {
                 args.IsValid = false;
             }
+        }
+
+        protected void CerrarSesionButton_Click(object sender, EventArgs e)
+        {
+            Session.Remove("UsuarioSesionActual");
+
+            Response.Redirect("Default.aspx");
         }
     }
 }

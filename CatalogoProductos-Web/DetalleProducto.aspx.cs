@@ -1,10 +1,12 @@
 ﻿using CatalogoProductos_dominio;
 using CatalogoProductos_negocio;
+using CatalogoProductos_Web.ClasesHelper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace CatalogoProductos_Web
@@ -16,16 +18,17 @@ namespace CatalogoProductos_Web
         protected void Page_Load(object sender, EventArgs e)
         {
             //Si viene vacio debe navegar a pagina de error
-
-            if (Request.QueryString["id"] != null) 
+            if (Request.QueryString.Count == 0 || !int.TryParse(Request.QueryString["id"], out _idProducto)) 
             {
-                if (!int.TryParse(Request.QueryString["id"], out _idProducto))
-                {
-                    return;
-                }
+                Response.Redirect("Error.aspx", true);
+            }
 
-                CargarDetalleProducto();
-                CargarOtrosProductos();
+            CargarDetalleProducto();
+            CargarOtrosProductos();
+
+            if (LoginHelper.HaySesionIniciada(Session)) 
+            {
+                CargarSiEsFavorito();
             }
         }
 
@@ -53,9 +56,63 @@ namespace CatalogoProductos_Web
             RepeaterAlgunosProductos.DataBind();
         }
 
+        public void CargarSiEsFavorito() 
+        {
+            FavoritoNegocio favoritoNegocio = new FavoritoNegocio();
+            Usuario usuario = (Usuario)Session["UsuarioSesionActual"];
+            Favorito favorito = new Favorito()
+            {
+                IdUsuario = usuario.IdUsuario,
+                IdArticulo = _idProducto
+            };
+
+            if (favoritoNegocio.ExisteFavorito(favorito)) 
+            {
+                FavIcon.Attributes["class"] = "bi bi-heart-fill nofav-icon-product";
+            }
+            else 
+            {
+                FavIcon.Attributes["class"] = "bi bi-heart-fill fav-icon-product";
+            }
+        }
+
+        public void CargarSiEsFavorito(FavoritoNegocio favoritoNegocio, Favorito favorito)
+        {
+            if (favoritoNegocio.ExisteFavorito(favorito))
+            {
+                FavIcon.Attributes["class"] = "bi bi-heart-fill nofav-icon-product";
+            }
+            else
+            {
+                FavIcon.Attributes["class"] = "bi bi-heart-fill fav-icon-product";
+            }
+        }
+
         protected void FavoritoButton_ServerClick(object sender, EventArgs e)
         {
+            if (!LoginHelper.HaySesionIniciada(Session))
+            {
+                Response.Redirect("Login.aspx", true);
+            }
 
+            Usuario usuario = (Usuario)Session["UsuarioSesionActual"];
+            FavoritoNegocio favoritoNegocio = new FavoritoNegocio();
+            Favorito favorito = new Favorito()
+            {
+                IdUsuario = usuario.IdUsuario,
+                IdArticulo = _idProducto
+            };
+
+            if (!favoritoNegocio.ExisteFavorito(favorito))
+            {
+                favoritoNegocio.AñadirFavorito(favorito);
+            }
+            else
+            {
+                favoritoNegocio.EliminarFavorito(favorito);
+            }
+
+            CargarSiEsFavorito(favoritoNegocio, favorito);
         }
     }
 }

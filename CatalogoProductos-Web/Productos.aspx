@@ -9,7 +9,8 @@
 
         <asp:UpdatePanel runat="server">
             <ContentTemplate>
-                <asp:Repeater runat="server" ID="RepeaterProductos">
+                <asp:Repeater runat="server" ID="RepeaterProductos" >
+
                     <ItemTemplate>
                         <a class="link-button-product" href='DetalleProducto.aspx?id=<%#Eval("Id") %>'>
                         <div class="one-product-container rounded-3 mb-4">
@@ -18,20 +19,24 @@
                                             "https://pngimg.com/uploads/box/box_PNG137.png" : Eval("ImagenUrl").ToString() %>'
                                     CssClass="img-fluid img-proyect" AlternateText="Imagen del producto" runat="server"/>
                             </div>
+                        </a>
                             <div class="info-product-container">
                                 <span class="h5 badge-proyect"><%#Eval("Categoria.Descripcion")%>
                                     <button type="button" runat="server" onserverclick="FavoritoButton_ServerClick" id="FavoritoButton"
                                             class="btn btn-default">
-                                        <i class="bi bi-heart-fill fav-icon-product"></i>
+                                        <i id="FavIcon" class="bi bi-heart-fill fav-icon-product" runat="server"></i>
                                     </button>
                                 </span>
-                                <hr class="hr-product-proyect"/>
-                                <h6 class="h7-product-proyect"><%#Eval("Marca.Descripcion")%></h6>
-                                <h6 class="h6-product-proyect"><%#Eval("Nombre")%></h6>
-                                <p class="p-product-proyect"><%#((decimal) Eval("Precio")).ToString("C")%></p>
+                                <a class="link-button-product" href='DetalleProducto.aspx?id=<%#Eval("Id") %>'>
+                                    <hr class="hr-product-proyect"/>
+                                    <asp:Label ID="IdArticuloLabel" Visible="false" Text='<%#Eval("Id") %>' runat="server" />
+                                    <h6 class="h7-product-proyect"><%#Eval("Marca.Descripcion")%></h6>
+                                    <h6 class="h6-product-proyect"><%#Eval("Nombre")%></h6>
+                                    <p class="p-product-proyect"><%#((decimal) Eval("Precio")).ToString("C")%></p>
+                                </a>
                             </div>
                         </div>
-                        </a>
+                        
                     </ItemTemplate>
                 </asp:Repeater>
 
