@@ -9,7 +9,7 @@
 
         <div class="login-container">
             <div class="login-elements rounded-3 border shadow">
-                <h2 class="text-center title-login">LOGIN</h2>
+                <h2 class="text-center title-login">INICIAR SESIÓN</h2>
                 <hr />
                 <div class="mb-2">
                     <h4 class="form-label mb-3">Usuario:</h4>

@@ -1,4 +1,5 @@
-﻿using CatalogoProductos_negocio;
+﻿using CatalogoProductos_dominio;
+using CatalogoProductos_negocio;
 using CatalogoProductos_Web.ClasesHelper;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,8 @@ namespace CatalogoProductos_Web
                 {
                     Response.Redirect("Login.aspx", true);
                 }
+
+                EstablecerFotoPerfil();
             }
 
             if (Page is Productos)
@@ -35,6 +38,18 @@ namespace CatalogoProductos_Web
                     MostrarFiltrosActivos();
                 }
             }
+        }
+
+        public void EstablecerFotoPerfil() 
+        {
+            Usuario usuarioActual = (Usuario)Session["UsuarioSesionActual"];
+            
+            if (string.IsNullOrEmpty(usuarioActual.UrlImagenPerfil)) 
+            {
+                return;
+            }
+
+            PerfilActualImage.ImageUrl = UsuarioNegocio.ObtenerRutaCompletaImagenPerfil(usuarioActual.UrlImagenPerfil);
         }
 
         public void MostrarFiltrosActivos()
@@ -245,7 +260,7 @@ namespace CatalogoProductos_Web
         {
             string campoBusqueda = "";
 
-            if (Session["CampoBusqueda"] != null && Session["campoBusqueda"].ToString() == BusquedaTextBox.Text) 
+            if (Session["CampoBusqueda"] != null && Session["CampoBusqueda"].ToString() == BusquedaTextBox.Text) 
             {
                 campoBusqueda = Session["CampoBusqueda"].ToString();
             }
@@ -301,9 +316,18 @@ namespace CatalogoProductos_Web
 
         protected void CerrarSesionButton_Click(object sender, EventArgs e)
         {
-            Session.Remove("UsuarioSesionActual");
+            EliminarDatosSession();
 
             Response.Redirect("Default.aspx");
+        }
+
+        private void EliminarDatosSession() 
+        {
+            Session.Remove("NoHayFavoritosGuardados");
+            Session.Remove("DatosArticuloCargados");
+            Session.Remove("ImagenPorArchivo");
+            Session.Remove("DebeConfirmarEliminacion");
+            Session.Remove("UsuarioSesionActual");
         }
     }
 }

@@ -23,7 +23,7 @@
                             <div class="info-product-container">
                                 <span class="h5 badge-proyect"><%#Eval("Categoria.Descripcion")%>
                                     <button type="button" runat="server" onserverclick="FavoritoButton_ServerClick" id="FavoritoButton"
-                                            class="btn btn-default">
+                                            class="btn btn-default btn-fav-proyect">
                                         <i id="FavIcon" class="bi bi-heart-fill fav-icon-product" runat="server"></i>
                                     </button>
                                 </span>

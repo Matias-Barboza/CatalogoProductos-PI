@@ -156,5 +156,12 @@ namespace CatalogoProductos_negocio
                 accesoDatos = null;
             }
         }
+
+        // ----------------------------------------------- ADICIONALES ----------------------------------------------------------------------------------------
+
+        public static string ObtenerRutaCompletaImagenPerfil(string rutaParcial) 
+        {
+            return "~/ImagenesPefiles/" + rutaParcial;
+        }
     }
 }

@@ -308,6 +308,10 @@ hr {
     align-items: center;
 }
 
+.btn-fav-proyect {
+    --bs-btn-border-color: none !important;
+}
+
 .fav-icon-product {
     color: white;
     font-size: 20px;
@@ -580,6 +584,25 @@ hr {
 }
 
 /* --------------------------------------------------------------------------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------- MIS FAVORITOS ------------------------------------------------------------------------------- */
+.card-fav {
+    height: auto !important;
+}
+
+.nofav-icon-product-list {
+    color: var(--bs-pink);
+    font-size: 20px;
+    transition: .2s;
+}
+
+.nofav-icon-product-list:hover {
+    color: white;
+    -webkit-text-stroke: 2px;
+    -webkit-text-stroke-color: gray;
+    font-size: 25px;
+}
+
+/* --------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /* ----------------------------------------------------------- FORMULARIO PRODUCTO ------------------------------------------------------------------------- */
 .current-data-container {
     padding: 1rem;
@@ -652,12 +675,12 @@ hr {
 }
 
 .title-login {
-    background: aliceblue;
-    border: 1px solid aliceblue;
+    background: var(--bs-blue);
+    border: 1px solid var(--bs-blue);
     border-radius: 0.365rem;
     padding: 5px 0;
     margin: 0;
-    color: var(--bs-gray-700);
+    color: var(--bs-body-bg);
 }
 
 .btn-login {

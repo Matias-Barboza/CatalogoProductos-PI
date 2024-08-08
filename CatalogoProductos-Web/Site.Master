@@ -32,7 +32,7 @@
                 <%if (!CatalogoProductos_Web.ClasesHelper.LoginHelper.HaySesionIniciada(Session))
                     {%>
                 <div class="container-navbar login-div">
-                    <a href="Login.aspx" class="btn btn-outline-primary btn-sm login-proyect">LOGIN</a>
+                    <a href="Login.aspx" class="btn btn-outline-primary btn-sm login-proyect">INICIAR SESIÓN</a>
                     <a href="FormularioRegistro.aspx" class="btn btn-outline-success btn-sm register-proyect">REGISTRARSE</a>
                 </div>
                 <%}
@@ -45,7 +45,7 @@
                                     OnClick="CerrarSesionButton_Click" runat="server" />
                     </div>
                     <div class="img-perfil-container">
-                        <asp:Image ImageUrl="https://imebehavioralhealth.com/wp-content/uploads/2021/10/user-icon-placeholder-1.png" CssClass="img-fluid img-perfil" runat="server" />
+                        <asp:Image ID="PerfilActualImage" ImageUrl="https://imebehavioralhealth.com/wp-content/uploads/2021/10/user-icon-placeholder-1.png" CssClass="img-fluid img-perfil" runat="server" />
                     </div>
                 </div>
                 <%} %>
