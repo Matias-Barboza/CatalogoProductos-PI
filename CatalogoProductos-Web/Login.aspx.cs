@@ -39,6 +39,7 @@ namespace CatalogoProductos_Web
             usuario = usuarioNegocio.ObtenerUsuarioPor(usuario.Email, usuario.Password);
 
             Session.Add("UsuarioSesionActual", usuario);
+            Session.Add("EstablecerDatos", true);
 
             Response.Redirect("Default.aspx");
         }

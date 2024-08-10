@@ -11,7 +11,7 @@
 
             <div class="register-elements rounded-3 border shadow">
 
-                <h2 class="text-center title-register">REGISTRO</h2>
+                <h2 class="text-center title-login">REGISTRO</h2>
                 <hr />
 
                 <fieldset class="rounded-3 border fieldset-register shadow">
@@ -21,13 +21,13 @@
                     <h4 class="form-label mb-3">Nombre:</h4>
                     <asp:TextBox runat="server" CssClass="form-control mb-1" ID="NombreTextBox"
                                  PlaceHolder="Juan Diego" />
-                    <asp:RequiredFieldValidator ErrorMessage="El nombre es un campo requerido."
+                    <asp:RequiredFieldValidator ID="NombreValidator" ErrorMessage="El nombre es un campo requerido."
                                                 ControlToValidate="NombreTextBox" Display="Dynamic"
                                                 CssClass="validator" runat="server" />
                     <h4 class="form-label mb-3">Apellido:</h4>
                     <asp:TextBox runat="server" CssClass="form-control mb-1" ID="ApellidoTextBox"
                                  PlaceHolder="Pérez" />
-                    <asp:RequiredFieldValidator ErrorMessage="El apellido es un campo requerido."
+                    <asp:RequiredFieldValidator ID="ApellidoValidator" ErrorMessage="El apellido es un campo requerido."
                                                 ControlToValidate="ApellidoTextBox" Display="Dynamic"
                                                 CssClass="validator" runat="server" />
 
@@ -40,33 +40,39 @@
                     <h4 class="form-label mb-3">Email:</h4>
                     <asp:TextBox runat="server" CssClass="form-control mb-1" ID="UsuarioTextBox"
                                  PlaceHolder="ejemplo@ejemplo.com" />
-                    <asp:RequiredFieldValidator ErrorMessage="El email es un campo requerido."
-                                                ControlToValidate="UsuarioTextBox"
-                                                Display="Dynamic" CssClass="validator" runat="server" />
+                    <asp:RequiredFieldValidator ID="EmailValidator" ErrorMessage="El email es un campo requerido."
+                                                ControlToValidate="UsuarioTextBox" Display="Dynamic"
+                                                CssClass="validator" runat="server" />
+                    <asp:RegularExpressionValidator ID="EmailValidoValidator" ErrorMessage="La información proporcionada no tiene estructura de correo electrónico."
+                                                    ControlToValidate="UsuarioTextBox" CssClass="validator" Display="Dynamic"
+                                                    ValidationExpression="^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$" runat="server" />
+                    <asp:CustomValidator ID="UsuarioExistenteCustomValidator" ErrorMessage="El usuario ya existe." ControlToValidate="UsuarioTextBox"
+                                         CssClass="validator" OnServerValidate="UsuarioExistenteCustomValidator_ServerValidate" Display="Dynamic" runat="server" />
                     <h4 class="form-label mb-3">Contraseña:</h4>
                     <asp:TextBox runat="server" TextMode="Password" CssClass="form-control mb-1" ID="PassTextBox"
                                  PlaceHolder="*********" />
-                    <asp:RequiredFieldValidator ErrorMessage="La contraseña es un campo requerido."
+                    <asp:RequiredFieldValidator ID="PasswordValidator" ErrorMessage="La contraseña es un campo requerido."
                                                 ControlToValidate="PassTextBox" Display="Dynamic"
                                                 CssClass="validator"  runat="server" />
                     <h4 class="form-label mb-3">Repita la contraseña:</h4>
                     <asp:TextBox runat="server" TextMode="Password" CssClass="form-control mb-1" ID="PassRepetidaTextBox"
                                  PlaceHolder="*********" />
                     <div class="container-validators">
-                        <asp:RequiredFieldValidator ErrorMessage="La contraseña es un campo requerido."
+                        <asp:RequiredFieldValidator ID="RepetirPasswordValidator" ErrorMessage="La contraseña es un campo requerido."
                                                     ControlToValidate="PassRepetidaTextBox"
                                                     Display="Dynamic" CssClass="validator" runat="server"/>
-                        <asp:CompareValidator ErrorMessage="Ambas contraseñas deben coincidir."
+                        <asp:CompareValidator ID="PasswordsCoincidentesValidator" ErrorMessage="Ambas contraseñas deben coincidir."
                                               ControlToValidate="PassRepetidaTextBox" ControlToCompare="PassTextBox" 
                                               CssClass="validator" Operator="Equal" Type="String"
-                                              Display="Dynamic" runat="server"/>
+                                              Display="Dynamic" runat="server" />
                     </div>
 
                 </fieldset>
 
                 <hr />
 
-                <asp:Button Text="Registrarse" runat="server" CssClass="btn btn-primary btn-lg mb-3 btn-register" />
+                <asp:Button ID="RegistrarseButton" Text="Registrarse" OnClick="RegistrarseButton_Click"
+                            CssClass="btn btn-primary btn-lg mb-3 btn-register" runat="server" />
 
             </div>
 

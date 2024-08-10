@@ -76,6 +76,7 @@ hr {
 .img-perfil {
     border-radius: 50%;
     background-color: white;
+    border: 1.5px solid var(--bs-dark-border-subtle);
 }
 
 .login-proyect, .register-proyect {
@@ -675,12 +676,8 @@ hr {
 }
 
 .title-login {
-    background: var(--bs-blue);
-    border: 1px solid var(--bs-blue);
-    border-radius: 0.365rem;
-    padding: 5px 0;
     margin: 0;
-    color: var(--bs-body-bg);
+    color: var(--bs-gray-700);
 }
 
 .btn-login {
@@ -709,16 +706,7 @@ hr {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 2rem;
-}
-
-.title-register {
-    background: var(--bs-success);
-    border: 1px solid var(--bs-success);
-    border-radius: 0.365rem;
-    padding: 5px 0;
-    margin: 0;
-    color: var(--bs-gray-100);
+    padding: 1rem;
 }
 
 .fieldset-register {

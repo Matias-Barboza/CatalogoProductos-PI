@@ -13,7 +13,7 @@ namespace CatalogoProductos_Web.ClasesHelper
     {
         public static bool PaginaNecesitaSesionIniciada(Page pagina) 
         {
-            return pagina is ListadoProductos || pagina is MiPerfil || pagina is MisFavoritos;
+            return pagina is ListadoProductos || pagina is MiPerfil || pagina is MisFavoritos || pagina is FormularioProducto;
         }
 
         public static bool HaySesionIniciada(HttpSessionState session) 
@@ -43,6 +43,11 @@ namespace CatalogoProductos_Web.ClasesHelper
         public static bool SesionIniciadaEsAdmin(HttpSessionState session) 
         {
             return HaySesionIniciada(session) && EsUsuarioAdmin(session);
+        }
+
+        public static bool DebeSerAdmin(Page page) 
+        {
+            return page is ListadoProductos || page is FormularioProducto;
         }
     }
 }

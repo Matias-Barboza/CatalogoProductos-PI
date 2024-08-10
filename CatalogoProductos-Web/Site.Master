@@ -39,10 +39,11 @@
                  else
                  {%>
                 <div class="container-navbar login-div">
-                    <div class="align-content-center">
+                    <div class="d-flex align-items-center">
                         <a href="MiPerfil.aspx" class="btn btn-outline-primary btn-sm login-proyect align-content-center">MI PERFIL</a>
                         <asp:Button ID="CerrarSesionButton" Text="CERRAR SESIÓN" CssClass="btn btn-outline-danger btn-sm login-proyect"
                                     OnClick="CerrarSesionButton_Click" runat="server" />
+                        <asp:Label ID="NombreUsuarioActualLabel" CssClass="badge text-bg-secondary ms-1 fs-6 p-2" runat="server" />
                     </div>
                     <div class="img-perfil-container">
                         <asp:Image ID="PerfilActualImage" ImageUrl="https://imebehavioralhealth.com/wp-content/uploads/2021/10/user-icon-placeholder-1.png" CssClass="img-fluid img-perfil" runat="server" />
@@ -69,21 +70,21 @@
                                 PRODUCTOS
                             </a>
                         </li>
-                        <%if (CatalogoProductos_Web.ClasesHelper.LoginHelper.SesionIniciadaEsAdmin(Session))
-                          {%>
-                        <li class="nav-item nav-item-proyect">
-                            <a href="ListadoProductos.aspx" class="nav-link active icon-link icon-link-hover">
-                                <i class="bi bi-list-ol"></i>
-                                LISTADO DE PRODUCTOS
-                            </a>
-                        </li>
-                        <%} %>
                         <%if (CatalogoProductos_Web.ClasesHelper.LoginHelper.HaySesionIniciada(Session))
                           {%>
                         <li class="nav-item nav-item-proyect">
                             <a href="MisFavoritos.aspx" class="nav-link active icon-link icon-link-hover">
                                 <i class="bi bi-bookmark-heart"></i>
                                 MIS FAVORITOS
+                            </a>
+                        </li>
+                        <%} %>
+                        <%if (CatalogoProductos_Web.ClasesHelper.LoginHelper.SesionIniciadaEsAdmin(Session))
+                          {%>
+                        <li class="nav-item nav-item-proyect">
+                            <a href="ListadoProductos.aspx" class="nav-link active icon-link icon-link-hover">
+                                <i class="bi bi-list-ol"></i>
+                                LISTADO DE PRODUCTOS
                             </a>
                         </li>
                         <%} %>

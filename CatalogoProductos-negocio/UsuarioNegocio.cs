@@ -10,6 +10,36 @@ namespace CatalogoProductos_negocio
 {
     public class UsuarioNegocio
     {
+        public int AñadirUsuario(Usuario usuario) 
+        {
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            try
+            {
+                accesoDatos.SetearQuery(@"INSERT INTO USERS (email, pass, nombre, apellido, urlImagenPerfil, admin)
+                                          OUTPUT INSERTED.id
+                                          VALUES (@emailNuevo, @passNuevo, @nombreNuevo, @apellidoNuevo, @urlImagen, @admin)");
+
+                accesoDatos.AgregarParametro("emailNuevo", usuario.Email);
+                accesoDatos.AgregarParametro("passNuevo", usuario.Password);
+                accesoDatos.AgregarParametro("nombreNuevo", usuario.Nombre);
+                accesoDatos.AgregarParametro("apellidoNuevo", usuario.Apellido);
+                accesoDatos.AgregarParametro("urlImagen", usuario.UrlImagenPerfil ?? (object) DBNull.Value);
+                accesoDatos.AgregarParametro("admin", 0);
+
+                return (int) accesoDatos.EjecutarScalar();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                accesoDatos.CerrarConexion();
+                accesoDatos = null;
+            }
+        }
+
         public Usuario ObtenerUsuarioPor(string email, string password) 
         {
             AccesoDatos accesoDatos = new AccesoDatos();
@@ -65,7 +95,7 @@ namespace CatalogoProductos_negocio
 
                 while (accesoDatos.Lector.Read())
                 {
-                    emailsUsuarios.Add(accesoDatos.Lector.GetString(1));
+                    emailsUsuarios.Add(accesoDatos.Lector.GetString(0));
                 }
 
                 return emailsUsuarios;
@@ -162,6 +192,13 @@ namespace CatalogoProductos_negocio
         public static string ObtenerRutaCompletaImagenPerfil(string rutaParcial) 
         {
             return "~/ImagenesPefiles/" + rutaParcial;
+        }
+
+        public bool UsuarioYaUtilizado(string emailNuevo) 
+        {
+            List<string> listaEmailsExistentes = ObtenerEmailsUsuarios();
+
+            return listaEmailsExistentes.Contains(emailNuevo);
         }
     }
 }

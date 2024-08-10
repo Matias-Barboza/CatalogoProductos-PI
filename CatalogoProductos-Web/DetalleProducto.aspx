@@ -7,7 +7,7 @@
 
     <section class="section-proyect">
 
-        <div class="rounded-3 shadow-proyect product-detail-div">
+        <div class="rounded-3 shadow product-detail-div">
 
             <span class="badge-detail-proyect">
                 <asp:Label runat="server" ID="TituloProductoLabel"/>

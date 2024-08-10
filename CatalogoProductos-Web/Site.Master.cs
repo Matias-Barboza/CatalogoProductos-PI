@@ -22,7 +22,16 @@ namespace CatalogoProductos_Web
                     Response.Redirect("Login.aspx", true);
                 }
 
+                if (!LoginHelper.SesionIniciadaEsAdmin(Session) && LoginHelper.DebeSerAdmin(Page)) 
+                {
+                    Response.Redirect("Error.aspx", true);
+                }
+            }
+
+            if (Session["EstablecerDatos"] != null && (bool) Session["EstablecerDatos"]) 
+            {
                 EstablecerFotoPerfil();
+                EstablecerNombrePerfil();
             }
 
             if (Page is Productos)
@@ -50,6 +59,18 @@ namespace CatalogoProductos_Web
             }
 
             PerfilActualImage.ImageUrl = UsuarioNegocio.ObtenerRutaCompletaImagenPerfil(usuarioActual.UrlImagenPerfil);
+        }
+
+        public void EstablecerNombrePerfil()
+        {
+            Usuario usuarioActual = (Usuario)Session["UsuarioSesionActual"];
+
+            if (string.IsNullOrEmpty(usuarioActual.Nombre) && string.IsNullOrEmpty(usuarioActual.Apellido))
+            {
+                return;
+            }
+
+            NombreUsuarioActualLabel.Text = $"{usuarioActual.Nombre}, {usuarioActual.Apellido}";
         }
 
         public void MostrarFiltrosActivos()
@@ -327,6 +348,7 @@ namespace CatalogoProductos_Web
             Session.Remove("DatosArticuloCargados");
             Session.Remove("ImagenPorArchivo");
             Session.Remove("DebeConfirmarEliminacion");
+            Session.Remove("EstablecerDatos");
             Session.Remove("UsuarioSesionActual");
         }
     }
