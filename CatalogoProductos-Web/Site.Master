@@ -40,9 +40,14 @@
                  {%>
                 <div class="container-navbar login-div">
                     <div class="d-flex align-items-center">
-                        <a href="MiPerfil.aspx" class="btn btn-outline-primary btn-sm login-proyect align-content-center">MI PERFIL</a>
-                        <asp:Button ID="CerrarSesionButton" Text="CERRAR SESIÓN" CssClass="btn btn-outline-danger btn-sm login-proyect"
-                                    OnClick="CerrarSesionButton_Click" runat="server" />
+                        <a href="MiPerfil.aspx" class="btn btn-outline-primary btn-sm login-proyect align-content-center">
+                            MI PERFIL 
+                            <i class="bi bi-person-fill"></i>
+                        </a>
+                        <button type="button" onserverclick="CerrarSesionButton_ServerClick" id="CerrarSesionButton"
+                                class="btn btn-outline-danger btn-sm login-proyect" runat="server" >CERRAR SESIÓN
+                            <i class="bi bi-box-arrow-right"></i>
+                        </button>
                         <asp:Label ID="NombreUsuarioActualLabel" CssClass="badge text-bg-secondary ms-1 fs-6 p-2" runat="server" />
                     </div>
                     <div class="img-perfil-container">

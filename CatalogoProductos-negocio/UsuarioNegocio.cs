@@ -40,6 +40,33 @@ namespace CatalogoProductos_negocio
             }
         }
 
+        public int ActualizarUsuario(Usuario usuario) 
+        {
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            try
+            {
+                accesoDatos.SetearQuery(@"UPDATE USERS SET nombre = @nombreNuevo, apellido = @apellidoNuevo , urlImagenPerfil = @urlImagen
+                                          WHERE id = @id");
+
+                accesoDatos.AgregarParametro("nombreNuevo", usuario.Nombre);
+                accesoDatos.AgregarParametro("apellidoNuevo", usuario.Apellido);
+                accesoDatos.AgregarParametro("urlImagen", usuario.UrlImagenPerfil ?? (object) DBNull.Value);
+                accesoDatos.AgregarParametro("id", usuario.IdUsuario);
+
+                return accesoDatos.EjecutarQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                accesoDatos.CerrarConexion();
+                accesoDatos = null;
+            }
+        }
+
         public Usuario ObtenerUsuarioPor(string email, string password) 
         {
             AccesoDatos accesoDatos = new AccesoDatos();
@@ -191,7 +218,7 @@ namespace CatalogoProductos_negocio
 
         public static string ObtenerRutaCompletaImagenPerfil(string rutaParcial) 
         {
-            return "~/ImagenesPefiles/" + rutaParcial;
+            return "~/ImagenesPerfiles/" + rutaParcial;
         }
 
         public bool UsuarioYaUtilizado(string emailNuevo) 

@@ -55,6 +55,7 @@ namespace CatalogoProductos_Web
             
             if (string.IsNullOrEmpty(usuarioActual.UrlImagenPerfil)) 
             {
+                PerfilActualImage.ImageUrl = LoginHelper.PLACEHOLDER_IMAGEN_PERFIL;
                 return;
             }
 
@@ -335,13 +336,6 @@ namespace CatalogoProductos_Web
             }
         }
 
-        protected void CerrarSesionButton_Click(object sender, EventArgs e)
-        {
-            EliminarDatosSession();
-
-            Response.Redirect("Default.aspx");
-        }
-
         private void EliminarDatosSession() 
         {
             Session.Remove("NoHayFavoritosGuardados");
@@ -349,7 +343,15 @@ namespace CatalogoProductos_Web
             Session.Remove("ImagenPorArchivo");
             Session.Remove("DebeConfirmarEliminacion");
             Session.Remove("EstablecerDatos");
+            Session.Remove("DebeConfirmarEdicion");
             Session.Remove("UsuarioSesionActual");
+        }
+
+        protected void CerrarSesionButton_ServerClick(object sender, EventArgs e)
+        {
+            EliminarDatosSession();
+
+            Response.Redirect("Default.aspx");
         }
     }
 }

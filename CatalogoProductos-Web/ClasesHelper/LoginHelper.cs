@@ -11,6 +11,8 @@ namespace CatalogoProductos_Web.ClasesHelper
 {
     public static class LoginHelper
     {
+        public const string PLACEHOLDER_IMAGEN_PERFIL = "https://imebehavioralhealth.com/wp-content/uploads/2021/10/user-icon-placeholder-1.png";
+
         public static bool PaginaNecesitaSesionIniciada(Page pagina) 
         {
             return pagina is ListadoProductos || pagina is MiPerfil || pagina is MisFavoritos || pagina is FormularioProducto;
