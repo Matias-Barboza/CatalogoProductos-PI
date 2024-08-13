@@ -209,8 +209,8 @@
                             <label class="form-label h4">Imagen actual</label>
                             <hr class="hr-product-proyect" />
                             <div class="img-container">
-                                <asp:Image ID="ActualImagen" ImageUrl="https://i0.wp.com/casagres.com.ar/wp-content/uploads/2022/09/placeholder.png?ssl=1"
-                                    CssClass="img-fluid" runat="server" AlternateText="No se pudo establecer la ruta de imagen del artículo" />
+                                <asp:Image ID="ActualImagen" CssClass="img-fluid"
+                                            AlternateText="No se pudo establecer la ruta de imagen del artículo" runat="server" />
                             </div>
                         </div>
                         <%} %>
@@ -219,8 +219,8 @@
                             <label class="form-label h4">Imagen nueva</label>
                             <hr class="hr-product-proyect" />
                             <div class="img-container">
-                                <asp:Image ID="NuevaImagen" ImageUrl="https://i0.wp.com/casagres.com.ar/wp-content/uploads/2022/09/placeholder.png?ssl=1"
-                                            CssClass="img-fluid" runat="server" AlternateText="No se pudo establecer la ruta de imagen del artículo" />
+                                <asp:Image ID="NuevaImagen" CssClass="img-fluid"
+                                           AlternateText="No se pudo establecer la ruta de imagen del artículo" runat="server" />
                             </div>
                         </div>
 

@@ -23,6 +23,7 @@ namespace CatalogoProductos_Web
             {
                 UrlRadioButton.Checked = true;
                 CargarDesplegables();
+                EstablecerPlaceHolderImagenes();
                 Session.Add("DatosArticuloCargados", false);
             }
 
@@ -64,6 +65,12 @@ namespace CatalogoProductos_Web
             VincularADataSource(CategoriasDropDownList, fuenteCategorias.ToList<object>());
         }
 
+        public void EstablecerPlaceHolderImagenes() 
+        {
+            ActualImagen.ImageUrl = ArticuloNegocio.PLACEHOLDER_IMAGEN;
+            NuevaImagen.ImageUrl = ArticuloNegocio.PLACEHOLDER_IMAGEN;
+        }
+
         private void VincularADataSource(DropDownList dropDownList, List<object> fuente) 
         {
             dropDownList.DataSource = fuente;
@@ -83,7 +90,7 @@ namespace CatalogoProductos_Web
             DescripcionArticuloTextBox.Text = articuloACargar.Descripcion;
             MarcasDropDownList.Items.FindByText(articuloACargar.Marca.Descripcion).Selected = true;
             CategoriasDropDownList.Items.FindByText(articuloACargar.Categoria.Descripcion).Selected = true;
-            PrecioArticuloTextBox.Text = articuloACargar.Precio.ToString("C");
+            PrecioArticuloTextBox.Text = articuloACargar.Precio.ToString("C3");
             PrecioArticuloTextBox.Text = PrecioArticuloTextBox.Text.Substring(2);
             UrlImagenTextBox.Text = SetearRutaImagenActual(articuloACargar.ImagenUrl);
 

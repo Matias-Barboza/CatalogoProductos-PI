@@ -20,6 +20,7 @@ namespace CatalogoProductos_Web
             if (!IsPostBack) 
             {
                 CargarDatosUsuario();
+                Session.Add("DebeConfirmarEdicion", false);
             }
 
             if (Session["DebeConfirmarEdicion"] != null)

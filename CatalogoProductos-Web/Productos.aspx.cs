@@ -82,7 +82,7 @@ namespace CatalogoProductos_Web
         {
             if (!LoginHelper.HaySesionIniciada(Session))
             {
-                Response.Redirect("Login.aspx", true);
+                Response.Redirect("Login.aspx?pagina=productos", true);
             }
 
             Usuario usuario = (Usuario)Session["UsuarioSesionActual"];

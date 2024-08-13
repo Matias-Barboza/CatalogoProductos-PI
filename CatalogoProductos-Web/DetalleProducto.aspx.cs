@@ -45,14 +45,16 @@ namespace CatalogoProductos_Web
             DescripcionLabel.Text = articulo.Descripcion;
             DescripcionMarcaLabel.Text = articulo.Marca.Descripcion;
             DescripcionCategoriaLabel.Text = articulo.Categoria.Descripcion;
-            PrecioLabel.Text = articulo.Precio.ToString("C");
+            PrecioLabel.Text = articulo.Precio.ToString("C3");
         }
 
         public void CargarOtrosProductos() 
         {
             ArticuloNegocio articuloNegocio = new ArticuloNegocio();
+            List<Articulo> listaArticulos = articuloNegocio.ObtenerArticulosRandom(3, _idProducto);
+            articuloNegocio.ConfigurarRutasDeLista(listaArticulos);
 
-            RepeaterAlgunosProductos.DataSource = articuloNegocio.ObtenerArticulosRandom(3, _idProducto);
+            RepeaterAlgunosProductos.DataSource = listaArticulos;
             RepeaterAlgunosProductos.DataBind();
         }
 

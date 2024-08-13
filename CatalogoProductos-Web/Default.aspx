@@ -40,7 +40,7 @@
                 <ItemTemplate>
                     <div class="card card-proyect">
                         <asp:Image ImageUrl='<%#Eval("ImagenUrl").ToString() == "" ?
-                                    "https://pngimg.com/uploads/box/box_PNG137.png" : Eval("ImagenUrl").ToString() %>'
+                                    CatalogoProductos_negocio.ArticuloNegocio.PLACEHOLDER_IMAGEN_ARTICULO : Eval("ImagenUrl").ToString() %>'
                             CssClass="card-img-top img-card-proyect rounded-3" AlternateText="Imagen del producto" runat="server" />
                         <div class="card-body">
                             <h5 class="card-title"><%#Eval("Nombre")%></h5>
@@ -50,7 +50,7 @@
                                 <a href='DetalleProducto.aspx?id=<%#Eval("Id") %>' class="btn btn-primary icon-link icon-link-hover arrow-container">Detalles
                                     <i class="bi bi-arrow-right"></i>
                                 </a>
-                                <p class="p-product-proyect p-card-product-proyect"><%#((decimal) Eval("Precio")).ToString("C")%></p>
+                                <p class="p-product-proyect p-card-product-proyect"><%#((decimal) Eval("Precio")).ToString("C3")%></p>
                             </span>
                         </div>
                     </div>

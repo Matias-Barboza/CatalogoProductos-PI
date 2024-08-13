@@ -18,7 +18,7 @@ namespace CatalogoProductos_Web
             {
                 if (LoginHelper.HaySesionIniciada(Session)) 
                 {
-                    Response.Redirect("MiPerfil.aspx");
+                    Response.Redirect("MiPerfil.aspx",true);
                 }
             }
         }
@@ -40,6 +40,11 @@ namespace CatalogoProductos_Web
 
             Session.Add("UsuarioSesionActual", usuario);
             Session.Add("EstablecerDatos", true);
+
+            if (Request.QueryString["pagina"] != null) 
+            {
+                Response.Redirect("Productos.aspx", true);
+            }
 
             Response.Redirect("Default.aspx");
         }

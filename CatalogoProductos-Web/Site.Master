@@ -48,10 +48,12 @@
                                 class="btn btn-outline-danger btn-sm login-proyect" runat="server" >CERRAR SESIÓN
                             <i class="bi bi-box-arrow-right"></i>
                         </button>
-                        <asp:Label ID="NombreUsuarioActualLabel" CssClass="badge text-bg-secondary ms-1 fs-6 p-2" runat="server" />
+                        <a href="MiPerfil.aspx">
+                            <asp:Label ID="NombreUsuarioActualLabel" CssClass="badge text-bg-secondary ms-1 fs-6 p-2" runat="server" />
+                        </a>
                     </div>
                     <div class="img-perfil-container">
-                        <asp:Image ID="PerfilActualImage" ImageUrl="https://imebehavioralhealth.com/wp-content/uploads/2021/10/user-icon-placeholder-1.png" CssClass="img-fluid img-perfil" runat="server" />
+                        <asp:Image ID="PerfilActualImage" ImageUrl='<%#CatalogoProductos_Web.ClasesHelper.LoginHelper.PLACEHOLDER_IMAGEN_PERFIL %>' CssClass="img-fluid img-perfil" runat="server" />
                     </div>
                 </div>
                 <%} %>

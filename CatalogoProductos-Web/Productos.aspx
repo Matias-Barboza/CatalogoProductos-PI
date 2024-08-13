@@ -16,7 +16,7 @@
                         <div class="one-product-container rounded-3 mb-4">
                             <div class="image-product-container border-image-product">
                                 <asp:Image ImageUrl='<%#Eval("ImagenUrl").ToString() == "" ?
-                                            "https://pngimg.com/uploads/box/box_PNG137.png" : Eval("ImagenUrl").ToString() %>'
+                                            CatalogoProductos_negocio.ArticuloNegocio.PLACEHOLDER_IMAGEN_ARTICULO : Eval("ImagenUrl").ToString() %>'
                                     CssClass="img-fluid img-proyect" AlternateText="Imagen del producto" runat="server"/>
                             </div>
                         </a>
@@ -32,7 +32,7 @@
                                     <asp:Label ID="IdArticuloLabel" Visible="false" Text='<%#Eval("Id") %>' runat="server" />
                                     <h6 class="h7-product-proyect"><%#Eval("Marca.Descripcion")%></h6>
                                     <h6 class="h6-product-proyect"><%#Eval("Nombre")%></h6>
-                                    <p class="p-product-proyect"><%#((decimal) Eval("Precio")).ToString("C")%></p>
+                                    <p class="p-product-proyect"><%#((decimal) Eval("Precio")).ToString("C3")%></p>
                                 </a>
                             </div>
                         </div>

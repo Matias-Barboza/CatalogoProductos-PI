@@ -6,6 +6,7 @@ using System.Web.SessionState;
 using System.Web.UI;
 using CatalogoProductos_dominio;
 using CatalogoProductos_negocio;
+using static System.Collections.Specialized.BitVector32;
 
 namespace CatalogoProductos_Web.ClasesHelper
 {
@@ -50,6 +51,17 @@ namespace CatalogoProductos_Web.ClasesHelper
         public static bool DebeSerAdmin(Page page) 
         {
             return page is ListadoProductos || page is FormularioProducto;
+        }
+
+        public static void EliminarDatosSession(HttpSessionState session)
+        {
+            session.Remove("NoHayFavoritosGuardados");
+            session.Remove("DatosArticuloCargados");
+            session.Remove("ImagenPorArchivo");
+            session.Remove("DebeConfirmarEliminacion");
+            session.Remove("EstablecerDatos");
+            session.Remove("DebeConfirmarEdicion");
+            session.Remove("UsuarioSesionActual");
         }
     }
 }

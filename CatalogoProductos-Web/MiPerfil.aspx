@@ -4,13 +4,13 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <section class="section-proyect" style="min-height:700px">
+    <section class="section-proyect products-container">
 
         <div class="rounded-3 shadow">
             <span class="badge-detail-proyect py-4">Datos de Mi perfil</span>
             <div class="d-flex">
                 <div class="img-detail-container flex-column bg-light">
-                    <div class="d-flex justify-content-center mb-3 p-4 rounded-3">
+                    <div class="d-flex justify-content-center mb-3 p-4 rounded-3" style="max-height:400px">
                         <asp:Image ID="ImagenActualImage" CssClass="img-fluid" ImageUrl="imageurl" runat="server" />
                     </div>
                     <%if (DebeConfirmarEdicion)

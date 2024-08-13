@@ -11,6 +11,9 @@ namespace CatalogoProductos_negocio
 {
     public class ArticuloNegocio
     {
+        public const string PLACEHOLDER_IMAGEN_ARTICULO = "https://pngimg.com/uploads/box/box_PNG137.png";
+        public const string PLACEHOLDER_IMAGEN = "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
+
         public bool AñadirArticulo(Articulo articulo, out int idNuevoArticulo) 
         {
             AccesoDatos accesoDatos = new AccesoDatos();
@@ -361,6 +364,11 @@ namespace CatalogoProductos_negocio
                 return datoRuta;
             }
 
+            if (string.IsNullOrEmpty(datoRuta)) 
+            {
+                return datoRuta;
+            }
+
             return "~/Imagenes/" + datoRuta;
         }
 
@@ -371,5 +379,6 @@ namespace CatalogoProductos_negocio
                 articulo.ImagenUrl = ConfigurarRutaImagen(articulo.ImagenUrl);
             }
         }
+
     }
 }

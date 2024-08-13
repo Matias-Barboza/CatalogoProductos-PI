@@ -199,7 +199,7 @@ hr {
 .card-proyect {
     padding: 10px;
     margin: 20px;
-    width: 18rem;
+    width: 20rem;
     height: 330px !important;
     box-shadow: .25rem .5rem 1rem rgba(0, 0, 0, .075);
     transition: transform .2s;

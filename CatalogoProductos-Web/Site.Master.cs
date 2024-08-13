@@ -336,20 +336,9 @@ namespace CatalogoProductos_Web
             }
         }
 
-        private void EliminarDatosSession() 
-        {
-            Session.Remove("NoHayFavoritosGuardados");
-            Session.Remove("DatosArticuloCargados");
-            Session.Remove("ImagenPorArchivo");
-            Session.Remove("DebeConfirmarEliminacion");
-            Session.Remove("EstablecerDatos");
-            Session.Remove("DebeConfirmarEdicion");
-            Session.Remove("UsuarioSesionActual");
-        }
-
         protected void CerrarSesionButton_ServerClick(object sender, EventArgs e)
         {
-            EliminarDatosSession();
+            LoginHelper.EliminarDatosSession(Session);
 
             Response.Redirect("Default.aspx");
         }
