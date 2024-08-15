@@ -372,6 +372,26 @@ namespace CatalogoProductos_negocio
             return "~/Imagenes/" + datoRuta;
         }
 
+        public static string PrecioFormateado(decimal precioArticulo) 
+        {
+            string precioSinTratar = precioArticulo.ToString();
+
+            precioSinTratar = precioSinTratar.Substring(0, precioSinTratar.Length - 2);
+
+            decimal precioTratado = decimal.Parse(precioSinTratar);
+
+            return precioTratado.ToString("C");
+        }
+
+        public decimal FormatearPrecio(decimal precioArticulo) 
+        {
+            string precioSinTratar = precioArticulo.ToString();
+
+            precioSinTratar = precioSinTratar.Substring(0, precioSinTratar.Length - 2);
+
+            return decimal.Parse(precioSinTratar);
+        }
+
         public void ConfigurarRutasDeLista(List<Articulo> lista) 
         {
             foreach (Articulo articulo in lista)
@@ -380,5 +400,12 @@ namespace CatalogoProductos_negocio
             }
         }
 
+        public void ConfigurarPrecios(List<Articulo> lista) 
+        {
+            foreach (Articulo articulo in lista)
+            {
+                articulo.Precio = FormatearPrecio(articulo.Precio);
+            }
+        }
     }
 }

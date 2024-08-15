@@ -90,8 +90,7 @@ namespace CatalogoProductos_Web
             DescripcionArticuloTextBox.Text = articuloACargar.Descripcion;
             MarcasDropDownList.Items.FindByText(articuloACargar.Marca.Descripcion).Selected = true;
             CategoriasDropDownList.Items.FindByText(articuloACargar.Categoria.Descripcion).Selected = true;
-            PrecioArticuloTextBox.Text = articuloACargar.Precio.ToString("C3");
-            PrecioArticuloTextBox.Text = PrecioArticuloTextBox.Text.Substring(2);
+            PrecioArticuloTextBox.Text = ArticuloNegocio.PrecioFormateado(articuloACargar.Precio);
             UrlImagenTextBox.Text = SetearRutaImagenActual(articuloACargar.ImagenUrl);
 
             ActualImagen.ImageUrl = ArticuloNegocio.ConfigurarRutaImagen(articuloACargar.ImagenUrl);

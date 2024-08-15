@@ -29,6 +29,8 @@ namespace CatalogoProductos_Web
                 return;
             }
 
+            articuloNegocio.ConfigurarPrecios(articulos);
+
             ProductosGridView.DataSource = articulos;
             ProductosGridView.DataBind();
         }

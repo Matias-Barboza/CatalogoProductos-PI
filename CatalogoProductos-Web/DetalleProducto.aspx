@@ -61,7 +61,7 @@
                                 <a href='DetalleProducto.aspx?id=<%#Eval("Id") %>' class="btn btn-primary icon-link icon-link-hover arrow-container">Detalles
                             <i class="bi bi-arrow-right"></i>
                                 </a>
-                                <p class="p-product-proyect p-card-product-proyect"><%#((decimal) Eval("Precio")).ToString("C3")%></p>
+                                <p class="p-product-proyect p-card-product-proyect"><%#CatalogoProductos_negocio.ArticuloNegocio.PrecioFormateado(((decimal) Eval("Precio")))%></p>
                             </span>
                         </div>
                     </div>

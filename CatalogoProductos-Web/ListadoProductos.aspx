@@ -58,7 +58,7 @@
                             <asp:BoundField DataField="CodigoArticulo" HeaderText="Código" HeaderStyle-CssClass="table-dark" ItemStyle-VerticalAlign="Middle" />
                             <asp:BoundField DataField="Nombre" HeaderText="Nombre" HeaderStyle-CssClass="table-dark" ItemStyle-VerticalAlign="Middle" />
                             <asp:BoundField DataField="Marca.Descripcion" HeaderText="Marca" HeaderStyle-CssClass="table-dark" ItemStyle-VerticalAlign="Middle" />
-                            <asp:BoundField DataField="Precio" HeaderText="Precio" HeaderStyle-CssClass="table-dark" ItemStyle-VerticalAlign="Middle" DataFormatString="{0:C3}" />
+                            <asp:BoundField DataField="Precio" HeaderText="Precio" HeaderStyle-CssClass="table-dark" ItemStyle-VerticalAlign="Middle" DataFormatString="{0:C}" />
                             <asp:ButtonField ButtonType="Link" HeaderText="Acción" HeaderStyle-CssClass="table-dark" AccessibleHeaderText="Acción"
                                 ItemStyle-CssClass="has-icon" Text="&#xF4CA;" ItemStyle-HorizontalAlign="center" CommandName="EditarProducto" />
                         </Columns>

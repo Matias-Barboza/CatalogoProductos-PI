@@ -32,7 +32,7 @@
                                     <asp:Label ID="IdArticuloLabel" Visible="false" Text='<%#Eval("Id") %>' runat="server" />
                                     <h6 class="h7-product-proyect"><%#Eval("Marca.Descripcion")%></h6>
                                     <h6 class="h6-product-proyect"><%#Eval("Nombre")%></h6>
-                                    <p class="p-product-proyect"><%#((decimal) Eval("Precio")).ToString("C3")%></p>
+                                    <p class="p-product-proyect"><%#CatalogoProductos_negocio.ArticuloNegocio.PrecioFormateado(((decimal) Eval("Precio")))%></p>
                                 </a>
                             </div>
                         </div>

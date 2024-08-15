@@ -45,7 +45,7 @@ namespace CatalogoProductos_Web
             DescripcionLabel.Text = articulo.Descripcion;
             DescripcionMarcaLabel.Text = articulo.Marca.Descripcion;
             DescripcionCategoriaLabel.Text = articulo.Categoria.Descripcion;
-            PrecioLabel.Text = articulo.Precio.ToString("C3");
+            PrecioLabel.Text = ArticuloNegocio.PrecioFormateado(articulo.Precio);
         }
 
         public void CargarOtrosProductos() 

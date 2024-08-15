@@ -208,7 +208,7 @@
                         <div class="img-form-container rounded-3 border shadow">
                             <label class="form-label h4">Imagen actual</label>
                             <hr class="hr-product-proyect" />
-                            <div class="img-container">
+                            <div class="img-container justify-content-center">
                                 <asp:Image ID="ActualImagen" CssClass="img-fluid"
                                             AlternateText="No se pudo establecer la ruta de imagen del artículo" runat="server" />
                             </div>
@@ -218,7 +218,7 @@
                         <div class="img-form-container rounded-3 border shadow">
                             <label class="form-label h4">Imagen nueva</label>
                             <hr class="hr-product-proyect" />
-                            <div class="img-container">
+                            <div class="img-container justify-content-center">
                                 <asp:Image ID="NuevaImagen" CssClass="img-fluid"
                                            AlternateText="No se pudo establecer la ruta de imagen del artículo" runat="server" />
                             </div>
