@@ -31,6 +31,7 @@ namespace CatalogoProductos_Web
             CambiarEstadoTextBoxs();
         }
 
+        //-------------------------------------------------------------------- MÉTODOS ------------------------------------------------------------------------
         public void CargarDatosUsuario() 
         {
             if (Session["UsuarioSesionActual"] == null) 
@@ -54,45 +55,12 @@ namespace CatalogoProductos_Web
             Session.Add("DebeConfirmarEdicion", DebeConfirmarEdicion);
         }
 
-        protected void EditarUsuarioButton_ServerClick(object sender, EventArgs e)
-        {
-            CambiarEstadoEdicion(true);
-            CambiarEstadoTextBoxs();
-        }
-
-        protected void TipoArchivoCustomValidator_ServerValidate(object source, ServerValidateEventArgs args)
-        {
-            try
-            {
-                args.IsValid = ImagenPerfilInput.PostedFile.FileName.EndsWith(".jpg") || ImagenPerfilInput.PostedFile.FileName.EndsWith(".png");
-            }
-            catch (Exception)
-            {
-                args.IsValid = false;
-            }
-        }
-
-        protected void ConfirmarEdicionButton_ServerClick(object sender, EventArgs e)
-        {
-            if (!Page.IsValid) 
-            {
-                return;
-            }
-
-            ActualizarUsuario();
-            ActualizarEncabezadoPerfilMasterPage();
-
-            CambiarEstadoEdicion(false);
-            CambiarEstadoTextBoxs();
-            CargarDatosUsuario();
-        }
-
-        public void ActualizarUsuario(bool quitarImagenPerfil = false) 
+        public void ActualizarUsuario(bool quitarImagenPerfil = false)
         {
             UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
             Usuario usuarioActual = (Usuario)Session["UsuarioSesionActual"];
 
-            if (!quitarImagenPerfil) 
+            if (!quitarImagenPerfil)
             {
                 usuarioActual.Nombre = NombreActualTextBox.Text;
                 usuarioActual.Apellido = ApellidoActualTextBox.Text;
@@ -102,7 +70,7 @@ namespace CatalogoProductos_Web
             usuarioNegocio.ActualizarUsuario(usuarioActual);
         }
 
-        public void ActualizarEncabezadoPerfilMasterPage() 
+        public void ActualizarEncabezadoPerfilMasterPage()
         {
             Site masterPage = Master as Site;
 
@@ -110,21 +78,16 @@ namespace CatalogoProductos_Web
             masterPage.EstablecerFotoPerfil();
         }
 
-        protected void CancelarEdicionButton_ServerClick(object sender, EventArgs e)
-        {
-            CargarDatosUsuario();
-            CambiarEstadoEdicion(false);
-        }
-
-        public void CambiarEstadoTextBoxs() 
+        public void CambiarEstadoTextBoxs()
         {
             NombreActualTextBox.Enabled = DebeConfirmarEdicion;
             ApellidoActualTextBox.Enabled = DebeConfirmarEdicion;
         }
 
-        public string ObtenerRutaImagenPerfil(Usuario usuarioActual, bool quitarImagenPerfil) 
+        //-------------------------------------------------------------------- FUNCIONES ----------------------------------------------------------------------
+        public string ObtenerRutaImagenPerfil(Usuario usuarioActual, bool quitarImagenPerfil)
         {
-            if (ImagenPerfilInput.PostedFile.FileName != "") 
+            if (ImagenPerfilInput.PostedFile.FileName != "")
             {
                 string rutaAGuardar;
                 string rutaACarpetaImagenesPerfiles = Server.MapPath("./ImagenesPerfiles/");
@@ -141,6 +104,32 @@ namespace CatalogoProductos_Web
             return quitarImagenPerfil ? null : usuarioActual.UrlImagenPerfil;
         }
 
+        //-------------------------------------------------------------------- EVENTOS ------------------------------------------------------------------------
+        protected void EditarUsuarioButton_ServerClick(object sender, EventArgs e)
+        {
+            CambiarEstadoEdicion(true);
+            CambiarEstadoTextBoxs();
+        }
+
+        protected void ConfirmarEdicionButton_ServerClick(object sender, EventArgs e)
+        {
+            if (!Page.IsValid) 
+            {
+                return;
+            }
+
+            ActualizarUsuario();
+            ActualizarEncabezadoPerfilMasterPage();
+
+            CambiarEstadoEdicion(false);
+            CambiarEstadoTextBoxs();
+            CargarDatosUsuario();
+        }
+        protected void CancelarEdicionButton_ServerClick(object sender, EventArgs e)
+        {
+            CargarDatosUsuario();
+            CambiarEstadoEdicion(false);
+        }
         protected void QuitarFotoButton_Click(object sender, EventArgs e)
         {
             ActualizarUsuario(true);
@@ -149,6 +138,19 @@ namespace CatalogoProductos_Web
             CambiarEstadoEdicion(false);
             CambiarEstadoTextBoxs();
             CargarDatosUsuario();
+        }
+
+        //-------------------------------------------------------------------- VALIDATORS ----------------------------------------------------------------------
+        protected void TipoArchivoCustomValidator_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            try
+            {
+                args.IsValid = ImagenPerfilInput.PostedFile.FileName.EndsWith(".jpg") || ImagenPerfilInput.PostedFile.FileName.EndsWith(".png");
+            }
+            catch (Exception)
+            {
+                args.IsValid = false;
+            }
         }
     }
 }

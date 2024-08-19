@@ -21,6 +21,7 @@ namespace CatalogoProductos_Web
             }
         }
 
+        //-------------------------------------------------------------------- MÉTODOS ------------------------------------------------------------------------
         public void CargarProductos() 
         {
             ArticuloNegocio articuloNegocio = new ArticuloNegocio();

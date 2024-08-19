@@ -23,6 +23,7 @@ namespace CatalogoProductos_Web
             }
         }
 
+        //-------------------------------------------------------------------- MÉTODOS ------------------------------------------------------------------------
         public void CargarFavoritos() 
         {
             if (Session["UsuarioSesionActual"] == null) 
@@ -50,6 +51,7 @@ namespace CatalogoProductos_Web
             FavoritosRepeater.DataBind();
         }
 
+        //-------------------------------------------------------------------- EVENTOS ------------------------------------------------------------------------
         protected void FavoritoButton_ServerClick(object sender, EventArgs e)
         {
             Usuario usuario = (Usuario)Session["UsuarioSesionActual"];

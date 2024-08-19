@@ -17,6 +17,23 @@ namespace CatalogoProductos_Web
 
         }
 
+        //-------------------------------------------------------------------- MÉTODOS ------------------------------------------------------------------------
+        public void VincularDatosAUsuario(Usuario usuarioNuevo)
+        {
+            usuarioNuevo.Nombre = NombreTextBox.Text;
+            usuarioNuevo.Apellido = ApellidoTextBox.Text;
+            usuarioNuevo.Email = UsuarioTextBox.Text;
+            usuarioNuevo.Password = PassTextBox.Text;
+        }
+
+        public bool TodasLasValidacionesValidas() 
+        {
+            // No se tiene en cuenta la validacion de UsuarioExistente
+            return NombreValidator.IsValid && ApellidoValidator.IsValid && EmailValidator.IsValid &&
+                   EmailValidoValidator.IsValid && PasswordValidator.IsValid && RepetirPasswordValidator.IsValid;
+        }
+
+        //-------------------------------------------------------------------- EVENTOS ------------------------------------------------------------------------
         protected void RegistrarseButton_Click(object sender, EventArgs e)
         {
             if (!Page.IsValid)
@@ -24,20 +41,28 @@ namespace CatalogoProductos_Web
                 return;
             }
 
-            UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
-            Usuario usuarioNuevo = new Usuario();
+            try
+            {
+                UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+                Usuario usuarioNuevo = new Usuario();
 
-            VincularDatosAUsuario(usuarioNuevo);
+                VincularDatosAUsuario(usuarioNuevo);
 
-            usuarioNuevo.IdUsuario = usuarioNegocio.AñadirUsuario(usuarioNuevo);
-            usuarioNuevo.Password = string.Empty;
+                usuarioNuevo.IdUsuario = usuarioNegocio.AñadirUsuario(usuarioNuevo);
+                usuarioNuevo.Password = string.Empty;
 
-            Session.Add("UsuarioSesionActual", usuarioNuevo);
-            Session.Add("EstablecerDatos", true);
+                Session.Add("UsuarioSesionActual", usuarioNuevo);
+                Session.Add("EstablecerDatos", true);
 
-            Response.Redirect("Default.aspx");
+                Response.Redirect("Default.aspx", false);
+            }
+            catch (Exception)
+            {
+                Response.Redirect("Error.aspx");
+            }
         }
 
+        //-------------------------------------------------------------------- VALIDATORS ---------------------------------------------------------------------
         protected void UsuarioExistenteCustomValidator_ServerValidate(object source, ServerValidateEventArgs args)
         {
             try
@@ -57,21 +82,6 @@ namespace CatalogoProductos_Web
             {
                 args.IsValid = false;
             }
-        }
-
-        public void VincularDatosAUsuario(Usuario usuarioNuevo)
-        {
-            usuarioNuevo.Nombre = NombreTextBox.Text;
-            usuarioNuevo.Apellido = ApellidoTextBox.Text;
-            usuarioNuevo.Email = UsuarioTextBox.Text;
-            usuarioNuevo.Password = PassTextBox.Text;
-        }
-
-        public bool TodasLasValidacionesValidas() 
-        {
-            // No se tiene en cuenta la validacion de UsuarioExistente
-            return NombreValidator.IsValid && ApellidoValidator.IsValid && EmailValidator.IsValid &&
-                   EmailValidoValidator.IsValid && PasswordValidator.IsValid && RepetirPasswordValidator.IsValid;
         }
     }
 }

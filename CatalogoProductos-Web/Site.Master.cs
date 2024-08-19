@@ -49,6 +49,7 @@ namespace CatalogoProductos_Web
             }
         }
 
+        //-------------------------------------------------------------------- MÉTODOS ------------------------------------------------------------------------
         public void EstablecerFotoPerfil() 
         {
             Usuario usuarioActual = (Usuario)Session["UsuarioSesionActual"];
@@ -125,12 +126,7 @@ namespace CatalogoProductos_Web
             }
         }
 
-        public bool ControlesEstanVacios() 
-        {
-            return MarcasCheckBoxList.Items.Count == 0 && CategoriasCheckBoxList.Items.Count == 0 && CondicionDropDownList.Items.Count == 0;
-        }
-
-        public void VincularElementoADataSource(ListControl listControl, List<object> fuente, string dataText, string dataValue) 
+        public void VincularElementoADataSource(ListControl listControl, List<object> fuente, string dataText, string dataValue)
         {
             listControl.DataSource = fuente;
             listControl.DataTextField = dataText;
@@ -148,6 +144,103 @@ namespace CatalogoProductos_Web
                                                                     new ListItem("Mayor a menor precio")});
         }
 
+        public void DesmarcarCheckBoxs(ListControl checkBoxList)
+        {
+            foreach (ListItem checkBox in checkBoxList.Items)
+            {
+                if (checkBox.Selected)
+                {
+                    checkBox.Selected = !checkBox.Selected;
+                }
+            }
+        }
+
+        //-------------------------------------------------------------------- FUNCIONES ----------------------------------------------------------------------
+        public bool ControlesEstanVacios() 
+        {
+            return MarcasCheckBoxList.Items.Count == 0 && CategoriasCheckBoxList.Items.Count == 0 && CondicionDropDownList.Items.Count == 0;
+        }
+
+        public Tuple<List<string>, List<string>, string, decimal, string> ObtenerFiltros()
+        {
+            List<string> marcas = null;
+            List<string> categorias = null;
+            decimal precio = -1;
+            string condicionPrecio = "";
+
+            if (FiltrosActivos)
+            {
+                marcas = ObtenerCheckBoxsFiltrosSeleccionados(MarcasCheckBoxList);
+
+                categorias = ObtenerCheckBoxsFiltrosSeleccionados(CategoriasCheckBoxList);
+
+                condicionPrecio = ConvertirCondicion(CondicionDropDownList.SelectedItem.Text);
+
+                precio = decimal.TryParse(ValorFiltroTextBox.Text, out precio) ? precio : -1;
+            }
+
+            string tipoOrden = ConvertirCondicion(OrdenTipoDropDownList.SelectedItem.Text);
+
+            return Tuple.Create(marcas, categorias, condicionPrecio, precio, tipoOrden);
+        }
+
+        public List<string> ObtenerCheckBoxsFiltrosSeleccionados(CheckBoxList checkBoxList)
+        {
+            List<string> list = null;
+            List<string> listItemsSeleccionados = new List<string>();
+
+            foreach (ListItem control in checkBoxList.Items)
+            {
+                if (control.Selected)
+                {
+                    listItemsSeleccionados.Add(control.Text);
+                }
+            }
+
+            return listItemsSeleccionados.Count > 0 ? listItemsSeleccionados : list;
+        }
+
+        public string ConvertirCondicion(string condicion)
+        {
+            string clausula = "";
+
+            switch (condicion)
+            {
+                case "A-Z":
+                    clausula = "ORDER BY a.Nombre";
+                    break;
+                case "Z-A":
+                    clausula = "ORDER BY a.Nombre DESC";
+                    break;
+                case "Menor a mayor precio":
+                    clausula = "ORDER BY a.Precio";
+                    break;
+                case "Mayor a menor precio":
+                    clausula = "ORDER BY a.Precio DESC";
+                    break;
+                case "Igual a":
+                    clausula = "=";
+                    break;
+                case "Mayor a":
+                    clausula = ">";
+                    break;
+                case "Menor a":
+                    clausula = "<";
+                    break;
+                case "Mayor o igual a":
+                    clausula = ">=";
+                    break;
+                case "Menor o igual a":
+                    clausula = "<=";
+                    break;
+                default:
+                    break;
+            }
+
+            return clausula;
+        }
+
+        //-------------------------------------------------------------------- EVENTOS ------------------------------------------------------------------------
         protected void BuscarButton_ServerClick(object sender, EventArgs e)
         {
             if (Page.IsValid) 
@@ -186,76 +279,7 @@ namespace CatalogoProductos_Web
             ((Productos)Page).AplicarFiltros(filtros.Item1, filtros.Item2, filtros.Item3, filtros.Item4, filtros.Item5);
         }
 
-        public Tuple<List<string>,List<string>,string,decimal,string> ObtenerFiltros() 
-        {
-            List<string> marcas = null;
-            List<string> categorias = null;
-            decimal precio = -1;
-            string condicionPrecio = "";
-
-            if (FiltrosActivos) 
-            {
-                marcas = ObtenerCheckBoxsFiltrosSeleccionados(MarcasCheckBoxList);
-
-                categorias = ObtenerCheckBoxsFiltrosSeleccionados(CategoriasCheckBoxList);
-
-                condicionPrecio = ConvertirCondicion(CondicionDropDownList.SelectedItem.Text);
-
-                precio = decimal.TryParse(ValorFiltroTextBox.Text, out precio) ? precio : -1;
-            }
-
-            string tipoOrden = ConvertirCondicion(OrdenTipoDropDownList.SelectedItem.Text);
-
-            return Tuple.Create(marcas, categorias, condicionPrecio, precio, tipoOrden);
-        }
-
-        public List<string> ObtenerCheckBoxsFiltrosSeleccionados(CheckBoxList checkBoxList) 
-        {
-            List<string> list = null;
-            List<string> listItemsSeleccionados = new List<string>();
-
-            foreach (ListItem control in checkBoxList.Items)
-            {
-                if (control.Selected)
-                {
-                    listItemsSeleccionados.Add(control.Text);
-                }
-            }
-
-            return listItemsSeleccionados.Count > 0 ? listItemsSeleccionados : list;
-        }
-
-        public string ConvertirCondicion(string condicion) 
-        {
-            string clausula = "";
-
-            switch (condicion)
-            {
-                case "A-Z": clausula = "ORDER BY a.Nombre";
-                    break;
-                case "Z-A": clausula = "ORDER BY a.Nombre DESC";
-                    break;
-                case "Menor a mayor precio": clausula = "ORDER BY a.Precio";
-                    break;
-                case "Mayor a menor precio": clausula = "ORDER BY a.Precio DESC";
-                    break;
-                case "Igual a": clausula = "=";
-                    break;
-                case "Mayor a": clausula = ">";
-                    break;
-                case "Menor a": clausula = "<";
-                    break;
-                case "Mayor o igual a": clausula = ">=";
-                    break;
-                case "Menor o igual a": clausula = "<=";
-                    break;
-                default:
-                    break;
-            }
-
-            return clausula;
-        }
-
+        
         protected void LimpiarFiltrosButton_ServerClick(object sender, EventArgs e)
         {
             DesmarcarCheckBoxs(MarcasCheckBoxList);
@@ -265,17 +289,6 @@ namespace CatalogoProductos_Web
             ValorFiltroTextBox.Text = "";
 
             ((Productos)Page).CargarProductos();
-        }
-
-        public void DesmarcarCheckBoxs(ListControl checkBoxList) 
-        {
-            foreach (ListItem checkBox in checkBoxList.Items)
-            {
-                if (checkBox.Selected)
-                {
-                    checkBox.Selected = !checkBox.Selected;
-                }
-            }
         }
 
         protected void AplicarOrdenButton_ServerClick(Object sender, EventArgs e) 
@@ -292,6 +305,14 @@ namespace CatalogoProductos_Web
             ((Productos)Page).AplicarFiltros(tipoOrden: filtroOrden.Item5, campoBusqueda: campoBusqueda);
         }
 
+        protected void CerrarSesionButton_ServerClick(object sender, EventArgs e)
+        {   
+            LoginHelper.EliminarDatosSession(Session);
+
+            Response.Redirect("Default.aspx");
+        }
+
+        //-------------------------------------------------------------------- VALIDATORS ---------------------------------------------------------------------
         protected void ValorFiltroCustomValidator_ServerValidate(object source, ServerValidateEventArgs args)
         {
             try
@@ -334,13 +355,6 @@ namespace CatalogoProductos_Web
             {
                 args.IsValid = false;
             }
-        }
-
-        protected void CerrarSesionButton_ServerClick(object sender, EventArgs e)
-        {
-            LoginHelper.EliminarDatosSession(Session);
-
-            Response.Redirect("Default.aspx");
         }
     }
 }

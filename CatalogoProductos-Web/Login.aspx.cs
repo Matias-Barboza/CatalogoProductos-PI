@@ -23,6 +23,7 @@ namespace CatalogoProductos_Web
             }
         }
 
+        //-------------------------------------------------------------------- EVENTOS ------------------------------------------------------------------------
         protected void IngresarButton_Click(object sender, EventArgs e)
         {
             UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
@@ -36,18 +37,27 @@ namespace CatalogoProductos_Web
                 return;
             }
 
-            usuario = usuarioNegocio.ObtenerUsuarioPor(usuario.Email, usuario.Password);
-
-            Session.Add("UsuarioSesionActual", usuario);
-            Session.Add("EstablecerDatos", true);
-
-            if (Request.QueryString["pagina"] != null) 
+            try
             {
-                Response.Redirect("Productos.aspx", true);
-            }
+                usuario = usuarioNegocio.ObtenerUsuarioPor(usuario.Email, usuario.Password);
 
-            Response.Redirect("Default.aspx");
+                Session.Add("UsuarioSesionActual", usuario);
+                Session.Add("EstablecerDatos", true);
+
+                if (Request.QueryString["pagina"] != null) 
+                {
+                    Response.Redirect("Productos.aspx", true);
+                }
+
+                Response.Redirect("Default.aspx", false);
+            }
+            catch (Exception)
+            {
+                Response.Redirect("Error.aspx", false);
+            }
         }
+
+        //-------------------------------------------------------------------- VALIDATORS ---------------------------------------------------------------------
         protected void UsuarioCustomValidator_ServerValidate(object source, ServerValidateEventArgs args)
         {
             try
@@ -72,7 +82,7 @@ namespace CatalogoProductos_Web
                     DatosUsuarioCustomValidator.IsValid = true;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 args.IsValid = false;
             }
@@ -102,7 +112,7 @@ namespace CatalogoProductos_Web
                     args.IsValid = true;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 args.IsValid = false;
             }

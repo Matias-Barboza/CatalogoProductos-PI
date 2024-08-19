@@ -33,6 +33,7 @@ namespace CatalogoProductos_Web
             }
         }
 
+        //-------------------------------------------------------------------- MÉTODOS ------------------------------------------------------------------------
         public void CargarProductos(List<string> marcas = null, List<string> categorias = null, string condicionPrecio = "", decimal precio = -1, string tipoOrden = "", string campoBusqueda = "") 
         {
             ArticuloNegocio articuloNegocio = new ArticuloNegocio();

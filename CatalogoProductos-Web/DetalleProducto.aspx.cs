@@ -32,6 +32,7 @@ namespace CatalogoProductos_Web
             }
         }
 
+        //-------------------------------------------------------------------- MÉTODOS ------------------------------------------------------------------------
         public void CargarDetalleProducto() 
         {
             ArticuloNegocio articuloNegocio = new ArticuloNegocio();
@@ -90,6 +91,7 @@ namespace CatalogoProductos_Web
             }
         }
 
+        //-------------------------------------------------------------------- EVENTOS ------------------------------------------------------------------------
         protected void FavoritoButton_ServerClick(object sender, EventArgs e)
         {
             if (!LoginHelper.HaySesionIniciada(Session))
