@@ -9,6 +9,16 @@ using System.Threading.Tasks;
 
 namespace CatalogoProductos_negocio
 {
+    public enum EstadoOperacion
+    {
+        AÑADIDO_EXITOSO = 1,
+        AÑADIDO_FALLIDO = 2,
+        EDICION_EXITOSA = 3,
+        EDICION_FALLIDA = 4,
+        ELIMINACION_EXITOSA = 5,
+        ELIMINACION_FALLIDA = 6
+    }
+
     public class ArticuloNegocio
     {
         public const string PLACEHOLDER_IMAGEN_ARTICULO = "https://pngimg.com/uploads/box/box_PNG137.png";

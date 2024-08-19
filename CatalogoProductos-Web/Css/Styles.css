@@ -584,6 +584,26 @@ hr {
     background-color: var(--bs-danger-bg-subtle) !important;
 }
 
+.operation-success {
+    width: 100%;
+    border: 1px solid var(--bs-green);
+    padding: 10px;
+    font-size: 1.2rem;
+    background-color: var(--bs-green);
+    border-radius: .375rem;
+    color: white;
+}
+
+.operation-failed {
+    width: 100%;
+    border: 1px solid var(--bs-danger);
+    padding: 10px;
+    font-size: 1.2rem;
+    background-color: var(--bs-danger);
+    border-radius: .375rem;
+    color: white;
+}
+
 /* --------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /* ----------------------------------------------------------- MIS FAVORITOS ------------------------------------------------------------------------------- */
 .card-fav {

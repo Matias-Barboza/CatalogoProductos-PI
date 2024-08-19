@@ -17,21 +17,28 @@
             <hr />
 
             <div class="d-flex justify-content-evenly">
-                <a class="btn btn-success btn-lg" title="Añadir Producto" disabled="true"
+                <a class="btn btn-primary btn-lg" title="Añadir Producto" disabled="true"
                     href="FormularioProducto.aspx" >
                     Añadir Producto
                     <i class="bi bi-box-seam"></i>
                 </a>
-                <a class="btn btn-success btn-lg" title="Añadir Marca" disabled="true">
+                <a class="btn btn-primary btn-lg" title="Añadir Marca" disabled="true">
                     Añadir Marca
                     <i class="bi bi-node-plus"></i>
                 </a>
-                <a class="btn btn-success btn-lg" title="Añadir Categoría" disabled="true">
+                <a class="btn btn-primary btn-lg" title="Añadir Categoría" disabled="true">
                     Añadir Categoría
                     <i class="bi bi-node-plus"></i>
                 </a>
             </div>
         </div>
+
+        <%if (VieneDeOperacion)
+          {%>
+        <div class="mt-2 mb-2">
+            <asp:Label ID="MensajeOperacionLabel" runat="server" />
+        </div>
+        <%} %>
 
         <div class="jumbotron-proyect jumbotron-products-grid rounded-3 border-shadow">
 

@@ -54,6 +54,8 @@ namespace CatalogoProductos_Web
             }
         }
 
+
+        //----------------------------------------------------------------- MÉTODOS ---------------------------------------------------------------------------
         public void CargarDesplegables() 
         {
             MarcaNegocio marcaNegocio = new MarcaNegocio();
@@ -90,12 +92,209 @@ namespace CatalogoProductos_Web
             DescripcionArticuloTextBox.Text = articuloACargar.Descripcion;
             MarcasDropDownList.Items.FindByText(articuloACargar.Marca.Descripcion).Selected = true;
             CategoriasDropDownList.Items.FindByText(articuloACargar.Categoria.Descripcion).Selected = true;
-            PrecioArticuloTextBox.Text = ArticuloNegocio.PrecioFormateado(articuloACargar.Precio);
+            PrecioArticuloTextBox.Text = ArticuloNegocio.PrecioFormateado(articuloACargar.Precio).Substring(2);
             UrlImagenTextBox.Text = SetearRutaImagenActual(articuloACargar.ImagenUrl);
 
             ActualImagen.ImageUrl = ArticuloNegocio.ConfigurarRutaImagen(articuloACargar.ImagenUrl);
         }
 
+        //------------------------------------------------------------- FUNCIONES -----------------------------------------------------------------------------
+        public Articulo VincularArticuloADatos(Articulo articulo)
+        {
+            articulo.CodigoArticulo = CodigoArticuloTextBox.Text;
+            articulo.Nombre = NombreArticuloTextBox.Text;
+            articulo.Descripcion = DescripcionArticuloTextBox.Text;
+            articulo.Marca.Id = Convert.ToInt32(MarcasDropDownList.SelectedValue);
+            articulo.Categoria.Id = Convert.ToInt32(CategoriasDropDownList.SelectedValue);
+            articulo.Precio = Convert.ToDecimal(PrecioArticuloTextBox.Text);
+
+            return articulo;
+        }
+
+        public string ObtenerImagenUrl(int idArticulo)
+        {
+            string rutaAGuardar = null;
+
+            if (ImagenPorArchivo)
+            {
+                string rutaACarpetaImagenes = Server.MapPath("./Imagenes/");
+                string rutaCompleta;
+
+                rutaAGuardar = $"imagenArticulo{idArticulo}.jpg";
+                rutaCompleta = rutaACarpetaImagenes + rutaAGuardar;
+
+                ImagenLocalInput.PostedFile.SaveAs(rutaCompleta);
+            }
+            else
+            {
+                rutaAGuardar = UrlImagenTextBox.Text;
+            }
+
+            return rutaAGuardar;
+        }
+
+        public string SetearRutaImagenActual(string rutaImagenArticulo)
+        {
+            if (rutaImagenArticulo.Contains("https://") || rutaImagenArticulo.Contains("http://"))
+            {
+                return rutaImagenArticulo;
+            }
+
+            return null;
+        }
+
+        //-------------------------------------------------------------- EVENTOS ------------------------------------------------------------------------------
+        protected void RadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
+
+            if (checkBox.ID == "UrlRadioButton") 
+            {
+                ImagenPorArchivo = false;
+            }
+
+            if (checkBox.ID == "SubirArchivoRadioButton") 
+            {
+                ImagenPorArchivo = true;
+            }
+
+            Session.Add("ImagenPorArchivo", ImagenPorArchivo);
+        }
+
+        protected void AñadirArticuloButton_ServerClick(object sender, EventArgs e)
+        {
+            Articulo articuloNuevo;
+            ArticuloNegocio articuloNegocio;
+
+            if (!Page.IsValid)
+            {
+                return;
+            }
+
+            try
+            {
+                articuloNuevo = new Articulo();
+                articuloNegocio = new ArticuloNegocio();
+
+                VincularArticuloADatos(articuloNuevo);
+                articuloNegocio.AñadirArticulo(articuloNuevo, out int idNuevo);
+                articuloNuevo.Id = idNuevo;
+                articuloNuevo.ImagenUrl = ObtenerImagenUrl(articuloNuevo.Id);
+                articuloNegocio.ActualizarArticulo(articuloNuevo);
+
+                Session.Add("VieneDeOperacion", true);
+                Response.Redirect("ListadoProductos.aspx?estado=1", false);
+            }
+            catch (Exception)
+            {
+                Response.Redirect("ListadoProductos.aspx?estado=2");
+            }
+        }
+
+        protected void EditarArticuloButton_ServerClick(object sender, EventArgs e)
+        {
+            Articulo articuloAEditar;
+            ArticuloNegocio articuloNegocio;
+            bool existeArticulo;
+
+            if (!Page.IsValid) 
+            {
+                return;
+            }
+
+            if (!EsEdicion) 
+            {
+                return;
+            }
+
+            try
+            {
+                articuloNegocio = new ArticuloNegocio();
+                int.TryParse(Request.QueryString["id"], out int idArticulo);
+                articuloAEditar = articuloNegocio.ObtenerArticuloPorId(idArticulo);
+                existeArticulo = articuloAEditar != null;
+            
+                if (!existeArticulo) 
+                {
+                    return;
+                }
+
+                VincularArticuloADatos(articuloAEditar);
+                articuloAEditar.ImagenUrl = ObtenerImagenUrl(idArticulo);
+                articuloNegocio.ActualizarArticulo(articuloAEditar);
+
+                Session.Add("VieneDeOperacion", true);
+                Response.Redirect("ListadoProductos.aspx?estado=3", false);
+            }
+            catch (Exception)
+            {
+                Response.Redirect("ListadoProductos.aspx?estado=4");
+            }
+
+        }
+
+        protected void EliminarArticuloButton_ServerClick(object sender, EventArgs e)
+        {
+            if (!EsEdicion) 
+            {
+                return;
+            }
+
+            DebeConfirmarEliminacion = true;
+
+            Session.Add("DebeConfirmarEliminacion", DebeConfirmarEliminacion);
+        }
+
+        protected void ConfirmarEliminacionButton_Click(object sender, EventArgs e)
+        {
+            ArticuloNegocio articuloNegocio;
+            bool existeArticulo;
+
+            if (!Page.IsValid) 
+            {
+                return;
+            }
+
+            if (!EsEdicion)
+            {
+                return;
+            }
+
+            try
+            {
+                articuloNegocio = new ArticuloNegocio();
+                int.TryParse(Request.QueryString["id"], out int idArticuloAEliminar);
+                existeArticulo = articuloNegocio.ObtenerArticuloPorId(idArticuloAEliminar) != null;
+
+                if (!existeArticulo)
+                {
+                    return;
+                }
+
+                articuloNegocio.EliminarArticulo(idArticuloAEliminar);
+
+                Session.Add("VieneDeOperacion", true);
+                Response.Redirect("ListadoProductos.aspx?estado=5", false);
+            }
+            catch (Exception)
+            {
+                Response.Redirect("ListadoProductos.aspx?estado=6");
+            }
+        }
+
+        protected void CancelarEliminacionButton_Click(object sender, EventArgs e)
+        {
+            DebeConfirmarEliminacion = false;
+
+            Session.Add("DebeConfirmarEliminacion", DebeConfirmarEliminacion);
+        }
+
+        protected void ProbarUrlButton_Click(object sender, EventArgs e)
+        {
+            NuevaImagen.ImageUrl = SetearRutaImagenActual(UrlImagenTextBox.Text);
+        }
+
+        //----------------------------------------------------------------- VALIDATORS ------------------------------------------------------------------------
         protected void DropDownListCustomValidator_ServerValidate(object source, ServerValidateEventArgs args)
         {
             try
@@ -118,28 +317,11 @@ namespace CatalogoProductos_Web
             }
         }
 
-        protected void RadioButton_CheckedChanged(object sender, EventArgs e)
-        {
-            CheckBox checkBox = (CheckBox)sender;
-
-            if (checkBox.ID == "UrlRadioButton") 
-            {
-                ImagenPorArchivo = false;
-            }
-
-            if (checkBox.ID == "SubirArchivoRadioButton") 
-            {
-                ImagenPorArchivo = true;
-            }
-
-            Session.Add("ImagenPorArchivo", ImagenPorArchivo);
-        }
-
         protected void RequiredCustomValidator_ServerValidate(object source, ServerValidateEventArgs args)
         {
             try
             {
-                if (ImagenPorArchivo) 
+                if (ImagenPorArchivo)
                 {
                     args.IsValid = true;
                     return;
@@ -175,7 +357,7 @@ namespace CatalogoProductos_Web
         {
             try
             {
-                if (!ImagenPorArchivo) 
+                if (!ImagenPorArchivo)
                 {
                     args.IsValid = true;
                     return;
@@ -189,127 +371,11 @@ namespace CatalogoProductos_Web
             }
         }
 
-        protected void AñadirArticuloButton_ServerClick(object sender, EventArgs e)
-        {
-            Articulo articuloNuevo;
-            ArticuloNegocio articuloNegocio;
-
-            if (!Page.IsValid)
-            {
-                return;
-            }
-
-            articuloNuevo = new Articulo();
-            articuloNegocio = new ArticuloNegocio();
-
-            VincularArticuloADatos(articuloNuevo);
-            articuloNegocio.AñadirArticulo(articuloNuevo, out int idNuevo);
-            articuloNuevo.Id = idNuevo;
-            articuloNuevo.ImagenUrl = ObtenerImagenUrl(articuloNuevo.Id);
-            articuloNegocio.ActualizarArticulo(articuloNuevo);
-
-            Response.Redirect("ListadoProductos.aspx");
-        }
-
-        protected void EditarArticuloButton_ServerClick(object sender, EventArgs e)
-        {
-            Articulo articuloAEditar;
-            ArticuloNegocio articuloNegocio;
-            bool existeArticulo;
-
-            if (!Page.IsValid) 
-            {
-                return;
-            }
-
-            if (!EsEdicion) 
-            {
-                return;
-            }
-
-            articuloNegocio = new ArticuloNegocio();
-            int.TryParse(Request.QueryString["id"], out int idArticulo);
-            articuloAEditar = articuloNegocio.ObtenerArticuloPorId(idArticulo);
-            existeArticulo = articuloAEditar != null;
-            
-            if (!existeArticulo) 
-            {
-                return;
-            }
-
-            VincularArticuloADatos(articuloAEditar);
-            articuloAEditar.ImagenUrl = ObtenerImagenUrl(idArticulo);
-            articuloNegocio.ActualizarArticulo(articuloAEditar);
-
-            Response.Redirect("ListadoProductos.aspx");
-        }
-
-        protected void EliminarArticuloButton_ServerClick(object sender, EventArgs e)
-        {
-            if (!EsEdicion) 
-            {
-                return;
-            }
-
-            DebeConfirmarEliminacion = true;
-
-            Session.Add("DebeConfirmarEliminacion", DebeConfirmarEliminacion);
-        }
-
-        public Articulo VincularArticuloADatos(Articulo articulo) 
-        {
-            articulo.CodigoArticulo = CodigoArticuloTextBox.Text;
-            articulo.Nombre = NombreArticuloTextBox.Text;
-            articulo.Descripcion = DescripcionArticuloTextBox.Text;
-            articulo.Marca.Id = Convert.ToInt32(MarcasDropDownList.SelectedValue);
-            articulo.Categoria.Id = Convert.ToInt32(CategoriasDropDownList.SelectedValue);
-            articulo.Precio = Convert.ToDecimal(PrecioArticuloTextBox.Text);
-
-            return articulo;
-        }
-
-        public string ObtenerImagenUrl(int idArticulo) 
-        {
-            string rutaAGuardar = null;
-
-            if (ImagenPorArchivo) 
-            {
-                string rutaACarpetaImagenes = Server.MapPath("./Imagenes/");
-                string rutaCompleta;
-
-                rutaAGuardar = $"imagenArticulo{idArticulo}.jpg";
-                rutaCompleta = rutaACarpetaImagenes + rutaAGuardar;
-
-                ImagenLocalInput.PostedFile.SaveAs(rutaCompleta);
-            }
-            else 
-            {
-                rutaAGuardar = UrlImagenTextBox.Text;
-            }
-
-            return rutaAGuardar;
-        }
-
-        public string SetearRutaImagenActual(string rutaImagenArticulo) 
-        {
-            if (rutaImagenArticulo.Contains("https://") || rutaImagenArticulo.Contains("http://"))
-            {
-                return rutaImagenArticulo;
-            }
-
-            return null;
-        }
-
-        protected void ProbarUrlButton_Click(object sender, EventArgs e)
-        {
-            NuevaImagen.ImageUrl = SetearRutaImagenActual(UrlImagenTextBox.Text);
-        }
-
         protected void CodigoEliminarCustomValidator_ServerValidate(object source, ServerValidateEventArgs args)
         {
             try
             {
-                if (EsEdicion) 
+                if (EsEdicion)
                 {
                     Articulo articuloEliminar;
                     ArticuloNegocio articuloNegocio = new ArticuloNegocio();
@@ -320,46 +386,10 @@ namespace CatalogoProductos_Web
                     args.IsValid = articuloEliminar.CodigoArticulo == CodigoEliminarTextBox.Text;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 args.IsValid = false;
             }
-        }
-
-        protected void ConfirmarEliminacionButton_Click(object sender, EventArgs e)
-        {
-            ArticuloNegocio articuloNegocio;
-            bool existeArticulo;
-
-            if (!Page.IsValid) 
-            {
-                return;
-            }
-
-            if (!EsEdicion)
-            {
-                return;
-            }
-
-            articuloNegocio = new ArticuloNegocio();
-            int.TryParse(Request.QueryString["id"], out int idArticuloAEliminar);
-            existeArticulo = articuloNegocio.ObtenerArticuloPorId(idArticuloAEliminar) != null;
-
-            if (!existeArticulo)
-            {
-                return;
-            }
-
-            articuloNegocio.EliminarArticulo(idArticuloAEliminar);
-
-            Response.Redirect("ListadoProductos.aspx");
-        }
-
-        protected void CancelarEliminacionButton_Click(object sender, EventArgs e)
-        {
-            DebeConfirmarEliminacion = false;
-
-            Session.Add("DebeConfirmarEliminacion", DebeConfirmarEliminacion);
         }
     }
 }
