@@ -24,7 +24,7 @@ namespace CatalogoProductos_Web
 
                 if (!LoginHelper.SesionIniciadaEsAdmin(Session) && LoginHelper.DebeSerAdmin(Page)) 
                 {
-                    Response.Redirect("Error.aspx", true);
+                    Response.Redirect("Error.aspx?tipo=3", true);
                 }
             }
 

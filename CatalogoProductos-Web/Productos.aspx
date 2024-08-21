@@ -44,7 +44,7 @@
                   {%>
                 <div class="jumbotron-proyect rounded-3 border shadow">
                     <div class="container">
-                        <h1 class="display-5">LO SENTIMOS...</h1>
+                        <h2 class="display-5">LO SENTIMOS...</h2>
                         <p class="lead">Por el momento no hay productos cargados.</p>
                         <hr class="my-4" />
                         <a href="Default.aspx" class="btn btn-primary icon-link icon-link-hover arrow-container">Volver al home...

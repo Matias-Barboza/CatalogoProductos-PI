@@ -77,7 +77,7 @@
               {%>
             <div class="jumbotron-proyect jumbotron-no-products-grid rounded-3 border shadow">
                 <div class="container">
-                    <h1 class="display-5">NO SE ENCONTRARON PRODUCTOS CARGADOS</h1>
+                    <h2 class="display-5">NO SE ENCONTRARON PRODUCTOS CARGADOS</h2>
                     <p class="lead">Puede agregarlos en cualquier momento.</p>
                     <hr class="my-4" />
                     <a href="FormularioProducto.aspx" class="btn btn-primary icon-link icon-link-hover arrow-container">Agregar producto ahora...

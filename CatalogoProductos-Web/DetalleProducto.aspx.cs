@@ -20,7 +20,7 @@ namespace CatalogoProductos_Web
             //Si viene vacio debe navegar a pagina de error
             if (Request.QueryString.Count == 0 || !int.TryParse(Request.QueryString["id"], out _idProducto)) 
             {
-                Response.Redirect("Error.aspx", true);
+                Response.Redirect("Error.aspx?tipo=4", true);
             }
 
             CargarDetalleProducto();

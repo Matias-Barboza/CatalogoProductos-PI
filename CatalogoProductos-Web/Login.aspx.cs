@@ -53,7 +53,7 @@ namespace CatalogoProductos_Web
             }
             catch (Exception)
             {
-                Response.Redirect("Error.aspx", false);
+                Response.Redirect("Error.aspx?tipo=1", false);
             }
         }
 

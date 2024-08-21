@@ -32,10 +32,16 @@ namespace CatalogoProductos_Web
                 DatosArticuloCargados = (bool)Session["DatosArticuloCargados"];
             }
 
-            if (Request.QueryString["id"] != null && int.TryParse(Request.QueryString["id"], out int id)) 
+            if (Request.QueryString["id"] != null) 
             {
+                if (!int.TryParse(Request.QueryString["id"], out int id))
+                {
+                    Response.Redirect("Error.aspx?tipo=4", true);
+                }
+
                 EsEdicion = true;
-                if (!DatosArticuloCargados) 
+
+                if (!DatosArticuloCargados)
                 {
                     CargarDatosDelProducto(id);
                     DatosArticuloCargados = true;
