@@ -21,15 +21,18 @@
                 </div>
 
                 <div class="ms-2">
-                    <asp:RegularExpressionValidator ErrorMessage="El código de artículo debe tener 3 caracteres como mínimo y 50 como máximo." Display="Dynamic"
+                    <asp:RegularExpressionValidator ID="CodigoLongitudValidator" ErrorMessage="El código de artículo debe tener 3 caracteres como mínimo y 50 como máximo." Display="Dynamic"
                                         ControlToValidate="CodigoArticuloTextBox" CssClass="validator" ValidationExpression="^[a-zA-Z0-9]{3,50}$"
                                         ValidationGroup="OperationValidationGroup" runat="server" />
-                    <asp:RegularExpressionValidator ErrorMessage="El código de artículo debe contener al menos una (1) letra y dos (2) números." Display="Dynamic"
+                    <asp:RegularExpressionValidator ID="CodigoFormatoValidator" ErrorMessage="El código de artículo debe contener al menos una (1) letra y dos (2) números." Display="Dynamic"
                                         ControlToValidate="CodigoArticuloTextBox" CssClass="validator" ValidationExpression="^(?=.*[a-zA-Z])(?=.*\d.*\d)[a-zA-Z0-9]{3,50}$"
                                         ValidationGroup="OperationValidationGroup" runat="server" />
-                    <asp:RequiredFieldValidator ErrorMessage="El código de artículo es obligatorio." Display="Dynamic"
+                    <asp:RequiredFieldValidator ID="CodigoObligatorioValidator" ErrorMessage="El código de artículo es obligatorio." Display="Dynamic"
                                                 ControlToValidate="CodigoArticuloTextBox" CssClass="validator"
                                                 ValidationGroup="OperationValidationGroup" runat="server" />
+                    <asp:CustomValidator ID="CodigoRepetidoCustomValidator" ErrorMessage="El código de producto ya existe." Display="Dynamic"
+                                         ControlToValidate="CodigoArticuloTextBox" CssClass="validator"
+                                         ValidationGroup="OperationValidationGroup" OnServerValidate="CodigoRepetidoCustomValidator_ServerValidate" runat="server" />
                 </div>
 
             </div>
@@ -258,34 +261,36 @@
 
                 <div class="buttons-container pt-3 mb-3">
 
-                    <%if (!EsEdicion)
-                        {%>
-                    <button type="button" causesvalidation="true" validationgroup="OperationValidationGroup"
-                            runat="server" onserverclick="AñadirArticuloButton_ServerClick" id="AñadirArticuloButton"
-                            class="btn btn-success pt-2 pb-2 ms-2 me-2">Añadir artículo
-                        <i class="bi bi-plus-circle"></i>
-                    </button>
-                    <%}%>
+                    <asp:UpdatePanel runat="server">
+                        <ContentTemplate>
 
-                    <%if (EsEdicion)
-                        {%>
-                    <button type="button" causesvalidation="true" validationgroup="OperationValidationGroup"
-                            runat="server" onserverclick="EditarArticuloButton_ServerClick" id="EditarArticuloButton"
-                            class="btn btn-warning pt-2 pb-2 ms-2 me-2">Editar artículo
-                        <i class="bi bi-pencil-square"></i>
-                    </button>
-                    <%--<asp:UpdatePanel runat="server">
-                            <ContentTemplate>--%>
+                            <%if (!EsEdicion)
+                                {%>
+                            <button type="button" causesvalidation="true" validationgroup="OperationValidationGroup"
+                                    runat="server" onserverclick="AñadirArticuloButton_ServerClick" id="AñadirArticuloButton"
+                                    class="btn btn-success pt-2 pb-2 ms-2 me-2">Añadir artículo
+                                <i class="bi bi-plus-circle"></i>
+                            </button>
+                            <%}%>
 
-                    <button type="button"
-                            runat="server" onserverclick="EliminarArticuloButton_ServerClick" id="EliminarArticuloButton"
-                            class="btn btn-danger pt-2 pb-2 ms-2 me-2">Eliminar artículo
-                        <i class="bi bi-trash3"></i>
-                    </button>
+                            <%if (EsEdicion && !DebeConfirmarEliminacion)
+                                {%>
+                            <button type="button" causesvalidation="true" validationgroup="OperationValidationGroup"
+                                    runat="server" onserverclick="EditarArticuloButton_ServerClick" id="EditarArticuloButton"
+                                    class="btn btn-warning pt-2 pb-2 ms-2 me-2">Editar artículo
+                                <i class="bi bi-pencil-square"></i>
+                            </button>
 
-                        <%--</ContentTemplate>
-                    </asp:UpdatePanel>--%>
-                    <%}%>
+                            <button type="button"
+                                    runat="server" onserverclick="EliminarArticuloButton_ServerClick" id="EliminarArticuloButton"
+                                    class="btn btn-danger pt-2 pb-2 ms-2 me-2">Eliminar artículo
+                                <i class="bi bi-trash3"></i>
+                            </button>
+
+                            <%}%>
+
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
 
                 </div>
 

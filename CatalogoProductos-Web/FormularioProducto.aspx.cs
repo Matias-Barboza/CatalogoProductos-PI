@@ -397,5 +397,25 @@ namespace CatalogoProductos_Web
                 args.IsValid = false;
             }
         }
+
+        protected void CodigoRepetidoCustomValidator_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            try
+            {
+                if (!CodigoObligatorioValidator.IsValid || !CodigoFormatoValidator.IsValid || !CodigoLongitudValidator.IsValid) 
+                {
+                    args.IsValid = true;
+                    return;
+                }
+
+                ArticuloNegocio articuloNegocio = new ArticuloNegocio();
+
+                args.IsValid = !articuloNegocio.ExisteCodigoProducto(CodigoArticuloTextBox.Text);
+            }
+            catch (Exception)
+            {
+                args.IsValid = false;
+            }
+        }
     }
 }

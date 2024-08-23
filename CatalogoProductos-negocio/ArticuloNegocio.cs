@@ -365,6 +365,29 @@ namespace CatalogoProductos_negocio
             }
         }
 
+        public bool ExisteCodigoProducto(string codigoNuevo) 
+        {
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            try
+            {
+                accesoDatos.SetearQuery(@"SELECT Codigo FROM ARTICULOS WHERE Codigo LIKE @codigoNuevo");
+
+                accesoDatos.AgregarParametro("codigoNuevo", codigoNuevo);
+
+                return (string) accesoDatos.EjecutarScalar() != null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally 
+            {
+                accesoDatos.CerrarConexion();
+                accesoDatos = null;
+            }
+        }
+
         // ----------------------------------------------- ADICIONALES ----------------------------------------------------------------------------------------
 
         public static string ConfigurarRutaImagen(string datoRuta) 

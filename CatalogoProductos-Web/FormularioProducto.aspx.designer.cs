@@ -24,6 +24,42 @@ namespace CatalogoProductos_Web
         protected global::System.Web.UI.WebControls.TextBox CodigoArticuloTextBox;
 
         /// <summary>
+        /// Control CodigoLongitudValidator.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator CodigoLongitudValidator;
+
+        /// <summary>
+        /// Control CodigoFormatoValidator.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator CodigoFormatoValidator;
+
+        /// <summary>
+        /// Control CodigoObligatorioValidator.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator CodigoObligatorioValidator;
+
+        /// <summary>
+        /// Control CodigoRepetidoCustomValidator.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator CodigoRepetidoCustomValidator;
+
+        /// <summary>
         /// Control NombreArticuloTextBox.
         /// </summary>
         /// <remarks>
