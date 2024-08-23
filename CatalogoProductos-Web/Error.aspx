@@ -9,9 +9,10 @@
         <div class="jumbotron-proyect rounded-3 border shadow">
             <div class="container">
                 <h2 class="display-5">UPS!</h2>
-                <p class="lead"><%#MensajeError %></p>
+                <p id="MensajeErrorParagraph" class="lead" runat="server"></p>
                 <hr class="my-4" />
-                <a href='<%#LinkPostError %>' class="btn btn-primary icon-link icon-link-hover arrow-container"><%#MensajeLinkPostError %>
+                <a id="LinkPostError" class="btn btn-primary icon-link icon-link-hover arrow-container" runat="server">
+                    <asp:Label ID="MensajeLinkPostErrorLabel" runat="server"></asp:Label>
                     <i class="bi bi-arrow-right"></i>
                 </a>
             </div>
