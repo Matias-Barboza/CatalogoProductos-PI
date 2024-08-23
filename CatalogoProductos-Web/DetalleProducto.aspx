@@ -67,6 +67,21 @@
                     </div>
                 </ItemTemplate>
             </asp:Repeater>
+
+            <%if (NoHayOtrosProductosCargados)
+              {%>
+            <div class="jumbotron-proyect rounded-3 border shadow">
+                <div class="container">
+                    <h2 class="display-5">LO SENTIMOS...</h2>
+                    <p class="lead">No se encontraron otros productos cargados.</p>
+                    <hr class="my-4" />
+                    <a href="Default.aspx" class="btn btn-primary icon-link icon-link-hover arrow-container">Volver al home
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            <%}%>
+
         </div>
 
     </section>

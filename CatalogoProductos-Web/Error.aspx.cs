@@ -23,6 +23,7 @@ namespace CatalogoProductos_Web
             Response.Redirect("Default.aspx");
         }
 
+        //------------------------------------------------------- METÓDOS -------------------------------------------------------------------------------------
         public void CargarTipoError(TipoError tipoError) 
         {
             MensajeErrorParagraph.InnerText = ErrorHelper.ObtenerMensajeError(tipoError);

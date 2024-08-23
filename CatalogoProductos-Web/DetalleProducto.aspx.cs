@@ -15,6 +15,8 @@ namespace CatalogoProductos_Web
     {
         private int _idProducto;
 
+        public bool NoHayOtrosProductosCargados;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             //Si viene vacio debe navegar a pagina de error
@@ -54,6 +56,13 @@ namespace CatalogoProductos_Web
             ArticuloNegocio articuloNegocio = new ArticuloNegocio();
             List<Articulo> listaArticulos = articuloNegocio.ObtenerArticulosRandom(3, _idProducto);
             articuloNegocio.ConfigurarRutasDeLista(listaArticulos);
+
+            NoHayOtrosProductosCargados = listaArticulos.Count() == 0;
+
+            if (NoHayOtrosProductosCargados)
+            {
+                return;
+            }
 
             RepeaterAlgunosProductos.DataSource = listaArticulos;
             RepeaterAlgunosProductos.DataBind();
