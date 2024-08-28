@@ -57,7 +57,7 @@
                     <h4 class="form-label mb-3">Repita la contraseña:</h4>
                     <asp:TextBox runat="server" TextMode="Password" CssClass="form-control mb-1" ID="PassRepetidaTextBox"
                                  PlaceHolder="*********" />
-                    <div class="container-validators">
+                    <div class="validator-container">
                         <asp:RequiredFieldValidator ID="RepetirPasswordValidator" ErrorMessage="La contraseña es un campo requerido."
                                                     ControlToValidate="PassRepetidaTextBox"
                                                     Display="Dynamic" CssClass="validator" runat="server"/>

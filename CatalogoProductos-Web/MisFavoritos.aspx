@@ -12,7 +12,7 @@
 
         <hr class="my-0" />
 
-        <div class="products-container">
+        <div class="min-height-container">
 
             <asp:Repeater ID="FavoritosRepeater" runat="server">
                 <ItemTemplate>

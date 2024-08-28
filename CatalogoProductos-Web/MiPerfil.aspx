@@ -4,7 +4,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <section class="section-proyect products-container">
+    <section class="section-proyect min-height-container">
 
         <div class="rounded-3 shadow">
             <span class="badge-detail-proyect py-4">Datos de Mi perfil</span>

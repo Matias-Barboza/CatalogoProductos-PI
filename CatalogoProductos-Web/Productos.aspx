@@ -5,7 +5,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <section class="products-container">
+    <section class="min-height-container">
 
         <asp:UpdatePanel runat="server">
             <ContentTemplate>
