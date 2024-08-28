@@ -5,9 +5,9 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <section class="min-height-container">
+    <section class="min-height-container section-proyect">
 
-        <asp:UpdatePanel runat="server">
+        <asp:UpdatePanel ID="UpdatePanelProductos" ClientIDMode="Static" runat="server">
             <ContentTemplate>
                 <asp:Repeater runat="server" ID="RepeaterProductos" >
 
@@ -41,7 +41,7 @@
                 </asp:Repeater>
 
                 <%if (NoHayProductosCargados)
-                  {%>
+                    {%>
                 <div class="jumbotron-proyect rounded-3 border shadow">
                     <div class="container">
                         <h2 class="display-5">LO SENTIMOS...</h2>

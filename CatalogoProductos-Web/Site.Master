@@ -5,6 +5,7 @@
 <html>
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title></title>
 
     <link href="~/Css/Styles.css" rel="stylesheet" />
@@ -21,7 +22,6 @@
 
         <nav class="navbar navbar-proyect shadow-sm">
 
-
             <div class="width-max-width-1200">
                 <div class="container-navbar-logo">
                     <a href="#" class="navbar-brand mb-0 h1 navbar-brand-proyect">CATÁLOGO DIGITAL</a>
@@ -31,14 +31,14 @@
             <div class="width-max-width-1200">
                 <%if (!CatalogoProductos_Web.ClasesHelper.LoginHelper.HaySesionIniciada(Session))
                     {%>
-                <div class="container-navbar login-div">
+                <div class="container-navbar justify-content-end">
                     <a href="Login.aspx" class="btn btn-outline-primary btn-sm login-proyect">INICIAR SESIÓN</a>
                     <a href="FormularioRegistro.aspx" class="btn btn-outline-success btn-sm register-proyect">REGISTRARSE</a>
                 </div>
                 <%}
                  else
                  {%>
-                <div class="container-navbar login-div">
+                <div class="container-navbar justify-content-end">
                     <div class="d-flex align-items-center">
                         <a href="MiPerfil.aspx" class="btn btn-outline-primary btn-sm login-proyect align-content-center">
                             MI PERFIL 
@@ -63,7 +63,7 @@
 
             <div class="d-flex width-max-width-1200">
 
-                <div class="container-navbar ul-div">
+                <div class="container-navbar justify-content-center">
                     <ul class="ul-navbar">
                         <li class="nav-item nav-item-proyect">
                             <a href="Default.aspx" class="nav-link active icon-link icon-link-hover">
@@ -100,13 +100,13 @@
 
             </div>
 
-            <asp:UpdatePanel ID="UpdatePanelProductos" ClientIDMode="Static" runat="server">
+            <asp:UpdatePanel ID="UpdatePanelFiltros" ClientIDMode="Static" runat="server">
                 <ContentTemplate>
                     <%if (Page is CatalogoProductos_Web.Productos)
                       {%>
                     <hr />
 
-                    <div class="width-max-width-1200 container-filters-elements">
+                    <div id="filtros-container" class="width-max-width-1200 container-filters-elements">
 
                         <%-- Búsqueda por nombre, marca --%>
                         <div class="div-filter">
@@ -123,7 +123,7 @@
                         </div>
 
 
-                        <div class="div-filter">
+                        <div id="order-buttons-container" class="div-filter">
 
                             <%-- Activar filtros --%>
                             <div class="form-check form-check-proyect">
@@ -135,32 +135,35 @@
                                     OnCheckedChanged="CheckBox_CheckedChanged" AutoPostBack="true" runat="server" />
                             </div>
 
+                            <div class="d-flex">
 
-                            <label class="form-label label-filter-proyect">
-                                <i class="bi bi-arrow-down-up"></i>
-                                Ordenar por:
-                                </label>
-                            <asp:DropDownList ID="OrdenTipoDropDownList" CssClass="form-select form-select-sm mx-1" runat="server" ></asp:DropDownList>
-
-                            <%if (FiltrosActivos)
-                                {%>
-                            <button type="button" runat="server" onserverclick="AplicarFiltrosButton_ServerClick" id="AplicarFiltrosButton"
-                                    class="btn btn-success btn-sm mx-1" title="Aplicar filtros" causesvalidation="true" validationgroup="AplicarFiltrosValidation">
-                                    <i class="bi bi-funnel-fill"></i>
-                            </button>
-                            <button type="button" runat="server" onserverclick="LimpiarFiltrosButton_ServerClick" id="LimpiarFiltrosButton"
-                                    class="btn btn-danger btn-sm mx-1" title="Limpiar filtros">
-                                    <i class="bi bi-trash3-fill"></i>
-                            </button>
-                            <%}%>
-
-                            <%if (!FiltrosActivos)
-                              {%>
-                            <button type="button" runat="server" onserverclick="AplicarOrdenButton_ServerClick" id="AplicarOrdenButton"
-                                    class="btn btn-primary btn-sm mx-1" title="Aplicar orden">
+                                <label class="form-label label-filter-proyect">
                                     <i class="bi bi-arrow-down-up"></i>
-                            </button>
-                            <%} %>
+                                    Ordenar por:
+                                    </label>
+                                <asp:DropDownList ID="OrdenTipoDropDownList" CssClass="form-select form-select-sm mx-1" runat="server" ></asp:DropDownList>
+
+                                <%if (FiltrosActivos)
+                                    {%>
+                                <button type="button" runat="server" onserverclick="AplicarFiltrosButton_ServerClick" id="AplicarFiltrosButton"
+                                        class="btn btn-success btn-sm mx-1" title="Aplicar filtros" causesvalidation="true" validationgroup="AplicarFiltrosValidation">
+                                        <i class="bi bi-funnel-fill"></i>
+                                </button>
+                                <button type="button" runat="server" onserverclick="LimpiarFiltrosButton_ServerClick" id="LimpiarFiltrosButton"
+                                        class="btn btn-danger btn-sm mx-1" title="Limpiar filtros">
+                                        <i class="bi bi-trash3-fill"></i>
+                                </button>
+                                <%}%>
+
+                                <%if (!FiltrosActivos)
+                                  {%>
+                                <button type="button" runat="server" onserverclick="AplicarOrdenButton_ServerClick" id="AplicarOrdenButton"
+                                        class="btn btn-primary btn-sm mx-1" title="Aplicar orden">
+                                        <i class="bi bi-arrow-down-up"></i>
+                                </button>
+                                <%} %>
+
+                            </div>
                         </div>
 
                     </div>
@@ -227,7 +230,7 @@
 
             <div class="width-max-width-1200 container-footer-elements">
                 <p>2024 - CATÁLOGO DIGITAL</p>
-                <ul class="ul-navbar">
+                <ul id="ul-navbar-footer" class="ul-navbar">
                     <li class="nav-item nav-item-proyect">
                         <a href="Default.aspx" class="nav-link active icon-link icon-link-hover">
                             <i class="bi bi-house"></i>

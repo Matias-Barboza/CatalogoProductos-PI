@@ -23,7 +23,7 @@ hr {
 }
 
 .section-proyect {
-    width: 100%;
+    width: 90%;
     max-width: 1100px;
     display: flex;
     flex-direction: column;
@@ -68,12 +68,8 @@ hr {
 
 .container-navbar {
     width: 100%;
-    width: 1200px;
+    max-width: 1200px;
     display: flex;
-}
-
-.login-div {
-    justify-content: end;
 }
 
 .img-perfil-container {
@@ -90,10 +86,6 @@ hr {
 
 .login-proyect, .register-proyect {
     margin: 0 2.5px;
-}
-
-.ul-div {
-    justify-content: center;
 }
 
 .ul-navbar {
@@ -133,6 +125,7 @@ hr {
 
 .form-check-proyect {
     display: flex !important;
+    padding: 0 !important;
 }
 
 /* --------------------------------------------------------------------------------------------------------------------------------------------------------- */
@@ -154,7 +147,7 @@ hr {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 1100px;
+    max-width: 1100px;
     height: 200px;
     background-color: var(--bs-blue)
 }
@@ -227,15 +220,16 @@ hr {
 
 /* --------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /* ------------------------------------------------------------------- PRODUCTOS --------------------------------------------------------------------------- */
-#UpdatePanelProductos {
-    width: 1200px;
+#UpdatePanelFiltros {
+    width: 100%;
+    max-width: 1200px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-#UpdatePanelProductos hr {
-    width: 1300px;
+#UpdatePanelFiltros hr {
+    max-width: 1300px;
 }
 
 .link-button-product {
@@ -244,7 +238,8 @@ hr {
 
 .one-product-container {
     display: flex;
-    width: 1100px;
+    width: 100%;
+    max-width: 1100px;
     height: 160px;
     border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color-translucent) !important;
     box-shadow: .25rem .5rem 1rem rgba(0, 0, 0, .075);
@@ -756,4 +751,62 @@ hr {
 .container-footer-elements {
     display: flex;
     justify-content: space-between;
+}
+
+
+/* --------------------------------------------------------------------------------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------- MEDIA QUERIES ----------------------------------------------------------------------- */
+@media (max-width: 950px) 
+{
+    #filtros-container {
+        padding: 0 0.5rem;
+        flex-direction: column;
+    }
+
+    .login-elements, .register-elements {
+        width: 80%
+    }
+
+    .jumbotron-products-icon {
+        font-size: 70px;
+    }
+}
+
+@media (max-width: 650px) {
+
+    .img-info-container {
+        max-height: fit-content;
+        flex-direction: column;
+    }
+
+    .img-detail-container, .info-detail-container {
+        width: 100%;
+    }
+
+    .info-detail-container {
+        border-bottom-left-radius: .375rem;
+    }
+
+    .login-elements, .register-elements {
+        width: 90%;
+    }
+}
+
+@media (max-width: 500px) {
+
+    #order-buttons-container {
+        flex-direction: column;
+    }
+
+    .jumbotron-products-icon {
+        font-size: 50px;
+    }
+
+    .container-footer-elements{
+        flex-direction: column;
+    }
+
+    #ul-navbar-footer {
+        justify-content: end;
+    }
 }

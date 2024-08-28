@@ -60,13 +60,13 @@ namespace CatalogoProductos_Web
         protected global::System.Web.UI.WebControls.Image PerfilActualImage;
 
         /// <summary>
-        /// Control UpdatePanelProductos.
+        /// Control UpdatePanelFiltros.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanelProductos;
+        protected global::System.Web.UI.UpdatePanel UpdatePanelFiltros;
 
         /// <summary>
         /// Control BusquedaTextBox.
