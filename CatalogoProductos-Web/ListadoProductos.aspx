@@ -16,7 +16,7 @@
 
             <hr />
 
-            <div class="d-flex justify-content-evenly">
+            <div id="operaciones-div" class="d-flex justify-content-evenly">
                 <a class="btn btn-primary btn-lg" title="Añadir Producto" disabled="true"
                     href="FormularioProducto.aspx" >
                     Añadir Producto
@@ -49,7 +49,7 @@
 
             <hr />
 
-            <asp:UpdatePanel runat="server">
+            <asp:UpdatePanel ID="UpdatePanelPreGridView" ClientIDMode="Static" runat="server">
                 <ContentTemplate>
                     <asp:GridView ID="ProductosGridView" AutoGenerateColumns="false" CssClass="table table-striped" runat="server"
                         DataKeyNames="Id" AllowPaging="true" PageSize="10" PagerStyle-CssClass="pagination-proyect" PagerStyle-HorizontalAlign="Center"

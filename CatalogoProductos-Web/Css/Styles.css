@@ -580,6 +580,11 @@ hr {
     background-color: var(--bs-danger-bg-subtle) !important;
 }
 
+#UpdatePanelPreGridView div {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
 .operation-success {
     width: 100%;
     border: 1px solid var(--bs-green);
@@ -771,10 +776,9 @@ hr {
 
 /* --------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /* ------------------------------------------------------------------- MEDIA QUERIES ----------------------------------------------------------------------- */
-@media (max-width: 950px) 
-{
+@media (max-width: 950px) {
+
     #filtros-container {
-        padding: 0 0.5rem;
         flex-direction: column;
     }
 
@@ -784,6 +788,18 @@ hr {
 
     .jumbotron-products-icon {
         font-size: 70px;
+    }
+}
+
+@media (max-width: 750px) {
+    
+    #operaciones-div {
+        flex-direction: column;
+    }
+
+    #operaciones-div a {
+        padding: 10px 0;
+        margin-bottom: 10px;
     }
 }
 
@@ -867,12 +883,20 @@ hr {
     .login-elements, .register-elements {
         width: 90%;
     }
+
+    #miperfil-container {
+        flex-direction: column;
+    }
 }
 
 @media (max-width: 500px) {
 
     #order-buttons-container {
         flex-direction: column;
+    }
+
+    .div-filter {
+        margin-right: 10px;
     }
 
     .jumbotron-products-icon {

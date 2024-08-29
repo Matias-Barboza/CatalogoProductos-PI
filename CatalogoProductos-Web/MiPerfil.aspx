@@ -6,9 +6,9 @@
 
     <section class="section-proyect min-height-container">
 
-        <div class="rounded-3 shadow">
+        <div class="rounded-3 shadow bg-light">
             <span class="badge-detail-proyect py-4">Datos de Mi perfil</span>
-            <div class="d-flex">
+            <div id="miperfil-container" class="d-flex">
                 <div class="img-detail-container flex-column bg-light">
                     <div class="d-flex justify-content-center mb-3 p-4 rounded-3" style="max-height:400px">
                         <asp:Image ID="ImagenActualImage" CssClass="img-fluid" ImageUrl="imageurl" runat="server" />
@@ -26,23 +26,23 @@
                 <div class="info-detail-container p-4">
                     <div class="mb-3">
                         <label class="form-label">Email:</label>
-                        <asp:TextBox ID="EmailTextBox" CssClass="form-control" Enabled="false" runat="server" />
+                        <asp:TextBox ID="EmailTextBox" CssClass="form-control text-overflow-ellipsis" Enabled="false" runat="server" />
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Nombre:</label>
-                        <asp:TextBox ID="NombreActualTextBox" CssClass="form-control" Enabled="false" runat="server" />
+                        <asp:TextBox ID="NombreActualTextBox" CssClass="form-control text-overflow-ellipsis" Enabled="false" runat="server" />
                         <asp:RequiredFieldValidator CssClass="validator ms-2" Display="Dynamic" ValidationGroup="EdicionValidationGroup"
                                                     ErrorMessage="El nombre no puede estar vacío." ControlToValidate="NombreActualTextBox" runat="server" />
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Apellido:</label>
-                        <asp:TextBox ID="ApellidoActualTextBox" CssClass="form-control" Enabled="false" runat="server" />
+                        <asp:TextBox ID="ApellidoActualTextBox" CssClass="form-control text-overflow-ellipsis" Enabled="false" runat="server" />
                         <asp:RequiredFieldValidator CssClass="validator ms-2" Display="Dynamic" ValidationGroup="EdicionValidationGroup"
                             ErrorMessage="El apellido no puede estar vacío." ControlToValidate="ApellidoActualTextBox" runat="server" />
                     </div>
                 </div>
             </div>
-            <div class="d-flex justify-content-center mb-3 bg-light">
+            <div class="d-flex justify-content-center mb-3">
                 <%if (!DebeConfirmarEdicion) 
                 {%>
                 <button type="button" onserverclick="EditarUsuarioButton_ServerClick" id="EditarUsuarioButton"

@@ -114,7 +114,7 @@
                     <div id="filtros-container" class="width-max-width-1200 container-filters-elements">
 
                         <%-- Búsqueda por nombre, marca --%>
-                        <div class="div-filter">
+                        <div class="div-filter ps-2">
                             <div class="validator-container">
                                 <asp:TextBox ID="BusquedaTextBox" CssClass="form-control form-control-sm" runat="server"></asp:TextBox>
                                 <label class="form-text ms-1">Búsqueda por coincidencias con categoría, marca, o nombre.</label>
