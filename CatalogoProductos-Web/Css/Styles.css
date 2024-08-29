@@ -35,9 +35,9 @@ hr {
     max-width: 1200px;
 }
 
-.min-heigth-container {
+.min-height-container {
     margin: 1.5rem 0;
-    width: 1100px;
+    /*width: 1100px;*/
     min-height: 700px;
 }
 
@@ -58,6 +58,10 @@ hr {
     justify-content: center;
 }
 
+.navbar-div {
+    justify-content: center;
+}
+
 .navbar-brand-proyect {
     font-size: 35px !important;
 }
@@ -70,6 +74,17 @@ hr {
     width: 100%;
     max-width: 1200px;
     display: flex;
+}
+
+.nav-responsive {
+    background-color: var(--bs-primary);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    margin-right: 10px;
+    display: none;
 }
 
 .img-perfil-container {
@@ -774,6 +789,68 @@ hr {
 
 @media (max-width: 650px) {
 
+    .navbar-div {
+        justify-content: end;
+    }
+
+    #ul-nav {
+        display: none;
+    }
+
+    .nav-responsive {
+        display: block;
+    }
+
+    #ul-nav.responsive {
+        display: block;
+        position: absolute;
+        margin-right: 10px;
+        right: 0;
+        top: 170px;
+        width: 220px;
+        z-index: 100;
+    }
+
+    #ul-nav.responsive-180 {
+        display: block;
+        position: absolute;
+        margin-right: 10px;
+        right: 0;
+        top: 180px;
+        width: 220px;
+        z-index: 100;
+    }
+
+    #ul-nav.responsive ul {
+        display: block !important;
+    }
+
+    #ul-nav.responsive ul li {
+        border-bottom: 2px solid var(--bs-secondary);
+        padding: 10px 0 10px 7px;
+        background-color: var(--bs-gray-500);
+    }
+
+    #ul-nav.responsive-180 ul {
+        display: block !important;
+    }
+
+    #ul-nav.responsive-180 ul li {
+        border-bottom: 2px solid var(--bs-secondary);
+        padding: 10px 0 10px 7px;
+        background-color: var(--bs-gray-500);
+    }
+
+    .ul-navbar li:first-child {
+        border-top-left-radius: .375rem;
+        border-top-right-radius: .375rem;
+    }
+
+    .ul-navbar li:last-child {
+        border-bottom-left-radius: .375rem;
+        border-bottom-right-radius: .375rem;
+    }
+
     .img-info-container {
         max-height: fit-content;
         flex-direction: column;
@@ -808,5 +885,12 @@ hr {
 
     #ul-navbar-footer {
         justify-content: end;
+    }
+}
+
+@media (max-width: 450px) {
+
+    .one-product-container {
+        height: 180px;
     }
 }

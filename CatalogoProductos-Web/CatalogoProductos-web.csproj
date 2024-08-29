@@ -73,6 +73,7 @@
     <Content Include="Error.aspx" />
     <Content Include="FormularioProducto.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="Js\Script.js" />
     <Content Include="ListadoProductos.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="MiPerfil.aspx" />

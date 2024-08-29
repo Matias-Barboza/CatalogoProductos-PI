@@ -4,7 +4,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <section class="section-proyect">
+    <section class="section-proyect min-height-container justify-content-start">
 
         <div class="container-title mb-0">
             <h2 class="display-6">MIS FAVORITOS</h2>
@@ -12,7 +12,7 @@
 
         <hr class="my-0" />
 
-        <div class="min-height-container">
+        <div class="container-some-products">
 
             <asp:Repeater ID="FavoritosRepeater" runat="server">
                 <ItemTemplate>
