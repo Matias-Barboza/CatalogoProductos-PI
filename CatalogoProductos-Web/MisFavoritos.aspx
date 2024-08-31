@@ -6,7 +6,7 @@
 
     <section class="section-proyect min-height-container justify-content-start">
 
-        <div class="container-title mb-0">
+        <div class="container-title my-0">
             <h2 class="display-6">MIS FAVORITOS</h2>
         </div>
 

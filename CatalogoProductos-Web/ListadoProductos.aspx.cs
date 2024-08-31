@@ -21,7 +21,7 @@ namespace CatalogoProductos_Web
             {
                 if (Request.QueryString["estado"] != null && int.TryParse(Request.QueryString["estado"], out int estado) && Session["VieneDeOperacion"] != null) 
                 {
-                    MostrarEstadoOperacion((EstadoOperacion) estado);
+                    MostrarEstadoOperacion((EstadoOperacionProducto) estado);
                 }
             }
 
@@ -33,6 +33,9 @@ namespace CatalogoProductos_Web
         {
             ArticuloNegocio articuloNegocio = new ArticuloNegocio();
             List<Articulo> articulos = articuloNegocio.ObtenerArticulos(tipoOrden: "ORDER BY c.Descripcion");
+
+            //PARA PROBAR QUE NO LLEGAN ARTICULOS
+            //List<Articulo> articulos = new List<Articulo>();
 
             if (articulos.Count == 0) 
             {
@@ -46,32 +49,32 @@ namespace CatalogoProductos_Web
             ProductosGridView.DataBind();
         }
 
-        public void MostrarEstadoOperacion(EstadoOperacion estado) 
+        public void MostrarEstadoOperacion(EstadoOperacionProducto estado) 
         {
             VieneDeOperacion = (bool)Session["VieneDeOperacion"];
             bool OperacionExitosa = false;
 
             switch (estado) 
             {
-                case EstadoOperacion.AÑADIDO_EXITOSO:
+                case EstadoOperacionProducto.AÑADIDO_EXITOSO:
                     MensajeOperacion = "Producto añadido de forma exitosa.";
                     OperacionExitosa = true;
                     break;
-                case EstadoOperacion.AÑADIDO_FALLIDO:
+                case EstadoOperacionProducto.AÑADIDO_FALLIDO:
                     MensajeOperacion = "Hubo un error en el añadido del producto.";
                     break;
-                case EstadoOperacion.EDICION_EXITOSA:
+                case EstadoOperacionProducto.EDICION_EXITOSA:
                     MensajeOperacion = "Producto editado de forma exitosa.";
                     OperacionExitosa = true;
                     break;
-                case EstadoOperacion.EDICION_FALLIDA:
+                case EstadoOperacionProducto.EDICION_FALLIDA:
                     MensajeOperacion = "Hubo un error en la edición del producto.";
                     break;
-                case EstadoOperacion.ELIMINACION_EXITOSA:
+                case EstadoOperacionProducto.ELIMINACION_EXITOSA:
                     MensajeOperacion = "Producto eliminado de forma exitosa.";
                     OperacionExitosa = true;
                     break;
-                case EstadoOperacion.ELIMINACION_FALLIDA:
+                case EstadoOperacionProducto.ELIMINACION_FALLIDA:
                     MensajeOperacion = "Hubo un error en la eliminación del producto.";
                     break;
                 default:

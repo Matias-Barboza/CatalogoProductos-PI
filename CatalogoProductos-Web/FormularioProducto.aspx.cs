@@ -93,6 +93,11 @@ namespace CatalogoProductos_Web
             ArticuloNegocio articuloNegocio = new ArticuloNegocio();
             Articulo articuloACargar = articuloNegocio.ObtenerArticuloPorId(id);
 
+            if (articuloACargar == null) 
+            {
+                Response.Redirect("Error.aspx?tipo=4", true);
+            }
+
             CodigoArticuloTextBox.Text = articuloACargar.CodigoArticulo;
             NombreArticuloTextBox.Text = articuloACargar.Nombre;
             DescripcionArticuloTextBox.Text = articuloACargar.Descripcion;
@@ -236,7 +241,6 @@ namespace CatalogoProductos_Web
             {
                 Response.Redirect("ListadoProductos.aspx?estado=4");
             }
-
         }
 
         protected void EliminarArticuloButton_ServerClick(object sender, EventArgs e)

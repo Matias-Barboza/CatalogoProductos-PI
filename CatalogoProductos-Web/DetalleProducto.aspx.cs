@@ -42,6 +42,11 @@ namespace CatalogoProductos_Web
 
             articulo = articuloNegocio.ObtenerArticuloPorId(_idProducto);
 
+            if (articulo == null) 
+            {
+                Response.Redirect("Error.aspx?tipo=4", true);
+            }
+
             TituloProductoLabel.Text = $"{articulo.Marca.Descripcion} {articulo.Nombre}";
             ImagenProducto.ImageUrl = ArticuloNegocio.ConfigurarRutaImagen(articulo.ImagenUrl);
             NombreLabel.Text = articulo.Nombre;

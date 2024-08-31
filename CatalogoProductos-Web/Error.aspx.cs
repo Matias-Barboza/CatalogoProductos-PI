@@ -15,6 +15,11 @@ namespace CatalogoProductos_Web
             //Si viene con algun error
             if (Request.QueryString["tipo"] != null && int.TryParse(Request.QueryString["tipo"], out int tipo)) 
             {
+                if (!ErrorHelper.EsErrorContemplado(tipo)) 
+                {
+                    Response.Redirect("Default.aspx", true);
+                }
+                
                 CargarTipoError((TipoError) tipo);
                 return;
             }

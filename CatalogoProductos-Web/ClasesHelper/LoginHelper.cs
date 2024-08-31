@@ -16,7 +16,9 @@ namespace CatalogoProductos_Web.ClasesHelper
 
         public static bool PaginaNecesitaSesionIniciada(Page pagina) 
         {
-            return pagina is ListadoProductos || pagina is MiPerfil || pagina is MisFavoritos || pagina is FormularioProducto;
+            return pagina is MiPerfil || pagina is MisFavoritos || pagina is Administracion ||
+                   pagina is FormularioProducto || pagina is FormularioMarca || pagina is FormularioCategoria ||
+                   pagina is ListadoProductos || pagina is ListadoMarcas || pagina is ListadoCategorias;
         }
 
         public static bool HaySesionIniciada(HttpSessionState session) 
@@ -48,15 +50,18 @@ namespace CatalogoProductos_Web.ClasesHelper
             return HaySesionIniciada(session) && EsUsuarioAdmin(session);
         }
 
-        public static bool DebeSerAdmin(Page page) 
+        public static bool DebeSerAdmin(Page pagina) 
         {
-            return page is ListadoProductos || page is FormularioProducto;
+            return pagina is Administracion || pagina is ListadoProductos || pagina is ListadoMarcas || pagina is ListadoCategorias ||
+                   pagina is FormularioProducto || pagina is FormularioMarca || pagina is FormularioCategoria;
         }
 
         public static void EliminarDatosSession(HttpSessionState session)
         {
             session.Remove("NoHayFavoritosGuardados");
             session.Remove("DatosArticuloCargados");
+            session.Remove("DatosMarcaCargados");
+            session.Remove("DatosCategoriaCargados");
             session.Remove("ImagenPorArchivo");
             session.Remove("DebeConfirmarEliminacion");
             session.Remove("EstablecerDatos");

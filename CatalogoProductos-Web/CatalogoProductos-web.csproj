@@ -67,13 +67,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Administracion.aspx" />
     <Content Include="Css\Styles.css" />
     <Content Include="Default.aspx" />
     <Content Include="DetalleProducto.aspx" />
     <Content Include="Error.aspx" />
+    <Content Include="FormularioCategoria.aspx" />
+    <Content Include="FormularioMarca.aspx" />
     <Content Include="FormularioProducto.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Js\Script.js" />
+    <Content Include="ListadoCategorias.aspx" />
+    <Content Include="ListadoMarcas.aspx" />
     <Content Include="ListadoProductos.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="MiPerfil.aspx" />
@@ -83,6 +88,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Administracion.aspx.cs">
+      <DependentUpon>Administracion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Administracion.aspx.designer.cs">
+      <DependentUpon>Administracion.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ClasesHelper\ErrorHelper.cs" />
     <Compile Include="ClasesHelper\LoginHelper.cs" />
     <Compile Include="Default.aspx.cs">
@@ -106,6 +118,20 @@
     <Compile Include="Error.aspx.designer.cs">
       <DependentUpon>Error.aspx</DependentUpon>
     </Compile>
+    <Compile Include="FormularioCategoria.aspx.cs">
+      <DependentUpon>FormularioCategoria.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FormularioCategoria.aspx.designer.cs">
+      <DependentUpon>FormularioCategoria.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FormularioMarca.aspx.cs">
+      <DependentUpon>FormularioMarca.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FormularioMarca.aspx.designer.cs">
+      <DependentUpon>FormularioMarca.aspx</DependentUpon>
+    </Compile>
     <Compile Include="FormularioProducto.aspx.cs">
       <DependentUpon>FormularioProducto.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -115,6 +141,20 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="ListadoCategorias.aspx.cs">
+      <DependentUpon>ListadoCategorias.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ListadoCategorias.aspx.designer.cs">
+      <DependentUpon>ListadoCategorias.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ListadoMarcas.aspx.cs">
+      <DependentUpon>ListadoMarcas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ListadoMarcas.aspx.designer.cs">
+      <DependentUpon>ListadoMarcas.aspx</DependentUpon>
     </Compile>
     <Compile Include="ListadoProductos.aspx.cs">
       <DependentUpon>ListadoProductos.aspx</DependentUpon>

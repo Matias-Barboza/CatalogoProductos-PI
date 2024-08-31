@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CatalogoProductos_negocio
 {
-    public enum EstadoOperacion
+    public enum EstadoOperacionProducto
     {
         AÑADIDO_EXITOSO = 1,
         AÑADIDO_FALLIDO = 2,

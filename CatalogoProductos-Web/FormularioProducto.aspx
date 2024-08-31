@@ -12,115 +12,121 @@
 
             <hr />
 
-            <%-- Código de articulo --%>
-            <div class="mb-3">
-                
-                <div class="input-group mb-1">
-                    <span class="input-group-text">Código de artículo<span class="required-data"> *</span></span>
-                    <asp:TextBox ID="CodigoArticuloTextBox" CssClass="form-control" placeholder="Ej: S23" runat="server"></asp:TextBox>
-                </div>
+            <asp:UpdatePanel runat="server">
+                <ContentTemplate>
 
-                <div class="ms-2">
-                    <asp:RegularExpressionValidator ID="CodigoLongitudValidator" ErrorMessage="El código de artículo debe tener 3 caracteres como mínimo y 50 como máximo." Display="Dynamic"
-                                        ControlToValidate="CodigoArticuloTextBox" CssClass="validator" ValidationExpression="^[a-zA-Z0-9]{3,50}$"
-                                        ValidationGroup="OperationValidationGroup" runat="server" />
-                    <asp:RegularExpressionValidator ID="CodigoFormatoValidator" ErrorMessage="El código de artículo debe contener al menos una (1) letra y dos (2) números." Display="Dynamic"
-                                        ControlToValidate="CodigoArticuloTextBox" CssClass="validator" ValidationExpression="^(?=.*[a-zA-Z])(?=.*\d.*\d)[a-zA-Z0-9]{3,50}$"
-                                        ValidationGroup="OperationValidationGroup" runat="server" />
-                    <asp:RequiredFieldValidator ID="CodigoObligatorioValidator" ErrorMessage="El código de artículo es obligatorio." Display="Dynamic"
-                                                ControlToValidate="CodigoArticuloTextBox" CssClass="validator"
+                    <%-- Código de articulo --%>
+                    <div class="mb-3">
+    
+                        <div class="input-group mb-1">
+                            <span class="input-group-text">Código de artículo<span class="required-data"> *</span></span>
+                            <asp:TextBox ID="CodigoArticuloTextBox" CssClass="form-control" placeholder="Ej: S23" runat="server"></asp:TextBox>
+                        </div>
+
+                        <div class="ms-2">
+                            <asp:RegularExpressionValidator ID="CodigoLongitudValidator" ErrorMessage="El código de artículo debe tener 3 caracteres como mínimo y 50 como máximo. Las letras no pueden contener tildes." Display="Dynamic"
+                                                ControlToValidate="CodigoArticuloTextBox" CssClass="validator" ValidationExpression="^[a-zA-Z0-9]{3,50}$"
                                                 ValidationGroup="OperationValidationGroup" runat="server" />
-                    <asp:CustomValidator ID="CodigoRepetidoCustomValidator" ErrorMessage="El código de producto ya existe." Display="Dynamic"
-                                         ControlToValidate="CodigoArticuloTextBox" CssClass="validator"
-                                         ValidationGroup="OperationValidationGroup" OnServerValidate="CodigoRepetidoCustomValidator_ServerValidate" runat="server" />
-                </div>
-
-            </div>
-
-            <%-- Nombre de articulo --%>
-            <div class="mb-3">
-                
-                <div class="input-group mb-1">
-                    <span class="input-group-text">Nombre de artículo<span class="required-data"> *</span></span>
-                    <asp:TextBox ID="NombreArticuloTextBox" CssClass="form-control" placeholder="Ej: Galaxy S23" runat="server"></asp:TextBox>
-                </div>
-
-                <div class="ms-2">
-                    <asp:RequiredFieldValidator ErrorMessage="El nombre de artículo es obligatorio." Display="Dynamic"
-                            ControlToValidate="NombreArticuloTextBox" CssClass="validator" runat="server"
-                            ValidationGroup="OperationValidationGroup"/>
-                </div>
-
-            </div>
-
-            <%-- Descripción --%>
-            <div class="mb-3">
-                
-                <div class="input-group mb-1">
-                    <span class="input-group-text">Descripción de artículo</span>
-                    <asp:TextBox ID="DescripcionArticuloTextBox" CssClass="form-control" TextMode="MultiLine"
-                                    MaxLength="150" placeholder="Ej: Celular última generación..." runat="server"></asp:TextBox>
-                </div>
-
-                <div class="ms-2">
-                    <p class="form-text">La descripción no es un campo obligatorio mas sí recomendable.</p>
-                </div>
-
-            </div>
-
-            <%-- Marca y Categoría --%>
-            <div class="brand-category-container mb-3">
-
-                <%-- Marca --%>
-                <div class="w-100 me-3">
-
-                    <div class="input-group mb-1">
-                        <label class="input-group-text">Marca<span class="required-data"> *</span></label>
-                        <asp:DropDownList ID="MarcasDropDownList" CssClass="form-select" runat="server"></asp:DropDownList>
-                    </div>
-                    <asp:CustomValidator ID="MarcasCustomValidator" ErrorMessage="La selección de una marca es obligatoria."
-                                            Display="Dynamic" ControlToValidate="MarcasDropDownList" CssClass="validator ms-2"
-                                            OnServerValidate="DropDownListCustomValidator_ServerValidate"
-                                            ValidationGroup="OperationValidationGroup" runat="server" />
-
-                </div>
-
-                <%-- Categoría --%>
-                <div class="w-100">
-
-                    <div class="input-group mb-1">
-                        <label class="input-group-text">Categoría<span class="required-data"> *</span></label>
-                        <asp:DropDownList ID="CategoriasDropDownList" CssClass="form-select" runat="server"></asp:DropDownList>
-                    </div>
-                    <asp:CustomValidator ID="CategoriasCustomValidator" ErrorMessage="La selección de una categoría es obligatoria."
-                                            Display="Dynamic" ControlToValidate="CategoriasDropDownList" CssClass="validator ms-2"
-                                            OnServerValidate="DropDownListCustomValidator_ServerValidate"
-                                            ValidationGroup="OperationValidationGroup" runat="server" />
-
-                </div>
-
-            </div>
-
-            <%-- Precio --%>
-            <div class="mb-3">
-
-                <div class="input-group mb-1">
-                    <span class="input-group-text">Precio de artículo<span class="required-data">*</span></span>
-                    <span class="input-group-text">$</span>
-                    <asp:TextBox ID="PrecioArticuloTextBox" CssClass="form-control" placeholder="Ej: 150.000,00; 100000" runat="server"></asp:TextBox>
-                </div>
-
-                <div class="ms-2">
-                    <asp:RequiredFieldValidator ErrorMessage="El precio del artículo es obligatorio." Display="Dynamic"
-                                                ControlToValidate="PrecioArticuloTextBox" CssClass="validator"
+                            <asp:RegularExpressionValidator ID="CodigoFormatoValidator" ErrorMessage="El código de artículo debe contener al menos una (1) letra y dos (2) números. Las letras no pueden contener tildes" Display="Dynamic"
+                                                ControlToValidate="CodigoArticuloTextBox" CssClass="validator" ValidationExpression="^(?=.*[a-zA-Z])(?=.*\d.*\d)[a-zA-Z0-9]{3,50}$"
                                                 ValidationGroup="OperationValidationGroup" runat="server" />
-                    <asp:RegularExpressionValidator ErrorMessage="El formato debe ser como: '100', '1000', '1.000', '1500,25'."
-                                                    Display="Dynamic" ValidationExpression="^(?:\d{1,3}(?:\.\d{3})*|\d+)(?:,\d{1,2})?$"
-                                                    ControlToValidate="PrecioArticuloTextBox" CssClass="validator"
+                            <asp:RequiredFieldValidator ID="CodigoObligatorioValidator" ErrorMessage="El código de artículo es obligatorio." Display="Dynamic"
+                                                        ControlToValidate="CodigoArticuloTextBox" CssClass="validator"
+                                                        ValidationGroup="OperationValidationGroup" runat="server" />
+                            <asp:CustomValidator ID="CodigoRepetidoCustomValidator" ErrorMessage="El código de producto ya existe." Display="Dynamic"
+                                                 ControlToValidate="CodigoArticuloTextBox" CssClass="validator"
+                                                 ValidationGroup="OperationValidationGroup" OnServerValidate="CodigoRepetidoCustomValidator_ServerValidate" runat="server" />
+                        </div>
+
+                    </div>
+
+                    <%-- Nombre de articulo --%>
+                    <div class="mb-3">
+    
+                        <div class="input-group mb-1">
+                            <span class="input-group-text">Nombre de artículo<span class="required-data"> *</span></span>
+                            <asp:TextBox ID="NombreArticuloTextBox" CssClass="form-control" placeholder="Ej: Galaxy S23" runat="server"></asp:TextBox>
+                        </div>
+
+                        <div class="ms-2">
+                            <asp:RequiredFieldValidator ErrorMessage="El nombre de artículo es obligatorio." Display="Dynamic"
+                                    ControlToValidate="NombreArticuloTextBox" CssClass="validator" runat="server"
+                                    ValidationGroup="OperationValidationGroup"/>
+                        </div>
+
+                    </div>
+
+                    <%-- Descripción --%>
+                    <div class="mb-3">
+    
+                        <div class="input-group mb-1">
+                            <span class="input-group-text">Descripción de artículo</span>
+                            <asp:TextBox ID="DescripcionArticuloTextBox" CssClass="form-control" TextMode="MultiLine"
+                                            MaxLength="150" placeholder="Ej: Celular última generación..." runat="server"></asp:TextBox>
+                        </div>
+
+                        <div class="ms-2">
+                            <p class="form-text">La descripción no es un campo obligatorio mas sí recomendable.</p>
+                        </div>
+
+                    </div>
+
+                    <%-- Marca y Categoría --%>
+                    <div class="brand-category-container mb-3">
+
+                        <%-- Marca --%>
+                        <div class="w-100 me-3">
+
+                            <div class="input-group mb-1">
+                                <label class="input-group-text">Marca<span class="required-data"> *</span></label>
+                                <asp:DropDownList ID="MarcasDropDownList" CssClass="form-select" runat="server"></asp:DropDownList>
+                            </div>
+                            <asp:CustomValidator ID="MarcasCustomValidator" ErrorMessage="La selección de una marca es obligatoria."
+                                                    Display="Dynamic" ControlToValidate="MarcasDropDownList" CssClass="validator ms-2"
+                                                    OnServerValidate="DropDownListCustomValidator_ServerValidate"
                                                     ValidationGroup="OperationValidationGroup" runat="server" />
-                </div>
 
-            </div>
+                        </div>
+
+                        <%-- Categoría --%>
+                        <div class="w-100">
+
+                            <div class="input-group mb-1">
+                                <label class="input-group-text">Categoría<span class="required-data"> *</span></label>
+                                <asp:DropDownList ID="CategoriasDropDownList" CssClass="form-select" runat="server"></asp:DropDownList>
+                            </div>
+                            <asp:CustomValidator ID="CategoriasCustomValidator" ErrorMessage="La selección de una categoría es obligatoria."
+                                                    Display="Dynamic" ControlToValidate="CategoriasDropDownList" CssClass="validator ms-2"
+                                                    OnServerValidate="DropDownListCustomValidator_ServerValidate"
+                                                    ValidationGroup="OperationValidationGroup" runat="server" />
+
+                        </div>
+
+                    </div>
+
+                    <%-- Precio --%>
+                    <div class="mb-3">
+
+                        <div class="input-group mb-1">
+                            <span class="input-group-text">Precio de artículo<span class="required-data">*</span></span>
+                            <span class="input-group-text">$</span>
+                            <asp:TextBox ID="PrecioArticuloTextBox" CssClass="form-control" placeholder="Ej: 150.000,00; 100000" runat="server"></asp:TextBox>
+                        </div>
+
+                        <div class="ms-2">
+                            <asp:RequiredFieldValidator ErrorMessage="El precio del artículo es obligatorio." Display="Dynamic"
+                                                        ControlToValidate="PrecioArticuloTextBox" CssClass="validator"
+                                                        ValidationGroup="OperationValidationGroup" runat="server" />
+                            <asp:RegularExpressionValidator ErrorMessage="El formato debe ser como: '100', '1000', '1.000', '1500,25'."
+                                                            Display="Dynamic" ValidationExpression="^(?:\d{1,3}(?:\.\d{3})*|\d+)(?:,\d{1,2})?$"
+                                                            ControlToValidate="PrecioArticuloTextBox" CssClass="validator"
+                                                            ValidationGroup="OperationValidationGroup" runat="server" />
+                        </div>
+
+                    </div>
+
+                </ContentTemplate>
+            </asp:UpdatePanel>
 
             <h3>Carga de imagen del artículo</h3>
 

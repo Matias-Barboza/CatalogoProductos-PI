@@ -89,10 +89,28 @@
                         <%} %>
                         <%if (CatalogoProductos_Web.ClasesHelper.LoginHelper.SesionIniciadaEsAdmin(Session))
                           {%>
-                        <li class="nav-item nav-item-proyect">
+                        <%--<li class="nav-item nav-item-proyect">
                             <a href="ListadoProductos.aspx" class="nav-link active icon-link icon-link-hover">
                                 <i class="bi bi-list-ol"></i>
                                 LISTADO DE PRODUCTOS
+                            </a>
+                        </li>
+                        <li class="nav-item nav-item-proyect">
+                            <a href="ListadoProductos.aspx" class="nav-link active icon-link icon-link-hover">
+                                <i class="bi bi-list-ol"></i>
+                                LISTADO DE MARCAS
+                            </a>
+                        </li>
+                        <li class="nav-item nav-item-proyect">
+                            <a href="ListadoProductos.aspx" class="nav-link active icon-link icon-link-hover">
+                                <i class="bi bi-list-ol"></i>
+                                LISTADO DE CATEGORÍAS
+                            </a>
+                        </li>--%>
+                        <li class="nav-item nav-item-proyect">
+                            <a href="Administracion.aspx" class="nav-link active icon-link icon-link-hover">
+                                <i class="bi bi-gear"></i>
+                                ADMINISTRACIÓN
                             </a>
                         </li>
                         <%} %>
