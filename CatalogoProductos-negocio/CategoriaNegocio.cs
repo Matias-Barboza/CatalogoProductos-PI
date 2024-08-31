@@ -27,7 +27,7 @@ namespace CatalogoProductos_negocio
 
             try
             {
-                accesoDatos.SetearQuery(@"INSERT INTO MARCAS(Descripcion)
+                accesoDatos.SetearQuery(@"INSERT INTO CATEGORIAS(Descripcion)
                                           OUTPUT INSERTED.id
                                           VALUES (@descripcion)");
 
@@ -144,7 +144,7 @@ namespace CatalogoProductos_negocio
             try
             {
                 accesoDatos.SetearQuery(@"SELECT Id, Descripcion
-                                          FROM Categorias");
+                                          FROM CATEGORIAS");
 
                 accesoDatos.EjecutarLector();
 

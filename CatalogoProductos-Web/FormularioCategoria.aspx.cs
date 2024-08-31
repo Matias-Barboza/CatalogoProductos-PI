@@ -97,11 +97,11 @@ namespace CatalogoProductos_Web
                 categoriaNueva.Id = idNuevo;
 
                 Session.Add("VieneDeOperacion", true);
-                Response.Redirect("ListadoCategoria.aspx?estado=13", false);
+                Response.Redirect("ListadoCategorias.aspx?estado=13", false);
             }
             catch (Exception)
             {
-                Response.Redirect("ListadoMarcas.aspx?estado=14");
+                Response.Redirect("ListadoCategorias.aspx?estado=14");
             }
         }
 
@@ -137,11 +137,11 @@ namespace CatalogoProductos_Web
                 categoriaNegocio.ActualizarCategoria(categoriaAEditar);
 
                 Session.Add("VieneDeOperacion", true);
-                Response.Redirect("ListadoMarcas.aspx?estado=15", false);
+                Response.Redirect("ListadoCategorias.aspx?estado=15", false);
             }
             catch (Exception)
             {
-                Response.Redirect("ListadoMarcas.aspx?estado=16");
+                Response.Redirect("ListadoCategorias.aspx?estado=16");
             }
         }
 
