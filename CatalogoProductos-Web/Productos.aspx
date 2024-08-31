@@ -17,7 +17,7 @@
                             <div class="image-product-container border-image-product">
                                 <asp:Image ImageUrl='<%#Eval("ImagenUrl").ToString() == "" ?
                                             CatalogoProductos_negocio.ArticuloNegocio.PLACEHOLDER_IMAGEN_ARTICULO : Eval("ImagenUrl").ToString() %>'
-                                    CssClass="img-fluid img-proyect" AlternateText="Imagen del producto" runat="server"/>
+                                    CssClass="img-fluid img-proyect" AlternateText="Imagen del producto" onerror="ErrorCargaImagenProducto(this)" runat="server"/>
                             </div>
                         </a>
                             <div class="info-product-container">

@@ -20,7 +20,7 @@
             <div class="img-info-container">
 
                 <div class="img-detail-container">
-                    <asp:Image runat="server" CssClass="img-fluid" ID="ImagenProducto" AlternateText="Imagen del producto" />
+                    <asp:Image runat="server" CssClass="img-fluid" ID="ImagenProducto" onerror="ErrorCargaImagenProducto(this)" AlternateText="Imagen del producto" />
                 </div>
 
                 <div class="info-detail-container">

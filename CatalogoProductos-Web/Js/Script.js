@@ -24,3 +24,8 @@ function MostrarOcultar()
         menuVisible = true;
     }
 }
+
+function ErrorCargaImagenProducto(image) {
+    image.onerror = "";
+    image.src = 'https://pngimg.com/uploads/box/box_PNG137.png';
+}

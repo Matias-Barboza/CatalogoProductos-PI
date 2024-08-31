@@ -19,7 +19,7 @@
                     <div class="card card-proyect card-fav">
                         <asp:Image ImageUrl='<%#Eval("ImagenUrl").ToString() == "" ?
                                     CatalogoProductos_negocio.ArticuloNegocio.PLACEHOLDER_IMAGEN_ARTICULO : Eval("ImagenUrl").ToString() %>'
-                            CssClass="card-img-top img-card-proyect rounded-3" AlternateText="Imagen del producto" runat="server" />
+                            CssClass="card-img-top img-card-proyect rounded-3" AlternateText="Imagen del producto" onerror="ErrorCargaImagenProducto(this)" runat="server" />
                         <div class="card-body">
                             <h5 class="card-title"><%#Eval("Nombre")%></h5>
                             <asp:Label ID="IdArticuloLabel" Text='<%#Eval("Id") %>' Visible="false" runat="server" />
