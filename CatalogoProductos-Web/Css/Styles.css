@@ -663,13 +663,13 @@ hr {
     flex-direction: column;
     margin: 0 .5rem;
     padding: 1rem;
-    width: 510px;
+    width: 100%;
 }
 
 .img-container {
     display: flex;
-    width: 480px;
-    max-height: 420px;
+    width: 100%;
+    height: 100%;
     padding: 5px;
 }
 
@@ -909,6 +909,15 @@ hr {
 
     #ul-navbar-footer {
         justify-content: end;
+    }
+
+    .imgs-form-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .imgs-form-container div:first-child {
+        margin-bottom: 25px;
     }
 }
 

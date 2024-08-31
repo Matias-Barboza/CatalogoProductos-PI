@@ -4,7 +4,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <section class="min-height-container">
+    <section class="section-proyect min-height-container justify-content-start">
 
         <div class="jumbotron-proyect rounded-3 border shadow">
             <div class="container">

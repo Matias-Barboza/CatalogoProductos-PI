@@ -204,7 +204,7 @@
             <asp:UpdatePanel runat="server">
                 <ContentTemplate>
 
-                    <div class="imgs-form-container mb-5">
+                    <div class="imgs-form-container mb-4">
 
                         <%if (EsEdicion)
                           { %>
@@ -256,13 +256,9 @@
 
                     <%} %>
 
-                    </ContentTemplate>
-                </asp:UpdatePanel>
-
-                <div class="buttons-container pt-3 mb-3">
-
-                    <asp:UpdatePanel runat="server">
-                        <ContentTemplate>
+                    <%if (!DebeConfirmarEliminacion)
+                        {%>
+                    <div class="buttons-container pt-3 mb-3">
 
                             <%if (!EsEdicion)
                                 {%>
@@ -289,10 +285,11 @@
 
                             <%}%>
 
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
+                    </div>
+                    <%}%>
 
-                </div>
+                </ContentTemplate>
+            </asp:UpdatePanel>
 
         </div>
 
