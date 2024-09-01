@@ -46,7 +46,8 @@ namespace CatalogoProductos_Web
 
                 if (Request.QueryString["pagina"] != null) 
                 {
-                    Response.Redirect("Productos.aspx", true);
+                    Response.Redirect("Productos.aspx", false);
+                    return;
                 }
 
                 Response.Redirect("Default.aspx", false);

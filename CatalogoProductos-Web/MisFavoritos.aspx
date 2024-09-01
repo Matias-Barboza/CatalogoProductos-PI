@@ -42,8 +42,8 @@
               {%>
             <div class="jumbotron-proyect rounded-3 border shadow">
                 <div class="container">
-                    <h2 class="display-5">LO SENTIMOS...</h2>
-                    <p class="lead">Por el momento no tenés favoritos guardados.</p>
+                    <h2 class="display-5">UPS!...</h2>
+                    <p class="lead">Por el momento no tienes favoritos guardados.</p>
                     <hr class="my-4" />
                     <a href="Productos.aspx" class="btn btn-primary icon-link icon-link-hover arrow-container">Mirar productos...
                         <i class="bi bi-arrow-right"></i>
