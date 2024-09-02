@@ -10,7 +10,7 @@
         <div class="jumbotron-proyect rounded-3 border shadow">
             <div class="container">
                 <h1 class="display-5">¡BIENVENIDO AL CATÁLOGO DIGITAL!</h1>
-                <p class="lead">Visualizá nuestros productos con el botón a continuación.</p>
+                <p class="lead">Visualiza nuestros productos con el botón a continuación.</p>
                 <hr class="my-4" />
                 <a href="Productos.aspx" class="btn btn-primary icon-link icon-link-hover arrow-container">Echar un vistazo...
                     <i class="bi bi-arrow-right"></i>

@@ -26,6 +26,7 @@ namespace CatalogoProductos_Web
             usuarioNuevo.Password = PassTextBox.Text;
         }
 
+        //-------------------------------------------------------------------- FUNCIONES ----------------------------------------------------------------------
         public bool TodasLasValidacionesValidas() 
         {
             // No se tiene en cuenta la validacion de UsuarioExistente
@@ -58,6 +59,7 @@ namespace CatalogoProductos_Web
             }
             catch (Exception)
             {
+                LoginHelper.EliminarDatosSession(Session);
                 Response.Redirect("Error.aspx?tipo=2");
             }
         }

@@ -31,7 +31,7 @@ namespace CatalogoProductos_Web
             {
                 if (!int.TryParse(Request.QueryString["id"], out int id))
                 {
-                    Response.Redirect("Error.aspx?tipo=5", true);
+                    Response.Redirect("Error.aspx?tipo=6", true);
                 }
 
                 EsEdicion = true;

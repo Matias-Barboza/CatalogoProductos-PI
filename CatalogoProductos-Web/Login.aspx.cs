@@ -54,6 +54,7 @@ namespace CatalogoProductos_Web
             }
             catch (Exception)
             {
+                LoginHelper.EliminarDatosSession(Session);
                 Response.Redirect("Error.aspx?tipo=1", false);
             }
         }

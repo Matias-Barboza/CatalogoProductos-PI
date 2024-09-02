@@ -228,6 +228,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Icono\" />
     <Folder Include="ImagenesPerfiles\" />
     <Folder Include="Imagenes\" />
   </ItemGroup>
