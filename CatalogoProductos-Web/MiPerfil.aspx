@@ -42,7 +42,7 @@
                     </div>
                 </div>
             </div>
-            <div class="d-flex justify-content-center mb-3">
+            <div id="buttons-perfil-container" class="d-flex justify-content-center mb-3">
                 <%if (!DebeConfirmarEdicion) 
                 {%>
                 <button type="button" onserverclick="EditarUsuarioButton_ServerClick" id="EditarUsuarioButton"
@@ -52,15 +52,15 @@
                 <%}
                   else 
                   {%>
-                <asp:Button ID="QuitarFotoButton" CssClass="btn btn-secondary pt-2 pb-2 ms-2 me-2" OnClick="QuitarFotoButton_Click"
+                <asp:Button ID="QuitarFotoButton" CssClass="btn btn-secondary pt-2 pb-2 ms-2 me-2 mb-3" OnClick="QuitarFotoButton_Click"
                             Text="Quitar foto de perfil" runat="server" />
                 <button type="button" onserverclick="ConfirmarEdicionButton_ServerClick" id="ConfirmarEdicionButton"
-                        class="btn btn-success pt-2 pb-2 ms-2 me-2" runat="server" validationGroup="EdicionValidationGroup" causesvalidation="true" >
+                        class="btn btn-success pt-2 pb-2 ms-2 me-2 mb-3" runat="server" validationGroup="EdicionValidationGroup" causesvalidation="true" >
                     Confirmar edición
                     <i class="bi bi-check-circle"></i>
                 </button>
                 <button type="button" onserverclick="CancelarEdicionButton_ServerClick" id="CancelarEdicionButton"
-                        class="btn btn-danger pt-2 pb-2 ms-2 me-2" runat="server" >Cancelar edición
+                        class="btn btn-danger pt-2 pb-2 ms-2 me-2 mb-3" runat="server" >Cancelar edición
                     <i class="bi bi-x-circle"></i>
                 </button>
                 <%}%>

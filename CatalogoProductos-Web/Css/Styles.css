@@ -5,8 +5,8 @@
     scroll-behavior: smooth;
 }
 
-.body {
-    background: #eee;
+body {
+    background-color: var(--bs-gray-400) !important;
 }
 
 hr {
@@ -19,7 +19,8 @@ hr {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 1rem 0;
+    padding: 1rem 0;
+    background-color: var(--bs-body-bg);
 }
 
 .section-proyect {
@@ -953,6 +954,10 @@ hr {
 
     .imgs-form-container div:first-child {
         margin-bottom: 25px;
+    }
+
+    #buttons-perfil-container {
+        flex-direction: column;
     }
 }
 
